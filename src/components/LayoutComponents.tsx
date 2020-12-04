@@ -101,8 +101,12 @@ export const SecondaryHeader: React.FunctionComponent<SecondaryHeaderProps> = (p
   );
 };
 
+interface StyledTableProps {
+  borderTop?: boolean;
+}
+
 export const THead = styled.thead`
-  border-top: 1px solid #edecfa;
+  border-top: ${(props: StyledTableProps) => (props.borderTop === false ? "none" : "1px solid #edecfa")};
 
   th:first-of-type {
     padding: 16px 16px 16px 24px !important;
