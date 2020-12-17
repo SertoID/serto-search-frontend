@@ -1,10 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+import { PhonebookContext } from "./context/PhonebookProvider";
+import { PhonebookService } from "./services/PhonebookService";
 import { IdentityThemeProvider, fonts } from "./components";
 import { routes } from "./constants";
-
-import { Phonebook } from "./views/Phonebook";
+import { PhonebookPage } from "./views/PhonebookPage";
+import { RegisterPage } from "./views/RegisterPage";
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -15,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: ${fonts.sansSerif};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    margin: 0;
+    margin: 24px;
   }
   *, :after, :before {
     box-sizing: inherit;
@@ -23,16 +25,20 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export const App = () => {
+  const phonebook = React.useMemo(() => new PhonebookService(), []);
   return (
     <BrowserRouter>
-      <React.Suspense fallback={<></>}>
-        <IdentityThemeProvider>
-          <GlobalStyle />
-          <Switch>
-            <Route path={routes.HOMEPAGE} component={Phonebook} />
-          </Switch>
-        </IdentityThemeProvider>
-      </React.Suspense>
+      <PhonebookContext.Provider value={phonebook}>
+        <React.Suspense fallback={<></>}>
+          <IdentityThemeProvider>
+            <GlobalStyle />
+            <Switch>
+              <Route exact path={routes.HOMEPAGE} component={PhonebookPage} />
+              <Route path={routes.REGISTER} component={RegisterPage} />
+            </Switch>
+          </IdentityThemeProvider>
+        </React.Suspense>
+      </PhonebookContext.Provider>
     </BrowserRouter>
   );
 };
