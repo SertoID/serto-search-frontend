@@ -2,58 +2,57 @@ import React, { useState } from "react";
 import { mutate } from "swr";
 import { PhonebookContext } from "../context/PhonebookProvider";
 import { PhonebookService } from "../services/PhonebookService";
-import { AddCircle } from "@rimble/icons";
-import { Box, Button, Flash, Input, Text } from "rimble-ui";
-import { ModalWithX, ModalContent, ModalFooter, ModalHeader } from "../components";
-import { colors } from "../components/themes";
+import { Button, Flash, Input, Loader, Text } from "rimble-ui";
+import { domainRegex } from "../utils/helpers";
+import { baseColors } from "../components/themes";
 
 export const AddDomain: React.FunctionComponent = () => {
   const Phonebook = React.useContext<PhonebookService>(PhonebookContext);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [domain, setDomain] = useState("");
   const [error, setError] = useState<string | undefined>();
+  const [disabled, setDisabled] = useState(true);
+  const [isValidating, setIsValidating] = useState(false);
 
   async function addDomain() {
     setError("");
+    setIsValidating(true);
     try {
-      await Phonebook.addDomain(domain);
+      const listing = await Phonebook.registerDomain(domain);
+      console.log(listing);
     } catch (err) {
       console.error("failed to add domain:", err);
       setError("Failed to add domain");
+      setIsValidating(false);
       return;
     }
-    setIsModalOpen(false);
-    setDomain("");
-    mutate("/v1/tenant");
+    setIsValidating(false);
+    mutate("/register");
+  }
+
+  function onChange(value: string) {
+    setDomain(value);
+    domainRegex.test(value) ? setDisabled(false) : setDisabled(true);
   }
 
   return (
     <>
-      <Button onClick={() => setIsModalOpen(true)} size="small">
-        <AddCircle size="14px" mr={1} color={colors.primary.disabled} />
-        Add Domain
+      <Text fontSize={1} fontWeight={3} mb={1}>
+        Domain
+      </Text>
+      <Input
+        type="url"
+        placeholder="example.com"
+        onChange={(event: any) => onChange(event.target.value)}
+        width="100%"
+      />
+      {error && (
+        <Flash mt={3} variant="danger">
+          {error}
+        </Flash>
+      )}
+      <Button disabled={disabled} onClick={addDomain} mt={3} width="100%">
+        {isValidating ? <Loader color={baseColors.white} /> : <>Add Domain</>}
       </Button>
-      <ModalWithX isOpen={isModalOpen} close={() => setIsModalOpen(false)} borderRadius={2} width="425px">
-        <ModalHeader>Add Domain</ModalHeader>
-        <ModalContent>
-          <Text fontSize={1} fontWeight={3} mb={1}>
-            URL
-          </Text>
-          <Input type="text" onChange={(event: any) => setDomain(event.target.value)} width="100%" />
-          {error && (
-            <Box p={1} mb={1}>
-              <Flash my={3} variant="danger">
-                {error}
-              </Flash>
-            </Box>
-          )}
-        </ModalContent>
-        <ModalFooter mb={1}>
-          <Button onClick={addDomain} width="100%">
-            Add Domain
-          </Button>
-        </ModalFooter>
-      </ModalWithX>
     </>
   );
 };

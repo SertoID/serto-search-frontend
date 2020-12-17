@@ -3,12 +3,12 @@ import { config } from "../config";
 export class PhonebookService {
   public url = config.API_URL;
 
-  public async addDomain(domain: string): Promise<any> {
-    return this.request("/v1/tenant", "POST", { domain });
+  public async registerDomain(domain: string): Promise<any> {
+    return this.request("/register", "POST", { domain });
   }
 
-  public async getIdentifiers(): Promise<any> {
-    return this.request("/v1/tenant/agent/dataStoreORMGetVerifiableCredentials", "POST");
+  public async getEntries(domain?: string): Promise<any> {
+    return this.request("/entries", "POST", { domain });
   }
 
   private async request(path: string, method: "GET" | "DELETE" | "POST" = "GET", body?: any): Promise<any> {

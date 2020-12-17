@@ -1,3 +1,5 @@
+export const domainRegex = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,63}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/;
+
 /** Copy given string to clipboard. Returns true if successful, false if failed. */
 export function copyToClipboard(text: string): boolean {
   const textArea = document.createElement("textarea");

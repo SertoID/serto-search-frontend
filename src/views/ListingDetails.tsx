@@ -4,11 +4,8 @@ import { CopyToClipboard, H6, ModalWithX, ModalContent, ModalHeader } from "../c
 
 export interface Listing {
   domain: string;
-  did: string;
-  provider: string;
-  alias?: string;
-  userName?: string;
-  userType?: string;
+  dids: any;
+  wellKnownUri: string;
 }
 
 interface ListingDetailsProps {
@@ -27,34 +24,31 @@ export const ListingDetails: React.FunctionComponent<ListingDetailsProps> = (pro
       <ModalWithX isOpen={isModalOpen} close={() => setIsModalOpen(false)} borderRadius={2} width="560px">
         <ModalHeader>{listingData.domain}</ModalHeader>
         <ModalContent>
-          {listingData.userName && (
-            <Box mb={3}>
-              <H6 mb={1} mt={0}>
-                Organization
-              </H6>
-              <Text.span> {listingData.userName}</Text.span>
-            </Box>
-          )}
-          {listingData.alias && (
-            <Box mb={3}>
-              <H6 mb={1} mt={0}>
-                Alias
-              </H6>
-              <Text.span> {listingData.alias}</Text.span>
-            </Box>
-          )}
           <Box mb={3}>
             <H6 mb={1} mt={0}>
-              DID
+              DIDs
             </H6>
-            <Text.span display="block" mb={2}>{listingData.did}</Text.span>
-          <CopyToClipboard size="16px" text={listingData.did} textButton="Copy DID" />
+            {listingData.dids.map((did: any, i: number) => {
+              if (did !== undefined) {
+                return (
+                  <React.Fragment key={i}>
+                    <Text.span display="block" mb={2}>
+                      {did}
+                    </Text.span>
+                    <CopyToClipboard size="16px" text={did} textButton="Copy DID" />
+                  </React.Fragment>
+                );
+              }
+              return <></>;
+            })}
           </Box>
           <Box mb={3}>
             <H6 mb={1} mt={0}>
-              Provider
+              Well Known URI
             </H6>
-            <Text.span>{listingData.provider}</Text.span>
+            <Text.span display="block" mb={2}>
+              {listingData.wellKnownUri}
+            </Text.span>
           </Box>
         </ModalContent>
       </ModalWithX>

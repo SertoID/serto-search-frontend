@@ -5,7 +5,8 @@ import { PhonebookContext } from "./context/PhonebookProvider";
 import { PhonebookService } from "./services/PhonebookService";
 import { IdentityThemeProvider, fonts } from "./components";
 import { routes } from "./constants";
-import { PhonebookPage } from "./views/Phonebook";
+import { PhonebookPage } from "./views/PhonebookPage";
+import { RegisterPage } from "./views/RegisterPage";
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -32,7 +33,8 @@ export const App = () => {
           <IdentityThemeProvider>
             <GlobalStyle />
             <Switch>
-              <Route path={routes.HOMEPAGE} component={PhonebookPage} />
+              <Route exact path={routes.HOMEPAGE} component={PhonebookPage} />
+              <Route path={routes.REGISTER} component={RegisterPage} />
             </Switch>
           </IdentityThemeProvider>
         </React.Suspense>

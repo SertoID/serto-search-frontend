@@ -8,7 +8,7 @@ import { copyToClipboard } from "../utils/helpers";
 export const IconWrap = styled.span`
   &:hover svg {
     transition: 250ms ease;
-    fill: #5952FF;
+    fill: #5952ff;
   }
 `;
 
