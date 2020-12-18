@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { mutate } from "swr";
 import { PhonebookContext } from "../context/PhonebookProvider";
 import { PhonebookService } from "../services/PhonebookService";
 import { Button, Flash, Input, Loader, Text } from "rimble-ui";
 import { domainRegex } from "../utils/helpers";
 import { baseColors } from "../components/themes";
+import { routes } from "../constants";
 
 export const AddDomain: React.FunctionComponent = () => {
+  const history = useHistory();
   const Phonebook = React.useContext<PhonebookService>(PhonebookContext);
   const [domain, setDomain] = useState("");
   const [error, setError] = useState<string | undefined>();
@@ -17,16 +20,16 @@ export const AddDomain: React.FunctionComponent = () => {
     setError("");
     setIsValidating(true);
     try {
-      const listing = await Phonebook.registerDomain(domain);
-      console.log(listing);
+      await Phonebook.registerDomain(domain);
+      setIsValidating(false);
+      mutate("/register");
+      history.push(routes.HOMEPAGE);
     } catch (err) {
       console.error("failed to add domain:", err);
       setError("Failed to add domain");
       setIsValidating(false);
       return;
     }
-    setIsValidating(false);
-    mutate("/register");
   }
 
   function onChange(value: string) {

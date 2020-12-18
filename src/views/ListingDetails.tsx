@@ -24,30 +24,32 @@ export const ListingDetails: React.FunctionComponent<ListingDetailsProps> = (pro
       <ModalWithX isOpen={isModalOpen} close={() => setIsModalOpen(false)} borderRadius={2} width="560px">
         <ModalHeader>{listingData.domain}</ModalHeader>
         <ModalContent>
-          <Box mb={3}>
+          <Box mb={4} mt={2}>
             <H6 mb={1} mt={0}>
               DIDs
             </H6>
             {listingData.dids.map((did: any, i: number) => {
-              if (did !== undefined) {
+              if (did !== "undefined") {
                 return (
-                  <React.Fragment key={i}>
-                    <Text.span display="block" mb={2}>
+                  <Box key={i} borderTop={2} mt={2} pt={2}>
+                    <Text.span fontSize={1} mb={2} mr={1}>
                       {did}
                     </Text.span>
-                    <CopyToClipboard size="16px" text={did} textButton="Copy DID" />
-                  </React.Fragment>
+                    <CopyToClipboard hoverTitle="Copy DID" size="16px" text={did} />
+                  </Box>
                 );
               }
-              return <></>;
+              return <React.Fragment key={i} />;
             })}
           </Box>
-          <Box mb={3}>
+          <Box mb={4}>
             <H6 mb={1} mt={0}>
               Well Known URI
             </H6>
-            <Text.span display="block" mb={2}>
-              {listingData.wellKnownUri}
+            <Text.span fontSize={1} display="block" mb={2}>
+              <a href={listingData.wellKnownUri} target="_blank" rel="noopener noreferrer">
+                {listingData.wellKnownUri}
+              </a>
             </Text.span>
           </Box>
         </ModalContent>
