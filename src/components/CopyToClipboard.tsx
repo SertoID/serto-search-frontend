@@ -16,6 +16,7 @@ export interface CopyToClipboardProps {
   text: string;
   size?: string;
   textButton?: string;
+  hoverTitle?: string;
 }
 
 export const CopyToClipboard: React.FunctionComponent<CopyToClipboardProps> = (props) => {
@@ -44,7 +45,7 @@ export const CopyToClipboard: React.FunctionComponent<CopyToClipboardProps> = (p
     );
   }
   return (
-    <IconWrap>
+    <IconWrap title={props.hoverTitle}>
       <ContentCopy
         onClick={() => setCopied(copyToClipboard(props.text))}
         size={props.size}

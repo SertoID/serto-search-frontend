@@ -4,11 +4,11 @@ export class PhonebookService {
   public url = config.API_URL;
 
   public async registerDomain(domain: string): Promise<any> {
-    return this.request("/register", "POST", { domain });
+    return this.request("/v1/register", "POST", { domain });
   }
 
   public async getEntries(domain?: string): Promise<any> {
-    return this.request("/entries", "POST", { domain });
+    return this.request("/v1/entries", "POST", { domain });
   }
 
   private async request(path: string, method: "GET" | "DELETE" | "POST" = "GET", body?: any): Promise<any> {
