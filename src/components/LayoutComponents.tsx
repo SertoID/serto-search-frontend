@@ -148,4 +148,8 @@ export const TBody = styled.tbody`
   td:last-of-type {
     padding: 30px 24px 30px 16px !important;
   }
+
+  tr:last-of-type {
+    border-bottom: 0 solid transparent;
+  }
 `;

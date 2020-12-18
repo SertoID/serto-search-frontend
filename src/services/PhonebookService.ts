@@ -12,8 +12,13 @@ export class PhonebookService {
   }
 
   private async request(path: string, method: "GET" | "DELETE" | "POST" = "GET", body?: any): Promise<any> {
+    const headers: any = {};
+    if (body) {
+      headers["Content-Type"] = "application/json";
+    }
     const response = await fetch(`${this.url}${path}`, {
       method,
+      headers,
       body: JSON.stringify(body),
     });
     const responseIsJson = response.headers.get("content-type")?.indexOf("application/json") === 0;

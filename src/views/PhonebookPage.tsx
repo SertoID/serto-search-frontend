@@ -22,7 +22,7 @@ export const PhonebookPage: React.FunctionComponent = () => {
           <SearchBox onSearch={(searchVal) => setSearch(searchVal)} />
         </Box>
       </HeaderBox>
-      <Listings search={"identity.foundation"} />
+      <Listings search={search} />
     </Box>
   );
 };

@@ -11,7 +11,6 @@ export const SearchBox: React.FunctionComponent<SearchBoxProps> = (props) => {
 
   React.useEffect(() => {
     window.addEventListener("keydown", (event) => {
-      console.log("keydown");
       if (event.code === "Enter") {
         props.onSearch(search);
       }
