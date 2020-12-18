@@ -1,4 +1,3 @@
-import index from "deepdash-es";
 import React, { useState } from "react";
 import { Box, Button, Input } from "rimble-ui";
 

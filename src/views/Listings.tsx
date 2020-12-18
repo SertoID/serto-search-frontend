@@ -14,9 +14,13 @@ export interface ListingsProps {
 
 export const Listings: React.FunctionComponent<ListingsProps> = (props) => {
   const Phonebook = React.useContext<PhonebookService>(PhonebookContext);
-  const { data, error, isValidating } = useSWR(["/v1/entries", props.search], () => Phonebook.getEntries(props.search), {
-    revalidateOnFocus: false,
-  });
+  const { data, error, isValidating } = useSWR(
+    ["/v1/entries", props.search],
+    () => Phonebook.getEntries(props.search),
+    {
+      revalidateOnFocus: false,
+    },
+  );
 
   return (
     <>
@@ -68,8 +72,8 @@ export const Listings: React.FunctionComponent<ListingsProps> = (props) => {
           Error loading directory: {error.toString()}
         </Flash>
       ) : (
-        <Flash my={3} variant="danger">
-          Unknown Error
+        <Flash my={3} variant="warning">
+          No results.
         </Flash>
       )}
     </>
