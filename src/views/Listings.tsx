@@ -5,8 +5,9 @@ import { PhonebookService } from "../services/PhonebookService";
 import { Box, Flash, Flex, Loader, Table, Text } from "rimble-ui";
 import { CopyToClipboard, TBody, TH, THead, TR } from "../components";
 import { baseColors, colors } from "../components/themes";
+import { errorMsg } from "../utils/helpers";
 import { ListingDetails } from "./ListingDetails";
-import { hexEllipsis } from "../utils/helpers";
+import { ellipsis } from "../utils/helpers";
 
 export interface ListingsProps {
   search?: string;
@@ -45,7 +46,7 @@ export const Listings: React.FunctionComponent<ListingsProps> = (props) => {
                           return (
                             <Text.span key={x} mr={2}>
                               <Text.span mr={1} title={did}>
-                                {hexEllipsis(did)}
+                                {ellipsis(did, 10, 4)}
                               </Text.span>
                               <CopyToClipboard hoverTitle="Copy DID" size="16px" text={did} />
                             </Text.span>
@@ -69,7 +70,7 @@ export const Listings: React.FunctionComponent<ListingsProps> = (props) => {
         </Flex>
       ) : error ? (
         <Flash my={3} variant="danger">
-          Error loading directory: {error.toString()}
+          {errorMsg(error.message)}
         </Flash>
       ) : (
         <Flash my={3} variant="warning">
