@@ -4,7 +4,7 @@ import { mutate } from "swr";
 import { PhonebookContext } from "../context/PhonebookProvider";
 import { PhonebookService } from "../services/PhonebookService";
 import { Button, Flash, Input, Loader, Text } from "rimble-ui";
-import { domainRegex } from "../utils/helpers";
+import { domainRegex, errorMsg } from "../utils/helpers";
 import { baseColors } from "../components/themes";
 import { routes } from "../constants";
 
@@ -26,7 +26,7 @@ export const AddDomain: React.FunctionComponent = () => {
       history.push(routes.HOMEPAGE);
     } catch (err) {
       console.error("failed to add domain:", err);
-      setError("Failed to add domain");
+      setError(errorMsg(err.message));
       setIsValidating(false);
       return;
     }
