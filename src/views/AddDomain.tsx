@@ -5,7 +5,7 @@ import { PhonebookContext } from "../context/PhonebookProvider";
 import { PhonebookService } from "../services/PhonebookService";
 import { Button, Flash, Input, Loader, Text } from "rimble-ui";
 import { domainRegex, errorMsg } from "../utils/helpers";
-import { baseColors } from "../components/themes";
+import { baseColors, colors } from "../components/themes";
 import { routes } from "../constants";
 
 export const AddDomain: React.FunctionComponent = () => {
@@ -48,6 +48,9 @@ export const AddDomain: React.FunctionComponent = () => {
         onChange={(event: any) => onChange(event.target.value)}
         width="100%"
       />
+      <Text color={colors.silver} fontSize={1} mt={3}>
+        A DID configuration is required to add your domain.
+      </Text>
       {error && (
         <Flash mt={3} variant="danger">
           {error}
