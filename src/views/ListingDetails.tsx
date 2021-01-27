@@ -32,6 +32,7 @@ export const ListingDetails: React.FunctionComponent<ListingDetailsProps> = (pro
               if (did !== "undefined") {
                 return (
                   <Box key={i} borderTop={2} mt={2} pt={2}>
+                    {/* eslint-disable-next-line */}
                     <Text.span fontSize={1} mb={2} mr={1}>
                       {did}
                     </Text.span>
@@ -46,6 +47,7 @@ export const ListingDetails: React.FunctionComponent<ListingDetailsProps> = (pro
             <H6 mb={1} mt={0}>
               Well Known URI
             </H6>
+            {/* eslint-disable-next-line */}
             <Text.span fontSize={1} display="block" mb={2}>
               <a href={listingData.wellKnownUri} target="_blank" rel="noopener noreferrer">
                 {listingData.wellKnownUri}
