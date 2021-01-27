@@ -44,7 +44,9 @@ export const Listings: React.FunctionComponent<ListingsProps> = (props) => {
                       {entry.dids.map((did: any, x: number) => {
                         if (did !== "undefined") {
                           return (
+                            /* eslint-disable-next-line */
                             <Text.span key={x} mr={2}>
+                              {/* eslint-disable-next-line */}
                               <Text.span mr={1} title={did}>
                                 {ellipsis(did, 10, 4)}
                               </Text.span>

@@ -9,6 +9,7 @@ export interface HeadingProps {
 // font-size: 48px
 export const H1: React.FunctionComponent<HeadingProps> = (props) => {
   return (
+    /* eslint-disable-next-line */
     <Heading.h1 fontFamily={fonts.sansSerifHeader} {...props}>
       {props.children}
     </Heading.h1>
@@ -17,6 +18,7 @@ export const H1: React.FunctionComponent<HeadingProps> = (props) => {
 // font-size: 32px
 export const H2: React.FunctionComponent<HeadingProps> = (props) => {
   return (
+    /* eslint-disable-next-line */
     <Heading.h2 fontFamily={fonts.sansSerifHeader} letterSpacing=".1px" {...props}>
       {props.children}
     </Heading.h2>
@@ -25,6 +27,7 @@ export const H2: React.FunctionComponent<HeadingProps> = (props) => {
 // font-size: 24px
 export const H3: React.FunctionComponent<HeadingProps> = (props) => {
   return (
+    /* eslint-disable-next-line */
     <Heading.h3 fontFamily={fonts.sansSerifHeader} letterSpacing=".3px" {...props}>
       {props.children}
     </Heading.h3>
@@ -33,6 +36,7 @@ export const H3: React.FunctionComponent<HeadingProps> = (props) => {
 // font-size: 20px
 export const H4: React.FunctionComponent<HeadingProps> = (props) => {
   return (
+    /* eslint-disable-next-line */
     <Heading.h4 fontFamily={fonts.sansSerifHeader} {...props}>
       {props.children}
     </Heading.h4>
@@ -41,6 +45,7 @@ export const H4: React.FunctionComponent<HeadingProps> = (props) => {
 // font-size: 16px
 export const H5: React.FunctionComponent<HeadingProps> = (props) => {
   return (
+    /* eslint-disable-next-line */
     <Heading.h5 fontFamily={fonts.sansSerifHeader} {...props}>
       {props.children}
     </Heading.h5>
@@ -49,6 +54,7 @@ export const H5: React.FunctionComponent<HeadingProps> = (props) => {
 // font-size: 14px
 export const H6: React.FunctionComponent<HeadingProps> = (props) => {
   return (
+    /* eslint-disable-next-line */
     <Heading.h6 fontFamily={fonts.sansSerifHeader} {...props}>
       {props.children}
     </Heading.h6>
@@ -120,6 +126,7 @@ export const THead = styled.thead`
 export const TH: React.FunctionComponent = (props) => {
   return (
     <th style={{ borderTop: "none", padding: "16px", textTransform: "none" }}>
+      {/* eslint-disable-next-line */}
       <Text.span color={colors.lightSilver} fontFamily={fonts.sansSerif} fontSize={2} fontWeight={3} lineHeight="title">
         {props.children}
       </Text.span>
