@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import { PhonebookContext } from "./context/PhonebookProvider";
 import { PhonebookService } from "./services/PhonebookService";
-import { IdentityThemeProvider, fonts } from "./components";
+import { IdentityThemeProvider, fonts } from "serto-ui";
 import { routes } from "./constants";
 import { PhonebookPage } from "./views/PhonebookPage";
 import { RegisterPage } from "./views/RegisterPage";

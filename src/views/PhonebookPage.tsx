@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { routes } from "../constants";
 import { AddCircle } from "@rimble/icons";
 import { Box, Button } from "rimble-ui";
-import { Header, HeaderBox, SearchBox } from "../components";
-import { colors } from "../components/themes";
+import { colors, Header, HeaderBox } from "serto-ui";
+import { SearchBox } from "../components";
 import { Listings } from "./Listings";
 
 export const PhonebookPage: React.FunctionComponent = () => {

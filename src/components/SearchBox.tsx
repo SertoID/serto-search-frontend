@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Box, Button, Input } from "rimble-ui";
 
+/* TODO: move this comopnent to serto-ui */
+
 export interface SearchBoxProps {
   onSearch(value: string): void;
 }
