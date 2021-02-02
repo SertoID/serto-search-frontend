@@ -1,8 +1,7 @@
 import * as React from "react";
 import { ArrowBack } from "@rimble/icons";
 import { Box, Button } from "rimble-ui";
-import { H3 } from "../components";
-import { baseColors } from "../components/themes";
+import { baseColors, H3 } from "serto-ui";
 import { AddDomain } from "./AddDomain";
 
 export const RegisterPage: React.FunctionComponent = () => {
