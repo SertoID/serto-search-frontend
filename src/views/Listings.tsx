@@ -41,21 +41,14 @@ export const Listings: React.FunctionComponent<ListingsProps> = (props) => {
                   <TR key={i}>
                     <td>{entry.domain}</td>
                     <td>
-                      {entry.dids.map((did: any, x: number) => {
-                        if (did !== "undefined") {
-                          return (
-                            /* eslint-disable-next-line */
-                            <Text.span key={x} mr={2}>
-                              {/* eslint-disable-next-line */}
-                              <Text.span mr={1} title={did}>
-                                {ellipsis(did, 10, 4)}
-                              </Text.span>
-                              <CopyToClipboard hoverTitle="Copy DID" size="16px" text={did} />
-                            </Text.span>
-                          );
-                        }
-                        return <React.Fragment key={x} />;
-                      })}
+                      {/* eslint-disable-next-line */}
+                      <Text.span key={i} mr={2}>
+                        {/* eslint-disable-next-line */}
+                        <Text.span mr={1} title={entry.did}>
+                          {ellipsis(entry.did, 10, 4)}
+                        </Text.span>
+                        <CopyToClipboard hoverTitle="Copy DID" size="16px" text={entry.did} />
+                      </Text.span>
                     </td>
                     <td style={{ textAlign: "right" }}>
                       <ListingDetails listingData={entry} />
