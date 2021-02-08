@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Box, Button, Text } from "rimble-ui";
-import { H6, ModalWithX, ModalContent, ModalHeader } from "serto-ui";
-import { CopyToClipboard } from "../components";
+import { CopyToClipboard, H6, ModalWithX, ModalContent, ModalHeader } from "../components";
 
 export interface Listing {
   domain: string;
-  dids: any;
+  did: string;
   wellKnownUri: string;
 }
 
@@ -27,33 +26,15 @@ export const ListingDetails: React.FunctionComponent<ListingDetailsProps> = (pro
         <ModalContent>
           <Box mb={4} mt={2}>
             <H6 mb={1} mt={0}>
-              DIDs
+              DID
             </H6>
-            {listingData.dids.map((did: any, i: number) => {
-              if (did !== "undefined") {
-                return (
-                  <Box key={i} borderTop={2} mt={2} pt={2}>
-                    {/* eslint-disable-next-line */}
-                    <Text.span fontSize={1} mb={2} mr={1}>
-                      {did}
-                    </Text.span>
-                    <CopyToClipboard hoverTitle="Copy DID" size="16px" text={did} />
-                  </Box>
-                );
-              }
-              return <React.Fragment key={i} />;
-            })}
-          </Box>
-          <Box mb={4}>
-            <H6 mb={1} mt={0}>
-              Well Known URI
-            </H6>
-            {/* eslint-disable-next-line */}
-            <Text.span fontSize={1} display="block" mb={2}>
-              <a href={listingData.wellKnownUri} target="_blank" rel="noopener noreferrer">
-                {listingData.wellKnownUri}
-              </a>
-            </Text.span>
+              <Box borderTop={2} mt={2} pt={2}>
+                {/* eslint-disable-next-line */}
+                <Text.span fontSize={1} mb={2} mr={1}>
+                  {listingData.did}
+                </Text.span>
+                <CopyToClipboard hoverTitle="Copy DID" size="16px" text={listingData.did} />
+              </Box>
           </Box>
         </ModalContent>
       </ModalWithX>

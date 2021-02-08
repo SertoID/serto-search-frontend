@@ -5,7 +5,7 @@ export interface ConfigType {
 
 const defaultConfig: ConfigType = {
   ENVIRONMENT: process.env.NODE_ENV || "development",
-  API_URL: "https://consensys-id-phonebook.herokuapp.com",
+  API_URL: "http://SertoSearchBackendStaging.eba-ax7u57za.us-east-2.elasticbeanstalk.com",
   // API_URL: "http://localhost:8000",
 };
 
