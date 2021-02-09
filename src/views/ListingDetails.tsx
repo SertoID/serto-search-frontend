@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Button, Text } from "rimble-ui";
-import { CopyToClipboard, H6, ModalWithX, ModalContent, ModalHeader } from "../components";
+import { H6, ModalWithX, ModalContent, ModalHeader } from "serto-ui";
+import { CopyToClipboard } from "../components";
 
 export interface Listing {
   domain: string;
