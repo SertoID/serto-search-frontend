@@ -16,7 +16,7 @@ export interface ListingsProps {
 export const Listings: React.FunctionComponent<ListingsProps> = (props) => {
   const Phonebook = React.useContext<PhonebookService>(PhonebookContext);
   const { data, error, isValidating } = useSWR(
-    ["/v1/entries", props.search],
+    ["/v1/search", props.search],
     () => Phonebook.getEntries(props.search),
     {
       revalidateOnFocus: false,
@@ -44,10 +44,10 @@ export const Listings: React.FunctionComponent<ListingsProps> = (props) => {
                       {/* eslint-disable-next-line */}
                       <Text.span key={i} mr={2}>
                         {/* eslint-disable-next-line */}
-                        <Text.span mr={1} title={entry.did}>
-                          {ellipsis(entry.did, 10, 4)}
+                        <Text.span mr={1} title={entry.dids}>
+                          {ellipsis(entry.dids, 10, 4)}
                         </Text.span>
-                        <CopyToClipboard hoverTitle="Copy DID" size="16px" text={entry.did} />
+                        <CopyToClipboard hoverTitle="Copy DID" size="16px" text={entry.dids} />
                       </Text.span>
                     </td>
                     <td style={{ textAlign: "right" }}>

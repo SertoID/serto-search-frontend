@@ -7,6 +7,7 @@ import { IdentityThemeProvider, fonts } from "serto-ui";
 import { routes } from "./constants";
 import { PhonebookPage } from "./views/PhonebookPage";
 import { RegisterPage } from "./views/RegisterPage";
+import { DomainListingPage } from "./views/DomainListingPage";
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -34,6 +35,7 @@ export const App = () => {
             <GlobalStyle />
             <Switch>
               <Route exact path={routes.HOMEPAGE} component={PhonebookPage} />
+              <Route path={routes.DOMAIN_LISTING_PAGE} component={DomainListingPage} />
               <Route path={routes.REGISTER} component={RegisterPage} />
             </Switch>
           </IdentityThemeProvider>
