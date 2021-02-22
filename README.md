@@ -1,4 +1,7 @@
-## ID Phonebook
+
+[![SertoID](https://circleci.com/gh/SertoID/serto-search-frontend.svg?style=svg&circle-token=9bdb324e15d7be3b96a07b7feaf095a70cef8fd2)](https://circleci.com/gh/SertoID/serto-search-frontend/tree/master
+[![codecov](https://codecov.io/gh/SertoID/serto-search-frontend/branch/main/graph/badge.svg?token=PGNTZDJWDM)](https://codecov.io/gh/SertoID/serto-search-frontend)
+## Serto Search
 
 ### `yarn start`
 
