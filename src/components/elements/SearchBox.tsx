@@ -19,7 +19,7 @@ export const SearchBox: React.FunctionComponent<SearchBoxProps> = (props) => {
   });
 
   return (
-    <Box position="relative" width="420px">
+    <Box position="relative" width="100%">
       <Input
         onChange={(event: any) => setSearch(event.target.value)}
         placeholder="Search"
