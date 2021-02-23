@@ -12,7 +12,7 @@ export interface NavLinkProps {
 
 export const NavLink: React.FunctionComponent<NavLinkProps> = (props) => {
   return (
-    <Link href={props.href} color={colors.primary.base} fontWeight={2} mr={4}>
+    <Link href={props.href} color={colors.primary.base} fontWeight={3} mr={4}>
       {props.children}
     </Link>
   );
@@ -20,10 +20,12 @@ export const NavLink: React.FunctionComponent<NavLinkProps> = (props) => {
 
 export const Nav: React.FunctionComponent = () => {
   return (
-    <Box bg={colors.primary.border} position="fixed" top="0" width="100%" zIndex="1">
+    <Box bg={colors.primary.border} boxShadow={1} position="fixed" top="0" width="100%" zIndex="1">
       <Viewport>
         <Flex alignItems="center" height="72px" justifyContent="space-between">
-          <SertoSearchIcon />
+          <Link href={routes.HOMEPAGE}>
+            <SertoSearchIcon />
+          </Link>
           <Flex alignItems="center">
             <NavLink href={routes.HOW_IT_WORKS}>How it works</NavLink>
             <Box width="500px">

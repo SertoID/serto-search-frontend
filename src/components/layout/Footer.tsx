@@ -50,7 +50,9 @@ export const Footer: React.FunctionComponent = () => {
         </Flex>
         <Box>
           <Box mb={1}>
-            <SertoIcon />
+            <Link href={links.SERTO}>
+              <SertoIcon />
+            </Link>
           </Box>
           <Text textAlign="right" color={colors.midGray} fontSize={0}>
             &#169;{year} Serto
