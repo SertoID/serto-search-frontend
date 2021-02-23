@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { routes } from "../../constants";
 import { Box, Button, Flex, Link } from "rimble-ui";
 import { colors } from "serto-ui";
-import { SearchBox, SertoSearchIcon } from "../elements";
+import { SertoSearchIcon } from "../elements";
 import { Viewport } from "./";
+import { Search } from "../../views/Search/Search";
 
 export interface NavLinkProps {
   href: string;
@@ -18,10 +19,6 @@ export const NavLink: React.FunctionComponent<NavLinkProps> = (props) => {
 };
 
 export const Nav: React.FunctionComponent = () => {
-  const [search, setSearch] = useState("");
-
-  console.log(search);
-
   return (
     <Box bg={colors.primary.border} position="fixed" top="0" width="100%" zIndex="1">
       <Viewport>
@@ -30,7 +27,7 @@ export const Nav: React.FunctionComponent = () => {
           <Flex alignItems="center">
             <NavLink href={routes.HOW_IT_WORKS}>How it works</NavLink>
             <Box width="500px">
-              <SearchBox onSearch={(searchVal) => setSearch(searchVal)} />
+              <Search />
             </Box>
           </Flex>
           <Flex alignItems="center">

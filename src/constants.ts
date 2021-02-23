@@ -6,6 +6,7 @@ export enum routes {
   LOGIN = "/login",
   PRIVACY = "/privacy",
   REGISTER = "/register",
+  SEARCH = "/search",
   TERMS = "/terms",
 }
 

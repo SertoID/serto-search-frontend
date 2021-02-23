@@ -10,12 +10,13 @@ import { ListingDetails } from "./ListingDetails";
 import { ellipsis } from "../../utils/helpers";
 
 export interface ListingsProps {
-  search?: string;
+  search?: string | null;
 }
 
 export const Listings: React.FunctionComponent<ListingsProps> = (props) => {
   const Phonebook = React.useContext<PhonebookService>(PhonebookContext);
-  const { data, error, isValidating } = useSWR(["/v1/search", props.search], () => Phonebook.getEntries(props.search), {
+  const filter = props.search === null ? "" : props.search;
+  const { data, error, isValidating } = useSWR(["/v1/search", filter], () => Phonebook.getEntries(filter), {
     revalidateOnFocus: false,
   });
 
