@@ -1,8 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import { ContentCopy, Check } from "@rimble/icons";
 import { Button } from "rimble-ui";
-import { colors } from "serto-ui";
+import { colors, ContentCopy, Check } from "serto-ui";
 import { copyToClipboard } from "../utils/helpers";
 
 /* TODO: minor differences in this and the serto-ui version update serto-ui version */

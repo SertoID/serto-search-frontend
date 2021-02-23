@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { routes } from "../constants";
-import { AddCircle } from "@rimble/icons";
 import { Box, Button } from "rimble-ui";
-import { colors, Header, HeaderBox } from "serto-ui";
+import { AddCircle, colors, Header, HeaderBox } from "serto-ui";
 import { SearchBox } from "../components";
 import { Listings } from "./Listings";
 
