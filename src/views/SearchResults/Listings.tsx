@@ -1,13 +1,13 @@
 import React from "react";
 import useSWR from "swr";
-import { PhonebookContext } from "../context/PhonebookProvider";
-import { PhonebookService } from "../services/PhonebookService";
+import { PhonebookContext } from "../../context/PhonebookProvider";
+import { PhonebookService } from "../../services/PhonebookService";
 import { Box, Flash, Flex, Loader, Table, Text } from "rimble-ui";
 import { baseColors, colors, TBody, TH, TR } from "serto-ui";
-import { CopyToClipboard, THead } from "../components";
-import { errorMsg } from "../utils/helpers";
+import { CopyToClipboard, THead } from "../../components";
+import { errorMsg } from "../../utils/helpers";
 import { ListingDetails } from "./ListingDetails";
-import { ellipsis } from "../utils/helpers";
+import { ellipsis } from "../../utils/helpers";
 
 export interface ListingsProps {
   search?: string;

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { routes } from "../constants";
+import { routes } from "../../constants";
 import { Box, Button } from "rimble-ui";
 import { AddCircle, colors, Header, HeaderBox } from "serto-ui";
-import { SearchBox } from "../components";
-import { Listings } from "./Listings";
+import { SearchBox } from "../../components/elements";
+import { Listings } from "../SearchResults/Listings";
 
-export const PhonebookPage: React.FunctionComponent = () => {
+export const HomePage: React.FunctionComponent = () => {
   const [search, setSearch] = useState("");
 
   return (
@@ -13,7 +13,7 @@ export const PhonebookPage: React.FunctionComponent = () => {
       <HeaderBox>
         <Header heading="Phonebook">
           <Button as="a" href={routes.REGISTER} size="small">
-            <AddCircle size="14px" mr={1} color={colors.primary.disabled} />
+            <AddCircle size="14px" mr={1} color={colors.primary.disabled[1]} />
             Add Domain
           </Button>
         </Header>

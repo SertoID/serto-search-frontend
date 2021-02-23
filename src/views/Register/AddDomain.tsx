@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { mutate } from "swr";
-import { PhonebookContext } from "../context/PhonebookProvider";
-import { PhonebookService } from "../services/PhonebookService";
+import { PhonebookContext } from "../../context/PhonebookProvider";
+import { PhonebookService } from "../../services/PhonebookService";
 import { Button, Flash, Input, Loader, Text } from "rimble-ui";
-import { domainRegex, errorMsg } from "../utils/helpers";
+import { domainRegex, errorMsg } from "../../utils/helpers";
 import { baseColors, colors } from "serto-ui";
-import { routes } from "../constants";
+import { routes } from "../../constants";
 
 export const AddDomain: React.FunctionComponent = () => {
   const history = useHistory();
