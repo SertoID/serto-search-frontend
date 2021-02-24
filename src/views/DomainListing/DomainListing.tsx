@@ -1,12 +1,12 @@
 import React from "react";
 import useSWR from "swr";
-import { PhonebookContext } from "../context/PhonebookProvider";
-import { PhonebookService } from "../services/PhonebookService";
+import { PhonebookContext } from "../../context/PhonebookProvider";
+import { PhonebookService } from "../../services/PhonebookService";
 import { Box, Flash, Flex, Loader, Table } from "rimble-ui";
 import { baseColors, colors, H2, TBody, TH, TR } from "serto-ui";
-import { THead } from "../components";
-import { errorMsg } from "../utils/helpers";
-import JSONPretty from 'react-json-pretty';
+import { THead } from "../../components";
+import { errorMsg } from "../../utils/helpers";
+import JSONPretty from "react-json-pretty";
 
 export interface DomainListingProps {
   domain?: string;

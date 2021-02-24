@@ -1,27 +1,24 @@
 import React from "react";
 import useSWR from "swr";
-import { PhonebookContext } from "../context/PhonebookProvider";
-import { PhonebookService } from "../services/PhonebookService";
+import { PhonebookContext } from "../../context/PhonebookProvider";
+import { PhonebookService } from "../../services/PhonebookService";
 import { Box, Flash, Flex, Loader, Table, Text } from "rimble-ui";
 import { baseColors, colors, TBody, TH, TR } from "serto-ui";
-import { CopyToClipboard, THead } from "../components";
-import { errorMsg } from "../utils/helpers";
+import { CopyToClipboard, THead } from "../../components";
+import { errorMsg } from "../../utils/helpers";
 import { ListingDetails } from "./ListingDetails";
-import { ellipsis } from "../utils/helpers";
+import { ellipsis } from "../../utils/helpers";
 
 export interface ListingsProps {
-  search?: string;
+  search?: string | null;
 }
 
 export const Listings: React.FunctionComponent<ListingsProps> = (props) => {
   const Phonebook = React.useContext<PhonebookService>(PhonebookContext);
-  const { data, error, isValidating } = useSWR(
-    ["/v1/search", props.search],
-    () => Phonebook.getEntries(props.search),
-    {
-      revalidateOnFocus: false,
-    },
-  );
+  const filter = props.search === null ? "" : props.search;
+  const { data, error, isValidating } = useSWR(["/v1/search", filter], () => Phonebook.getEntries(filter), {
+    revalidateOnFocus: false,
+  });
 
   return (
     <>

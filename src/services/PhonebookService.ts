@@ -12,7 +12,7 @@ export class PhonebookService {
   }
 
   public async getDomainListing(domain: string): Promise<any> {
-    return this.request("/v1/domain-listing", "POST", { domain })
+    return this.request("/v1/domain-listing", "POST", { domain });
   }
 
   private async request(path: string, method: "GET" | "DELETE" | "POST" = "GET", body?: any): Promise<any> {

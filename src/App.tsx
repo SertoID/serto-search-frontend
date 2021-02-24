@@ -5,20 +5,22 @@ import { PhonebookContext } from "./context/PhonebookProvider";
 import { PhonebookService } from "./services/PhonebookService";
 import { IdentityThemeProvider, fonts } from "serto-ui";
 import { routes } from "./constants";
-import { PhonebookPage } from "./views/PhonebookPage";
-import { RegisterPage } from "./views/RegisterPage";
-import { DomainListingPage } from "./views/DomainListingPage";
+import { Global } from "./components/layout";
+
+import { HomePage } from "./views/Home/HomePage";
+import { RegisterPage } from "./views/Register/RegisterPage";
+import { DomainListingPage } from "./views/DomainListing/DomainListingPage";
+import { SearchPage } from "./views/Search/SearchPage";
 
 const GlobalStyle = createGlobalStyle`
   html {
     box-sizing: border-box;
   }
   body {
-    background-color: #F6F6FE;
     font-family: ${fonts.sansSerif};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    margin: 24px;
+    margin: 0;
   }
   *, :after, :before {
     box-sizing: inherit;
@@ -33,11 +35,14 @@ export const App = () => {
         <React.Suspense fallback={<></>}>
           <IdentityThemeProvider>
             <GlobalStyle />
-            <Switch>
-              <Route exact path={routes.HOMEPAGE} component={PhonebookPage} />
-              <Route path={routes.DOMAIN_LISTING_PAGE} component={DomainListingPage} />
-              <Route path={routes.REGISTER} component={RegisterPage} />
-            </Switch>
+            <Global>
+              <Switch>
+                <Route exact path={routes.HOMEPAGE} component={HomePage} />
+                <Route path={routes.DOMAIN_LISTING_PAGE} component={DomainListingPage} />
+                <Route path={routes.REGISTER} component={RegisterPage} />
+                <Route path={routes.SEARCH} component={SearchPage} />
+              </Switch>
+            </Global>
           </IdentityThemeProvider>
         </React.Suspense>
       </PhonebookContext.Provider>

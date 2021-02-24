@@ -15,7 +15,7 @@ export const DomainListingPage: React.FunctionComponent = () => {
   return (
     <Box maxWidth="1500px" m="0 auto">
       <HeaderBox>
-        <Header heading="Phonebook"/>
+        <Header heading="Phonebook" />
       </HeaderBox>
       <DomainListing domain={domain} />
     </Box>

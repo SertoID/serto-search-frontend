@@ -16,9 +16,7 @@ export const ListingDetails: React.FunctionComponent<ListingDetailsProps> = (pro
 
   return (
     <>
-      <Link to={"domain/" + listingData.domain}>
-        View Details
-      </Link>
+      <Link to={"domain/" + listingData.domain}>View Details</Link>
     </>
   );
 };

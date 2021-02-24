@@ -1441,7 +1441,7 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
-"@rimble/icons@^1.0.2", "@rimble/icons@^1.1.0":
+"@rimble/icons@^1.0.2":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@rimble/icons/-/icons-1.1.0.tgz#e69bdff01190c304af95fae578a5d1b90f34e14d"
   integrity sha512-lR6cVMe/wum6bi6H5qmUH0wEPvCg269XdYMaRwgxpvqbhu0gytH9vTSMkWhbaBLWjmALONt/qjDCQGCESQ+qbg==
@@ -10329,14 +10329,12 @@ serialize-javascript@^5.0.1:
   dependencies:
     randombytes "^2.1.0"
 
-serto-ui@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/serto-ui/-/serto-ui-0.1.0.tgz#4ec8640a45d22675da3db439b9f4d70de9e84f41"
-  integrity sha512-DAT2ysHarI3r/rLRhz1+a5TnTxTLVI0p1aIbnR7iBiBcENegrMoP9AkoSTbmbeS99t1KujB4Wnbu44cvCb7TpA==
+serto-ui@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/serto-ui/-/serto-ui-0.2.4.tgz#211a196a391f3a4a3cbda07e80ff142845b3eb25"
+  integrity sha512-Yn8K24usDUqsk3c6cGHmjWwxR3CFRQfDindoU+eMEjUGGVGJv/zRDGH1jQZQzNYd8vB2UPBJiVQgsVA4/ZuwhQ==
   dependencies:
-    "@rimble/icons" "^1.1.0"
     "@sindresorhus/slugify" "^1.1.0"
-    ajv "^6.12.3"
     deepdash-es "^5.3.5"
     prismjs "^1.23.0"
     react-scripts "4.0.1"
@@ -10345,6 +10343,7 @@ serto-ui@^0.1.0:
     swr "^0.2.2"
     typescript "^4.1.3"
     use-debounce "^3.4.3"
+    vc-schema-tools "^0.1.0"
 
 serve-index@^1.9.1:
   version "1.9.1"
@@ -11657,6 +11656,15 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
+
+vc-schema-tools@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/vc-schema-tools/-/vc-schema-tools-0.1.0.tgz#ddf45a8b1aab4df974e5b27edcf2006667c873c5"
+  integrity sha512-P8UtX9ZDn0kYVZ82J6A7KnH93kP9pBjLBFdPfsKr9KPdlmsW4wr6Dzmy7JZW2zv/zt2DsYsWoIrRUp0PU9FrRA==
+  dependencies:
+    ajv "^6.12.3"
+    deepdash-es "^5.3.5"
+    typescript "^4.1.3"
 
 vendors@^1.0.0:
   version "1.0.4"
