@@ -33,9 +33,8 @@ export const Nav: React.FunctionComponent = () => {
             </Box>
           </Flex>
           <Flex alignItems="center">
-            <NavLink href={routes.LOGIN}>Login</NavLink>
-            <Button as="a" href={routes.JOIN}>
-              Join Free
+            <Button as="a" href={routes.REGISTER}>
+              Register Domain
             </Button>
           </Flex>
         </Flex>

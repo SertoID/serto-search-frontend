@@ -2,8 +2,6 @@ export enum routes {
   DOMAIN_LISTING_PAGE = "/domain/:domain",
   HOMEPAGE = "/",
   HOW_IT_WORKS = "",
-  JOIN = "/join",
-  LOGIN = "/login",
   PRIVACY = "/privacy",
   REGISTER = "/register",
   SEARCH = "/search",
