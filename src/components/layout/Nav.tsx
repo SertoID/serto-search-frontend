@@ -3,7 +3,7 @@ import { routes } from "../../constants";
 import { Box, Button, Flex, Link } from "rimble-ui";
 import { colors } from "serto-ui";
 import { SertoSearchIcon } from "../elements";
-import { Viewport } from "./LayoutComponents";
+import { Viewport } from "../";
 import { Search } from "../../views/Search/Search";
 
 export interface NavLinkProps {

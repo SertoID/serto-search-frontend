@@ -3,7 +3,7 @@ import { links, routes } from "../../constants";
 import { Box, Flex, Link, Text } from "rimble-ui";
 import { baseColors, colors, H6 } from "serto-ui";
 import { SertoIcon } from "../elements";
-import { Viewport } from "./";
+import { Viewport } from "../";
 
 export interface FooterLinkProps {
   href: string;

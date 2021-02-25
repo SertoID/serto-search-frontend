@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Flex, Text } from "rimble-ui";
 import { colors, H1, H5 } from "serto-ui";
 import { Search } from "../Search/Search";
-import { Viewport } from "../../components/layout";
+import { Viewport } from "../../components";
 
 export const HomePage: React.FunctionComponent = () => {
   return (
