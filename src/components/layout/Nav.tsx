@@ -3,7 +3,7 @@ import { routes } from "../../constants";
 import { Box, Button, Flex, Link } from "rimble-ui";
 import { colors } from "serto-ui";
 import { SertoSearchIcon } from "../elements";
-import { Viewport } from "./";
+import { Viewport } from "../";
 import { Search } from "../../views/Search/Search";
 
 export interface NavLinkProps {
@@ -33,9 +33,8 @@ export const Nav: React.FunctionComponent = () => {
             </Box>
           </Flex>
           <Flex alignItems="center">
-            <NavLink href={routes.LOGIN}>Login</NavLink>
-            <Button as="a" href={routes.JOIN}>
-              Join Free
+            <Button as="a" href={routes.REGISTER}>
+              Register Domain
             </Button>
           </Flex>
         </Flex>

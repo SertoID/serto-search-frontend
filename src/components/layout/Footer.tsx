@@ -1,9 +1,9 @@
 import * as React from "react";
 import { links, routes } from "../../constants";
 import { Box, Flex, Link, Text } from "rimble-ui";
-import { colors, H6 } from "serto-ui";
+import { baseColors, colors, H6 } from "serto-ui";
 import { SertoIcon } from "../elements";
-import { Viewport } from "./";
+import { Viewport } from "../";
 
 export interface FooterLinkProps {
   href: string;
@@ -22,7 +22,7 @@ export const Footer: React.FunctionComponent = () => {
   const year = date.getFullYear();
 
   return (
-    <Viewport>
+    <Viewport fullWidthBgColor={baseColors.white}>
       <Flex alignItems="center" justifyContent="space-between" py={5} width="100%">
         <Flex>
           <Flex flexDirection="column" minWidth="200px">
