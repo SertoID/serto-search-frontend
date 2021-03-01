@@ -25,6 +25,7 @@ export const Footer: React.FunctionComponent = () => {
     <Viewport fullWidthBgColor={baseColors.white}>
       <Flex alignItems="center" justifyContent="space-between" py={5} width="100%">
         <Flex>
+          {/*
           <Flex flexDirection="column" minWidth="200px">
             <H6 mt={0} mb={2}>
               Products
@@ -32,20 +33,20 @@ export const Footer: React.FunctionComponent = () => {
             <FooterLink href={links.SERTO_AGENT}>Serto Agent</FooterLink>
             <FooterLink href={links.SERTO_SCHEMAS}>Serto Schemas</FooterLink>
           </Flex>
+          */}
           <Flex flexDirection="column" minWidth="200px">
             <H6 mt={0} mb={2}>
               Company
             </H6>
             <FooterLink href={links.SERTO}>Serto.id</FooterLink>
-            <FooterLink href={links.SUPPORT}>Support</FooterLink>
+            {/*<FooterLink href={links.SUPPORT}>Support</FooterLink>*/}
             <FooterLink href={links.FEEDBACK}>Send Feedback</FooterLink>
+            <FooterLink href={links.TERMS}>Terms</FooterLink>
           </Flex>
           <Flex flexDirection="column" minWidth="200px">
             <H6 mt={0} mb={2}>
               &nbsp;
             </H6>
-            <FooterLink href={routes.TERMS}>Terms</FooterLink>
-            <FooterLink href={routes.PRIVACY}>Privacy</FooterLink>
           </Flex>
         </Flex>
         <Box>

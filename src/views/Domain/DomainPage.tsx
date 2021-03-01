@@ -7,7 +7,7 @@ import { PhonebookService } from "../../services/PhonebookService";
 import { Box, Flash, Flex, Loader, Text } from "rimble-ui";
 import { baseColors, colors, H4, H6 } from "serto-ui";
 import { errorMsg } from "../../utils/helpers";
-import { Did, Viewport } from "../../components";
+import { Did, Global, Viewport } from "../../components";
 
 export const DomainPage: React.FunctionComponent = () => {
   const Phonebook = React.useContext<PhonebookService>(PhonebookContext);
@@ -21,7 +21,7 @@ export const DomainPage: React.FunctionComponent = () => {
   );
 
   return (
-    <>
+    <Global showSearch>
       <Viewport>
         <Box maxWidth="700px" py={5}>
           <Box mb={4}>
@@ -73,6 +73,6 @@ export const DomainPage: React.FunctionComponent = () => {
           </Flash>
         )}
       </Viewport>
-    </>
+    </Global>
   );
 };

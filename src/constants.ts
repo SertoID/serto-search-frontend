@@ -5,7 +5,6 @@ export enum routes {
   PRIVACY = "/privacy",
   REGISTER = "/register",
   SEARCH = "/search",
-  TERMS = "/terms",
 }
 
 export const links = {
@@ -14,4 +13,5 @@ export const links = {
   SERTO_AGENT: "",
   SERTO_SCHEMAS: "",
   SUPPORT: "",
+  TERMS: "https://consensys.net/terms-of-use/",
 };

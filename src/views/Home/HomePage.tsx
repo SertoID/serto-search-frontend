@@ -2,11 +2,11 @@ import React from "react";
 import { Box, Flex, Text } from "rimble-ui";
 import { colors, H1, H5 } from "serto-ui";
 import { Search } from "../Search/Search";
-import { Viewport } from "../../components";
+import { Global, Viewport } from "../../components";
 
 export const HomePage: React.FunctionComponent = () => {
   return (
-    <>
+    <Global>
       <Viewport fullWidthBgColor={colors.primary.border}>
         <Flex alignItems="center" height="500px" justifyContent="center" width="100%">
           <Box maxWidth="780px" width="100%">
@@ -31,6 +31,6 @@ export const HomePage: React.FunctionComponent = () => {
           </Text>
         </Box>
       </Viewport>
-    </>
+    </Global>
   );
 };

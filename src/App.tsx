@@ -5,7 +5,6 @@ import { PhonebookContext } from "./context/PhonebookProvider";
 import { PhonebookService } from "./services/PhonebookService";
 import { IdentityThemeProvider, fonts } from "serto-ui";
 import { routes } from "./constants";
-import { Global } from "./components/layout";
 
 import { HomePage } from "./views/Home/HomePage";
 import { RegisterPage } from "./views/Register/RegisterPage";
@@ -35,14 +34,12 @@ export const App = () => {
         <React.Suspense fallback={<></>}>
           <IdentityThemeProvider>
             <GlobalStyle />
-            <Global>
-              <Switch>
-                <Route exact path={routes.HOMEPAGE} component={HomePage} />
-                <Route path={routes.DOMAIN_LISTING_PAGE} component={DomainPage} />
-                <Route path={routes.REGISTER} component={RegisterPage} />
-                <Route path={routes.SEARCH} component={SearchPage} />
-              </Switch>
-            </Global>
+            <Switch>
+              <Route exact path={routes.HOMEPAGE} component={HomePage} />
+              <Route path={routes.DOMAIN_LISTING_PAGE} component={DomainPage} />
+              <Route path={routes.REGISTER} component={RegisterPage} />
+              <Route path={routes.SEARCH} component={SearchPage} />
+            </Switch>
           </IdentityThemeProvider>
         </React.Suspense>
       </PhonebookContext.Provider>

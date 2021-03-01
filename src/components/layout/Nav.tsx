@@ -18,7 +18,11 @@ export const NavLink: React.FunctionComponent<NavLinkProps> = (props) => {
   );
 };
 
-export const Nav: React.FunctionComponent = () => {
+export interface NavProps {
+  showSearch?: boolean;
+}
+
+export const Nav: React.FunctionComponent<NavProps> = (props) => {
   return (
     <Box bg={colors.primary.border} boxShadow={1} position="fixed" top="0" width="100%" zIndex="1">
       <Viewport>
@@ -26,13 +30,15 @@ export const Nav: React.FunctionComponent = () => {
           <Link href={routes.HOMEPAGE}>
             <SertoSearchIcon />
           </Link>
+          {props.showSearch && (
+            <Flex alignItems="center">
+              <Box width="500px">
+                <Search />
+              </Box>
+            </Flex>
+          )}
           <Flex alignItems="center">
             <NavLink href={routes.HOW_IT_WORKS}>How it works</NavLink>
-            <Box width="500px">
-              <Search />
-            </Box>
-          </Flex>
-          <Flex alignItems="center">
             <Button as="a" href={routes.REGISTER}>
               Register Domain
             </Button>
