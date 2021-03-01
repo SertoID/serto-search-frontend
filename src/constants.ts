@@ -9,6 +9,7 @@ export enum routes {
 
 export const links = {
   FEEDBACK: "",
+  PRIVACY: "https://consensys.net/privacy-policy/",
   SERTO: "https://serto.id",
   SERTO_AGENT: "",
   SERTO_SCHEMAS: "",

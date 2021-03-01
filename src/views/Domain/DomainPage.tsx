@@ -7,7 +7,7 @@ import { PhonebookService } from "../../services/PhonebookService";
 import { Box, Flash, Flex, Loader, Text } from "rimble-ui";
 import { baseColors, colors, H4, H6 } from "serto-ui";
 import { errorMsg } from "../../utils/helpers";
-import { Did, Global, Viewport } from "../../components";
+import { Did, DomainImage, Global, Viewport } from "../../components";
 
 export const DomainPage: React.FunctionComponent = () => {
   const Phonebook = React.useContext<PhonebookService>(PhonebookContext);
@@ -23,20 +23,19 @@ export const DomainPage: React.FunctionComponent = () => {
   return (
     <Global showSearch>
       <Viewport>
-        <Box maxWidth="700px" py={5}>
-          <Box mb={4}>
-            <Text color={baseColors.black} mb={3}>
-              {data?.domain}
-            </Text>
-            <H4 color={colors.primary.base} lineHeight="solid" mb={1} mt={0}>
-              {data?.domain}
-            </H4>
-            <Text color={colors.midGray}>
-              Build next-generation apps, launch blockchain-based financial infrastructure, and access the decentralized
-              web with ConsenSys' Ethereum product suite.
-            </Text>
+        {data?.domain && (
+          <Box maxWidth="700px" py={5}>
+            <Box mb={4}>
+              <Flex alignItems="center" mb={3}>
+                <DomainImage domain={data.domain} />
+                <Text color={baseColors.black}>{data.domain}</Text>
+              </Flex>
+              <H4 color={colors.primary.base} lineHeight="solid" mb={1} mt={0}>
+                {data.domain}
+              </H4>
+            </Box>
           </Box>
-        </Box>
+        )}
       </Viewport>
       <Viewport fullWidthBgColor={colors.primary.border}>
         {data?.didDocEntries?.length > 0 ? (
@@ -45,7 +44,7 @@ export const DomainPage: React.FunctionComponent = () => {
               Decentralized Identifiers (DIDs) in use
             </H6>
             <Text fontSize={2} mb={5} width="650px">
-              A decentralized identifie or DID enables verifiable, decentralized digital identity. A DID identifies any
+              A decentralized identifier or DID enables verifiable, decentralized digital identity. A DID identifies any
               subject that the controller of the DID decides that it identifies.
             </Text>
             {data.didDocEntries.map((entry: any, i: number) => {

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { links, routes } from "../../constants";
+import { links } from "../../constants";
 import { Box, Flex, Link, Text } from "rimble-ui";
 import { baseColors, colors, H6 } from "serto-ui";
 import { SertoIcon } from "../elements";
@@ -39,14 +39,14 @@ export const Footer: React.FunctionComponent = () => {
               Company
             </H6>
             <FooterLink href={links.SERTO}>Serto.id</FooterLink>
-            {/*<FooterLink href={links.SUPPORT}>Support</FooterLink>*/}
             <FooterLink href={links.FEEDBACK}>Send Feedback</FooterLink>
-            <FooterLink href={links.TERMS}>Terms</FooterLink>
           </Flex>
           <Flex flexDirection="column" minWidth="200px">
             <H6 mt={0} mb={2}>
               &nbsp;
             </H6>
+            <FooterLink href={links.TERMS}>Terms</FooterLink>
+            <FooterLink href={links.PRIVACY}>Privacy</FooterLink>
           </Flex>
         </Flex>
         <Box>

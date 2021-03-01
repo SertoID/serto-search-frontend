@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Box, Flex, Text } from "rimble-ui";
 import { baseColors, colors, H4, H6 } from "serto-ui";
-import { CredentialCheck, Did } from "../../components";
+import { CredentialCheck, Did, DomainImage } from "../../components";
 
 export interface SearchResultTypes {
   domain: string;
@@ -21,17 +21,14 @@ export const SearchResult: React.FunctionComponent<SearchResultProps> = (props) 
       <Box maxWidth="700px">
         <Box mb={4}>
           <Link to={"domain/" + searchResult.domain} style={{ textDecoration: "none" }}>
-            <Text color={baseColors.black} mb={3}>
-              {searchResult.domain}
-            </Text>
+            <Flex alignItems="center" mb={3}>
+              <DomainImage domain={searchResult.domain} />
+              <Text color={baseColors.black}>{searchResult.domain}</Text>
+            </Flex>
             <H4 color={colors.primary.base} lineHeight="solid" mb={1} mt={0}>
               {searchResult.domain}
             </H4>
           </Link>
-          <Text color={colors.midGray}>
-            Build next-generation apps, launch blockchain-based financial infrastructure, and access the decentralized
-            web with ConsenSys' Ethereum product suite.
-          </Text>
         </Box>
         <Box ml={5}>
           <Did did={searchResult.dids} color={colors.primary.base} icon />
@@ -42,8 +39,6 @@ export const SearchResult: React.FunctionComponent<SearchResultProps> = (props) 
           Verification Status
         </H6>
         <SearchVerificationStatus title="DID Configuration" />
-        <SearchVerificationStatus title="Serto Agent" />
-        <SearchVerificationStatus title="Baseline" />
       </Box>
     </Flex>
   );
