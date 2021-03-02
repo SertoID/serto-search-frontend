@@ -36,7 +36,7 @@ export const DomainPage: React.FunctionComponent = () => {
           </Box>
         )}
       </Viewport>
-      <Viewport fullWidthBgColor={colors.primary.border}>
+      <Viewport fullBgColor={colors.primary.border}>
         {data?.didDocEntries?.length > 0 ? (
           <Box borderRadius={1} bg={baseColors.white} my={5} p={5}>
             <H6 color={colors.primary.base} mb={3} mt={0}>

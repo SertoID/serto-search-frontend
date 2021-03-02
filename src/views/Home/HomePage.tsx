@@ -1,13 +1,13 @@
 import React from "react";
 import { Box, Flex, Text } from "rimble-ui";
-import { colors, H1, H5 } from "serto-ui";
+import { colors, H1 } from "serto-ui";
 import { Search } from "../Search/Search";
 import { Global, Viewport } from "../../components";
 
 export const HomePage: React.FunctionComponent = () => {
   return (
     <Global>
-      <Viewport fullWidthBgColor={colors.primary.border}>
+      <Viewport mb={7} fullBgColor={colors.primary.border}>
         <Flex alignItems="center" height="500px" justifyContent="center" width="100%">
           <Box maxWidth="780px" width="100%">
             <H1 color={colors.primary.base} lineHeight="solid" mb={4} mt={0}>
@@ -19,17 +19,6 @@ export const HomePage: React.FunctionComponent = () => {
             <Search />
           </Box>
         </Flex>
-      </Viewport>
-      <Viewport>
-        <Box maxWidth="570px" mb="60px" mt="60px" width="100%">
-          <H5 color={colors.midGray} mb={1} mt={0}>
-            About This Site
-          </H5>
-          <Text color={colors.midGray}>
-            An initiative to help everyone find businesses and organizations they can trust. Serto Registry leverages
-            standards-based decentralized identifiers, and verfiable credentials technology.
-          </Text>
-        </Box>
       </Viewport>
     </Global>
   );

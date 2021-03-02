@@ -27,20 +27,22 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
     <Box bg={colors.primary.border} boxShadow={1} position="fixed" top="0" width="100%" zIndex="1">
       <Viewport>
         <Flex alignItems="center" height="72px" justifyContent="space-between">
-          <Link href={routes.HOMEPAGE}>
-            <SertoSearchIcon />
-          </Link>
+          <Flex alignItems="center" width="33%">
+            <Link href={routes.HOMEPAGE} mr={6}>
+              <SertoSearchIcon />
+            </Link>
+            <NavLink href={routes.HOW_IT_WORKS}>How it works</NavLink>
+          </Flex>
           {props.showSearch && (
-            <Flex alignItems="center">
+            <Flex justifyContent="center" width="33%">
               <Box width="500px">
                 <Search />
               </Box>
             </Flex>
           )}
-          <Flex alignItems="center">
-            <NavLink href={routes.HOW_IT_WORKS}>How it works</NavLink>
+          <Flex justifyContent="flex-end" width="33%">
             <Button as="a" href={routes.REGISTER}>
-              Register Domain
+              Add Domain
             </Button>
           </Flex>
         </Flex>

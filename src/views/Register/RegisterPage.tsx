@@ -39,6 +39,12 @@ export const RegisterPage: React.FunctionComponent = () => {
     domainRegex.test(value) ? setDisabled(false) : setDisabled(true);
   }
 
+  function onKeyDown(event: any) {
+    if (event.code === "Enter") {
+      addDomain();
+    }
+  }
+
   return (
     <Global showSearch>
       <Box bg={baseColors.white} border={2} borderRadius={1} boxShadow={2} maxWidth="480px" m="50px auto 100px">
@@ -81,6 +87,7 @@ export const RegisterPage: React.FunctionComponent = () => {
                 type="url"
                 placeholder="example.com"
                 onChange={(event: any) => onChange(event.target.value)}
+                onKeyDown={(event: any) => onKeyDown(event)}
                 width="100%"
               />
               <Text color={colors.silver} fontSize={1} mt={3}>
