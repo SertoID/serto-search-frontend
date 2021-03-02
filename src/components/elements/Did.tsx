@@ -20,9 +20,7 @@ export const Did: React.FunctionComponent<DidProps> = (props) => {
       {icon && (
         <Box mr={1}>
           {did.includes("did:ethr") && <EthLogo />}
-          {did.includes("did:key") && <SovrinLogo />}
           {did.includes("did:sov") && <SovrinLogo />}
-          {did.includes("did:web") && <SovrinLogo />}
         </Box>
       )}
       <Text {...props} lineHeight="solid" m={0}>

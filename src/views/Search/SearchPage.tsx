@@ -31,7 +31,9 @@ export const SearchPage: React.FunctionComponent = () => {
                   <>
                     Showing {data.length} {data.length === 1 ? "result" : "results"} for{" "}
                     {/* eslint-disable-next-line */}
-                    <Text.span color={colors.midGray} fontWeight={3}>{filter}</Text.span>
+                    <Text.span color={colors.midGray} fontWeight={3}>
+                      {filter}
+                    </Text.span>
                   </>
                 )}
               </Text>

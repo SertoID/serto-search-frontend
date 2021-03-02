@@ -49,12 +49,12 @@ export const DomainPage: React.FunctionComponent = () => {
             </Text>
             {data.didDocEntries.map((entry: any, i: number) => {
               return (
-                <>
+                <React.Fragment key={i}>
                   <Box mb={5}>
                     <Did did={entry.did} icon copy />
                   </Box>
                   <JSONPretty data={entry.didDoc} />
-                </>
+                </React.Fragment>
               );
             })}
           </Box>

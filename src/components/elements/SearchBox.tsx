@@ -4,6 +4,7 @@ import { Box, Button, Input } from "rimble-ui";
 /* TODO: move this component to serto-ui */
 
 export interface SearchBoxProps {
+  placeholderText?: string;
   onSearch(value: string): void;
 }
 
@@ -11,7 +12,7 @@ export const SearchBox: React.FunctionComponent<SearchBoxProps> = (props) => {
   const urlParams = new URLSearchParams(window.location.search);
   const filter = urlParams.get("filter");
   const [search, setSearch] = useState(filter || "");
-  
+
   function onKeyDown(event: any) {
     if (event.code === "Enter") {
       props.onSearch(search);
@@ -23,7 +24,7 @@ export const SearchBox: React.FunctionComponent<SearchBoxProps> = (props) => {
       <Input
         onChange={(event: any) => setSearch(event.target.value)}
         onKeyDown={(event: any) => onKeyDown(event)}
-        placeholder="Search"
+        placeholder={props.placeholderText || "Search"}
         required
         type="text"
         value={search}

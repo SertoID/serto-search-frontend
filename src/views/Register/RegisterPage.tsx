@@ -59,7 +59,7 @@ export const RegisterPage: React.FunctionComponent = () => {
               <H3 color={baseColors.success} mb={5} mt={3} textAlign="center">
                 Domain Registered
               </H3>
-              <Button onClick={() => history.push(routes.DOMAIN_LISTING_PAGE + domain)} width="100%">
+              <Button onClick={() => history.push("/domain/" + domain)} width="100%">
                 Done
               </Button>
             </>
@@ -69,7 +69,10 @@ export const RegisterPage: React.FunctionComponent = () => {
                 Register Your Domain
               </H3>
               <Text color={colors.silver} fontSize={1} fontWeight={4} mb={3}>
-                Register your domain or <Link to={routes.HOW_IT_WORKS} style={{ color: colors.primary.base, textDecoration: "none" }}>create a new DID for your domain</Link>
+                Register your domain or{" "}
+                <Link to={routes.HOW_IT_WORKS} style={{ color: colors.primary.base, textDecoration: "none" }}>
+                  create a new DID for your domain
+                </Link>
               </Text>
               <Text fontSize={1} fontWeight={3} mb={1}>
                 Domain Name
