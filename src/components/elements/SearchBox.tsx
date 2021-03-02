@@ -8,23 +8,25 @@ export interface SearchBoxProps {
 }
 
 export const SearchBox: React.FunctionComponent<SearchBoxProps> = (props) => {
-  const [search, setSearch] = useState("");
-
-  React.useEffect(() => {
-    window.addEventListener("keydown", (event) => {
-      if (event.code === "Enter") {
-        props.onSearch(search);
-      }
-    });
-  });
+  const urlParams = new URLSearchParams(window.location.search);
+  const filter = urlParams.get("filter");
+  const [search, setSearch] = useState(filter || "");
+  
+  function onKeyDown(event: any) {
+    if (event.code === "Enter") {
+      props.onSearch(search);
+    }
+  }
 
   return (
     <Box position="relative" width="100%">
       <Input
         onChange={(event: any) => setSearch(event.target.value)}
+        onKeyDown={(event: any) => onKeyDown(event)}
         placeholder="Search"
+        required
         type="text"
-        required={true}
+        value={search}
         width="100%"
       />
       <Button.Text
