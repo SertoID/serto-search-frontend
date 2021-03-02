@@ -4,8 +4,7 @@ import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
 import { Box, Flash, Flex, Loader, Text } from "rimble-ui";
 import { baseColors, colors } from "serto-ui";
-import { Global, Viewport } from "../../components";
-import { errorMsg } from "../../utils/helpers";
+import { ErrorMsg, Global, Viewport } from "../../components";
 import { SearchResult, SearchResultTypes } from "./SearchResult";
 
 export const SearchPage: React.FunctionComponent = () => {
@@ -48,7 +47,7 @@ export const SearchPage: React.FunctionComponent = () => {
           </Flex>
         ) : error ? (
           <Flash my={3} variant="danger">
-            {errorMsg(error.message)}
+            <ErrorMsg error={error.message} />
           </Flash>
         ) : (
           <Flash my={3} variant="warning">

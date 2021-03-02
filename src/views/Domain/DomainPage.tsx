@@ -6,8 +6,7 @@ import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
 import { Box, Flash, Flex, Loader, Text } from "rimble-ui";
 import { baseColors, colors, H4, H6 } from "serto-ui";
-import { errorMsg } from "../../utils/helpers";
-import { Did, DomainImage, Global, Viewport } from "../../components";
+import { Did, DomainImage, ErrorMsg, Global, Viewport } from "../../components";
 
 export const DomainPage: React.FunctionComponent = () => {
   const Phonebook = React.useContext<PhonebookService>(PhonebookContext);
@@ -64,7 +63,7 @@ export const DomainPage: React.FunctionComponent = () => {
           </Flex>
         ) : error ? (
           <Flash my={3} variant="danger">
-            {errorMsg(error.message)}
+            <ErrorMsg error={error.message} />
           </Flash>
         ) : (
           <Flash my={3} variant="warning">

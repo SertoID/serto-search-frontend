@@ -32,17 +32,3 @@ export function hexEllipsis(text: string, startLength = 4, endLength = 4): strin
   const addressIndex = text.indexOf("0x");
   return ellipsis(text, (addressIndex === -1 ? 0 : addressIndex + 2) + startLength, endLength);
 }
-
-export function errorMsg(errMsg: string): string {
-  if (errMsg.includes("105")) {
-    return "Request parameters are invalid.";
-  } else if (errMsg.includes("106")) {
-    return "Provided domain is invalid.";
-  } else if (errMsg.includes("210")) {
-    return "Your domain does not have a Decentralized Identifier or DID. Learn more about creating one here.";
-  } else if (errMsg.includes("211")) {
-    return "Requested phonebook entry not found.";
-  } else {
-    return errMsg;
-  }
-}

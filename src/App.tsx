@@ -36,7 +36,7 @@ export const App = () => {
             <GlobalStyle />
             <Switch>
               <Route exact path={routes.HOMEPAGE} component={HomePage} />
-              <Route path={routes.DOMAIN_LISTING_PAGE} component={DomainPage} />
+              <Route path={routes.DOMAIN_PAGE} component={DomainPage} />
               <Route path={routes.REGISTER} component={RegisterPage} />
               <Route path={routes.SEARCH} component={SearchPage} />
             </Switch>

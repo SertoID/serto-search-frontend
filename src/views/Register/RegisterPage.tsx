@@ -4,16 +4,16 @@ import { mutate } from "swr";
 import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
 import { Box, Button, Flash, Flex, Input, Loader, Text } from "rimble-ui";
-import { domainRegex, errorMsg } from "../../utils/helpers";
+import { domainRegex } from "../../utils/helpers";
 import { baseColors, colors, Check, H3 } from "serto-ui";
 import { routes } from "../../constants";
-import { Global } from "../../components";
+import { ErrorMsg, Global } from "../../components";
 
 export const RegisterPage: React.FunctionComponent = () => {
   const history = useHistory();
   const Phonebook = React.useContext<PhonebookService>(PhonebookContext);
   const [domain, setDomain] = useState("");
-  const [error, setError] = useState<string | undefined>();
+  const [error, setError] = useState<any | undefined>();
   const [disabled, setDisabled] = useState(true);
   const [isValidating, setIsValidating] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -28,7 +28,7 @@ export const RegisterPage: React.FunctionComponent = () => {
       mutate("/register");
     } catch (err) {
       console.error(err);
-      setError(errorMsg(err.message));
+      setError(<ErrorMsg error={err.message} />);
       setIsValidating(false);
       return;
     }
