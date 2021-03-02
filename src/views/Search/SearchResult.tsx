@@ -31,7 +31,7 @@ export const SearchResult: React.FunctionComponent<SearchResultProps> = (props) 
           </Link>
         </Box>
         <Box ml={5}>
-          <Did did={searchResult.dids} color={colors.primary.base} icon />
+          <Did did={searchResult.dids} color={colors.primary.base} ellipsis icon />
         </Box>
       </Box>
       <Box ml={5} width="300px">

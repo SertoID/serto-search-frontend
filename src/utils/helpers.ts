@@ -39,7 +39,7 @@ export function errorMsg(errMsg: string): string {
   } else if (errMsg.includes("106")) {
     return "Provided domain is invalid.";
   } else if (errMsg.includes("210")) {
-    return "Did configuration not found.";
+    return "Your domain does not have a Decentralized Identifier or DID. Learn more about creating one here.";
   } else if (errMsg.includes("211")) {
     return "Requested phonebook entry not found.";
   } else {

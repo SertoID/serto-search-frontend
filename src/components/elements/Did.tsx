@@ -7,6 +7,7 @@ import { EthLogo, SovrinLogo } from "./Icons";
 export interface DidProps {
   did: string;
   copy?: boolean;
+  ellipsis?: boolean;
   icon?: boolean;
   [key: string]: any;
 }
@@ -18,13 +19,14 @@ export const Did: React.FunctionComponent<DidProps> = (props) => {
     <Flex>
       {icon && (
         <Box mr={1}>
-          {did.includes("ethr") && <EthLogo />}
-          {did.includes("sov") && <SovrinLogo />}
-          {did.includes("key") && <SovrinLogo />}
+          {did.includes("did:ethr") && <EthLogo />}
+          {did.includes("did:key") && <SovrinLogo />}
+          {did.includes("did:sov") && <SovrinLogo />}
+          {did.includes("did:web") && <SovrinLogo />}
         </Box>
       )}
       <Text {...props} lineHeight="solid" m={0}>
-        {ellipsis(did, 15, 5)}
+        {props.ellipsis ? ellipsis(did, 15, 5) : did}
       </Text>
       {copy && (
         <Box ml={2}>
