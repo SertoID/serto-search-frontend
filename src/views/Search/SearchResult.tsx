@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Box, Flex, Text } from "rimble-ui";
-import { baseColors, colors, CredentialCheck, DidView, H4, H6 } from "serto-ui";
-import { DomainImage } from "../../components";
+import { baseColors, colors, DidView, H4 } from "serto-ui";
+import { DomainImage, VerificationStatus } from "../../components";
 
 export interface SearchResultTypes {
   domain: string;
@@ -35,26 +35,8 @@ export const SearchResult: React.FunctionComponent<SearchResultProps> = (props) 
         </Box>
       </Box>
       <Box ml={5} width="300px">
-        <H6 color={colors.silver} mb={2} mt={0}>
-          Verification Status
-        </H6>
-        <SearchVerificationStatus title="DID Configuration" />
+        <VerificationStatus />
       </Box>
-    </Flex>
-  );
-};
-
-export interface SearchVerificationStatusProps {
-  title: string;
-}
-
-export const SearchVerificationStatus: React.FunctionComponent<SearchVerificationStatusProps> = (props) => {
-  return (
-    <Flex alignItems="center" mb={2}>
-      <CredentialCheck />
-      <Text color={colors.midGray} fontSize={1} ml={1}>
-        {props.title}
-      </Text>
     </Flex>
   );
 };
