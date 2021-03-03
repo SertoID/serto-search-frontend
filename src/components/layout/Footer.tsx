@@ -1,8 +1,7 @@
 import * as React from "react";
 import { links, routes } from "../../constants";
 import { Box, Flex, Link, Text } from "rimble-ui";
-import { baseColors, colors, H6 } from "serto-ui";
-import { SertoIcon } from "../elements";
+import { baseColors, colors, H6, SertoLogo } from "serto-ui";
 import { Viewport } from "../";
 
 export interface FooterLinkProps {
@@ -61,7 +60,7 @@ export const Footer: React.FunctionComponent = () => {
         <Box>
           <Box mb={1}>
             <Link href={links.SERTO}>
-              <SertoIcon />
+              <SertoLogo />
             </Link>
           </Box>
           <Text textAlign="right" color={colors.midGray} fontSize={0}>

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Box, Flex, Text } from "rimble-ui";
-import { baseColors, colors, H4, H6 } from "serto-ui";
-import { CredentialCheck, Did, DomainImage } from "../../components";
+import { baseColors, colors, CredentialCheck, DidView, H4, H6 } from "serto-ui";
+import { DomainImage } from "../../components";
 
 export interface SearchResultTypes {
   domain: string;
@@ -31,7 +31,7 @@ export const SearchResult: React.FunctionComponent<SearchResultProps> = (props) 
           </Link>
         </Box>
         <Box ml={5}>
-          <Did did={searchResult.dids} color={colors.primary.base} ellipsis icon />
+          <DidView did={searchResult.dids} color={colors.primary.base} ellipsis icon />
         </Box>
       </Box>
       <Box ml={5} width="300px">

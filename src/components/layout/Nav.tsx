@@ -1,8 +1,7 @@
 import React from "react";
 import { routes } from "../../constants";
 import { Box, Button, Flex, Link } from "rimble-ui";
-import { colors } from "serto-ui";
-import { SertoSearchIcon } from "../elements";
+import { colors, SertoSearchLogo } from "serto-ui";
 import { Viewport } from "../";
 import { Search } from "../../views/Search/Search";
 
@@ -29,7 +28,7 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
         <Flex alignItems="center" height="72px" justifyContent="space-between">
           <Flex alignItems="center" width="33%">
             <Link href={routes.HOMEPAGE} mr={6}>
-              <SertoSearchIcon />
+              <SertoSearchLogo />
             </Link>
             <NavLink href={routes.HOW_IT_WORKS}>How it works</NavLink>
           </Flex>

@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
 import { Box, Flash, Flex, Loader, Text } from "rimble-ui";
-import { baseColors, colors, H4, H6 } from "serto-ui";
-import { Did, DomainImage, ErrorMsg, Global, Viewport } from "../../components";
+import { baseColors, colors, DidView, H4, H6 } from "serto-ui";
+import { DomainImage, ErrorMsg, Global, Viewport } from "../../components";
 
 export const DomainPage: React.FunctionComponent = () => {
   const Phonebook = React.useContext<PhonebookService>(PhonebookContext);
@@ -50,7 +50,7 @@ export const DomainPage: React.FunctionComponent = () => {
               return (
                 <React.Fragment key={i}>
                   <Box mb={5}>
-                    <Did did={entry.did} icon copy />
+                    <DidView color={baseColors.black} did={entry.did} fontWeight={4} icon copy />
                   </Box>
                   <JSONPretty data={entry.didDoc} />
                 </React.Fragment>
