@@ -5,7 +5,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prettier": "prettier --config .prettierrc.yaml --write --list-different './**/*.{ts,tsx,json,md}'",
     "lint": "eslint src/**/*.ts src/**/*.tsx"
@@ -16,7 +16,7 @@
     "react-json-pretty": "^2.2.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.1",
+    "react-scripts": "4.0.1",
     "rimble-ui": "^0.14.0",
     "serto-ui": "^0.2.6",
     "styled-components": "^5.2.1",
@@ -48,6 +48,11 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!deepdash-es|lodash-es)"
     ]
   }
 }
