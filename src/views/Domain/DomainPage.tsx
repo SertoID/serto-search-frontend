@@ -1,15 +1,16 @@
 import React from "react";
 import useSWR from "swr";
-import JSONPretty from "react-json-pretty";
 import { useParams } from "react-router-dom";
 import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
-import { Box, Flash, Flex, Loader, Text } from "rimble-ui";
-import { baseColors, colors, H4, H6 } from "serto-ui";
-import { errorMsg } from "../../utils/helpers";
-import { Did, Viewport } from "../../components";
+import { Box, Flash, Flex, Icon, Loader, Text } from "rimble-ui";
+import { baseColors, colors, H4, HighlightedJson } from "serto-ui";
+import { DomainDidDetails } from "./DomainDidDetails";
+import { DomainHeader } from "./DomainHeader";
+import { useToggle, ErrorMsg, Global, Viewport } from "../../components";
 
 export const DomainPage: React.FunctionComponent = () => {
+  const [isOpen, toggleIsOpen] = useToggle(false);
   const Phonebook = React.useContext<PhonebookService>(PhonebookContext);
   const { domain } = useParams<{ domain: string }>();
   const { data, error, isValidating } = useSWR(
@@ -21,41 +22,45 @@ export const DomainPage: React.FunctionComponent = () => {
   );
 
   return (
-    <>
-      <Viewport>
-        <Box maxWidth="700px" py={5}>
-          <Box mb={4}>
-            <Text color={baseColors.black} mb={3}>
-              {data?.domain}
-            </Text>
-            <H4 color={colors.primary.base} lineHeight="solid" mb={1} mt={0}>
-              {data?.domain}
-            </H4>
-            <Text color={colors.midGray}>
-              Build next-generation apps, launch blockchain-based financial infrastructure, and access the decentralized
-              web with ConsenSys' Ethereum product suite.
-            </Text>
-          </Box>
-        </Box>
-      </Viewport>
-      <Viewport fullWidthBgColor={colors.primary.border}>
-        {data?.didDocEntries?.length > 0 ? (
-          <Box borderRadius={1} bg={baseColors.white} my={5} p={5}>
-            <H6 color={colors.primary.base} mb={3} mt={0}>
-              Decentralized Identifiers (DIDs) in use
-            </H6>
-            <Text fontSize={2} mb={5} width="650px">
-              A decentralized identifie or DID enables verifiable, decentralized digital identity. A DID identifies any
-              subject that the controller of the DID decides that it identifies.
-            </Text>
-            {data.didDocEntries.map((entry: any, i: number) => {
+    <Global banner searchBar>
+      <Viewport fullBgColor={colors.primary.border}>
+        {data?.domain ? (
+          <Box borderRadius={1} bg={baseColors.white} my={5}>
+            <Box borderBottom={2} p={[3, 5]}>
+              <DomainHeader domain={data.domain} />
+            </Box>
+            <Box borderBottom={2} p={[3, 5]}>
+              <Flex alignItems="center" justifyContent="space-between">
+                <H4 mr={3} my={0}>
+                  DID Configuration
+                </H4>
+                <Box onClick={toggleIsOpen} style={{ cursor: "pointer" }}>
+                  {isOpen ? <Icon name="KeyboardArrowUp" /> : <Icon name="KeyboardArrowDown" />}
+                </Box>
+              </Flex>
+              {isOpen && (
+                <Box mt={5}>
+                  <HighlightedJson json={data.didConfigEntry.didConfig} />
+                </Box>
+              )}
+            </Box>
+            <Box borderBottom={2} p={[3, 5]}>
+              <H4 mb={3} mt={0}>
+                Decentralized Identifiers (DID)
+              </H4>
+              <Text color={colors.silver} fontSize={2} fontWeight={4} mb={0}>
+                View and verify the signature for each DID below.
+              </Text>
+              <Text color={colors.silver} fontSize={2} mb={0}>
+                A decentralized identifier or DID enables verifiable, decentralized digital identity. A DID identifies
+                any subject that the controller of the DID decides that it identifies.
+              </Text>
+            </Box>
+            {data.didDocEntries.map((didDocEntry: any, i: number) => {
               return (
-                <>
-                  <Box mb={5}>
-                    <Did did={entry.did} icon copy />
-                  </Box>
-                  <JSONPretty data={entry.didDoc} />
-                </>
+                <Box borderBottom={2} p={[3, 5]} key={i}>
+                  <DomainDidDetails didDocEntry={didDocEntry} />
+                </Box>
               );
             })}
           </Box>
@@ -65,7 +70,7 @@ export const DomainPage: React.FunctionComponent = () => {
           </Flex>
         ) : error ? (
           <Flash my={3} variant="danger">
-            {errorMsg(error.message)}
+            <ErrorMsg error={error.message} />
           </Flash>
         ) : (
           <Flash my={3} variant="warning">
@@ -73,6 +78,6 @@ export const DomainPage: React.FunctionComponent = () => {
           </Flash>
         )}
       </Viewport>
-    </>
+    </Global>
   );
 };

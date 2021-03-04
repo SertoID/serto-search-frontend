@@ -1,17 +1,16 @@
 export enum routes {
-  DOMAIN_LISTING_PAGE = "/domain/:domain",
+  DOMAIN_PAGE = "/domain/:domain",
   HOMEPAGE = "/",
-  HOW_IT_WORKS = "",
-  PRIVACY = "/privacy",
+  HOW_IT_WORKS = "/how-it-works",
   REGISTER = "/register",
   SEARCH = "/search",
-  TERMS = "/terms",
 }
 
 export const links = {
-  FEEDBACK: "",
+  BLOG: "https://serto.medium.com/",
+  FEEDBACK: "https://forms.gle/PhH6KuKt6uHKUE8P7",
+  PRIVACY: "https://consensys.net/privacy-policy/",
   SERTO: "https://serto.id",
-  SERTO_AGENT: "",
-  SERTO_SCHEMAS: "",
-  SUPPORT: "",
+  TERMS: "https://consensys.net/terms-of-use/",
+  TWITTER: "https://twitter.com/serto_id",
 };

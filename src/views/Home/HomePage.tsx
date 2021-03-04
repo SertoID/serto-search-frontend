@@ -1,36 +1,42 @@
 import React from "react";
 import { Box, Flex, Text } from "rimble-ui";
-import { colors, H1, H5 } from "serto-ui";
+import { baseColors, colors, H1 } from "serto-ui";
 import { Search } from "../Search/Search";
-import { Viewport } from "../../components";
+import { hpSplashImg, Global, Viewport } from "../../components";
 
 export const HomePage: React.FunctionComponent = () => {
   return (
-    <>
-      <Viewport fullWidthBgColor={colors.primary.border}>
-        <Flex alignItems="center" height="500px" justifyContent="center" width="100%">
-          <Box maxWidth="780px" width="100%">
-            <H1 color={colors.primary.base} lineHeight="solid" mb={4} mt={0}>
-              Serto Search
-            </H1>
-            <Text color={colors.primary.base} fontSize="18px" fontWeight={3} lineHeight="solid" mb={5} mt={0}>
-              The internet’s source of entities represented by decentralized identitifers, or DIDs
-            </Text>
-            <Search />
-          </Box>
-        </Flex>
+    <Global banner>
+      <Box bg={baseColors.black} mx="auto" maxWidth="1440px" position="relative" width="100%">
+        <img src={hpSplashImg} alt="Taken by Olena Sergienko" width="100%" />
+        <Viewport>
+          <Flex
+            alignItems="center"
+            height="100%"
+            justifyContent="center"
+            p={4}
+            position="absolute"
+            left="0"
+            top="0"
+            width="100%"
+          >
+            <Box maxWidth="780px" mb={[0, 7]} width="100%">
+              <H1 color={baseColors.white} lineHeight="solid" mb={[1, 4]} mt={0}>
+                Serto Search
+              </H1>
+              <Text color={baseColors.white} fontSize={[1, "16px"]} fontWeight={3} mb={[2, 5]} mt={0}>
+                The internet’s source of entities represented by decentralized identitifers, or DIDs
+              </Text>
+              <Search />
+            </Box>
+          </Flex>
+        </Viewport>
+      </Box>
+      <Viewport mb={7} mt={1}>
+        <Text color={colors.silver} fontSize={0}>
+          Photo by Olena Sergienko
+        </Text>
       </Viewport>
-      <Viewport>
-        <Box maxWidth="570px" mb="60px" mt="60px" width="100%">
-          <H5 color={colors.midGray} mb={1} mt={0}>
-            About This Site
-          </H5>
-          <Text color={colors.midGray}>
-            An initiative to help everyone find businesses and organizations they can trust. Serto Registry leverages
-            standards-based decentralized identifiers, and verfiable credentials technology.
-          </Text>
-        </Box>
-      </Viewport>
-    </>
+    </Global>
   );
 };

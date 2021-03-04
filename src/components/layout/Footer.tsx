@@ -1,8 +1,7 @@
 import * as React from "react";
 import { links, routes } from "../../constants";
 import { Box, Flex, Link, Text } from "rimble-ui";
-import { baseColors, colors, H6 } from "serto-ui";
-import { SertoIcon } from "../elements";
+import { baseColors, colors, H6, SertoLogo } from "serto-ui";
 import { Viewport } from "../";
 
 export interface FooterLinkProps {
@@ -22,36 +21,46 @@ export const Footer: React.FunctionComponent = () => {
   const year = date.getFullYear();
 
   return (
-    <Viewport fullWidthBgColor={baseColors.white}>
-      <Flex alignItems="center" justifyContent="space-between" py={5} width="100%">
-        <Flex>
-          <Flex flexDirection="column" minWidth="200px">
+    <Viewport fullBorderTop={2} fullBgColor={baseColors.white}>
+      <Flex alignItems="center" flexWrap="wrap" justifyContent="space-between" py={5} width="100%">
+        <Flex flexWrap="wrap">
+          <Flex flexDirection="column" maxWidth="450px" mb={5} mr={5}>
             <H6 mt={0} mb={2}>
-              Products
+              About This Site
             </H6>
-            <FooterLink href={links.SERTO_AGENT}>Serto Agent</FooterLink>
-            <FooterLink href={links.SERTO_SCHEMAS}>Serto Schemas</FooterLink>
+            <Text color={colors.midGray} fontSize={2} fontWeight={2}>
+              Serto Search helps everyone find people and organizations that are set up for blockchain and web3
+              activities.
+            </Text>
           </Flex>
-          <Flex flexDirection="column" minWidth="200px">
+          <Flex flexDirection="column" mb={5} mr={5}>
             <H6 mt={0} mb={2}>
               Company
             </H6>
             <FooterLink href={links.SERTO}>Serto.id</FooterLink>
-            <FooterLink href={links.SUPPORT}>Support</FooterLink>
+            <FooterLink href={routes.HOW_IT_WORKS}>How Serto Search works</FooterLink>
             <FooterLink href={links.FEEDBACK}>Send Feedback</FooterLink>
           </Flex>
-          <Flex flexDirection="column" minWidth="200px">
+          <Flex flexDirection="column" mb={5} mr={5}>
             <H6 mt={0} mb={2}>
-              &nbsp;
+              Social
             </H6>
-            <FooterLink href={routes.TERMS}>Terms</FooterLink>
-            <FooterLink href={routes.PRIVACY}>Privacy</FooterLink>
+            <FooterLink href={links.TWITTER}>Twitter</FooterLink>
+            <FooterLink href={links.BLOG}>Blog</FooterLink>
+            <Flex alignItems="flex-start">
+              <FooterLink href={links.TERMS}>Terms of use</FooterLink>
+              {/* eslint-disable-next-line */}
+              <Text.span color={colors.midGray} fontSize={1} fontWeight={2} lineHeight="title">
+                &nbsp;and&nbsp;
+              </Text.span>
+              <FooterLink href={links.PRIVACY}> Privacy</FooterLink>
+            </Flex>
           </Flex>
         </Flex>
         <Box>
           <Box mb={1}>
             <Link href={links.SERTO}>
-              <SertoIcon />
+              <SertoLogo />
             </Link>
           </Box>
           <Text textAlign="right" color={colors.midGray} fontSize={0}>

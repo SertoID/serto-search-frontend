@@ -5,12 +5,12 @@ import { PhonebookContext } from "./context/PhonebookProvider";
 import { PhonebookService } from "./services/PhonebookService";
 import { IdentityThemeProvider, fonts } from "serto-ui";
 import { routes } from "./constants";
-import { Global } from "./components/layout";
 
 import { HomePage } from "./views/Home/HomePage";
 import { RegisterPage } from "./views/Register/RegisterPage";
 import { DomainPage } from "./views/Domain/DomainPage";
 import { SearchPage } from "./views/Search/SearchPage";
+import { HowItWorksPage } from "./views/HowItWorks/HowItWorksPage";
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -35,14 +35,13 @@ export const App = () => {
         <React.Suspense fallback={<></>}>
           <IdentityThemeProvider>
             <GlobalStyle />
-            <Global>
-              <Switch>
-                <Route exact path={routes.HOMEPAGE} component={HomePage} />
-                <Route path={routes.DOMAIN_LISTING_PAGE} component={DomainPage} />
-                <Route path={routes.REGISTER} component={RegisterPage} />
-                <Route path={routes.SEARCH} component={SearchPage} />
-              </Switch>
-            </Global>
+            <Switch>
+              <Route exact path={routes.HOMEPAGE} component={HomePage} />
+              <Route path={routes.DOMAIN_PAGE} component={DomainPage} />
+              <Route path={routes.REGISTER} component={RegisterPage} />
+              <Route path={routes.SEARCH} component={SearchPage} />
+              <Route path={routes.HOW_IT_WORKS} component={HowItWorksPage} />
+            </Switch>
           </IdentityThemeProvider>
         </React.Suspense>
       </PhonebookContext.Provider>
