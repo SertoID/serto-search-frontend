@@ -11,7 +11,7 @@ export interface DomainHeaderProps {
 export const DomainHeader: React.FunctionComponent<DomainHeaderProps> = (props) => {
   const { domain } = props;
   return (
-    <Flex borderBottom={2} justifyContent="space-between" mb={5} pb={4} px={4}>
+    <Flex justifyContent="space-between">
       <Box>
         <Flex alignItems="center" mb={3}>
           <DomainImage domain={domain} />

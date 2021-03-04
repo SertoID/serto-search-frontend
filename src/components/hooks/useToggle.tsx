@@ -1,11 +1,7 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
-// TODO move to serto-ui
-
-export function useToggle(initialValue: boolean = false) {
+export const useToggle = (initialValue: boolean): [boolean, () => void] => {
   const [value, setValue] = useState(initialValue);
-  const toggle = useCallback(() => {
-    setValue((v) => !v);
-  }, []);
-  return [value, toggle];
-}
+  const toggleValue = () => setValue(!value);
+  return [value, toggleValue];
+};

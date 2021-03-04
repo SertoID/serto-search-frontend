@@ -27,7 +27,7 @@ export const VerificationStatusItem: React.FunctionComponent<VerificationStatusI
   return (
     <Flex alignItems="center" mb={2}>
       <CredentialCheck />
-      <Text color={colors.midGray} fontSize={1} ml={1}>
+      <Text color={colors.midGray} fontSize={1} mx={1}>
         {props.title}
       </Text>
     </Flex>
