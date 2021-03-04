@@ -16,7 +16,7 @@ export const SearchPage: React.FunctionComponent = () => {
   });
 
   return (
-    <Global searchBar>
+    <Global banner searchBar>
       <Viewport>
         {data?.length > 0 ? (
           <Box bg={baseColors.white} borderRadius={1} py={3}>

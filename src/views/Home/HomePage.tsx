@@ -6,7 +6,7 @@ import { hpSplashImg, Global, Viewport } from "../../components";
 
 export const HomePage: React.FunctionComponent = () => {
   return (
-    <Global>
+    <Global banner>
       <Box bg={baseColors.black} my="auto" maxWidth="1440px" position="relative" width="100%">
         <img src={hpSplashImg} alt="Taken by Olena Sergienko" width="100%" />
         <Viewport>

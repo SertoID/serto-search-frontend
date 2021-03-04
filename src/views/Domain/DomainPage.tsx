@@ -22,7 +22,7 @@ export const DomainPage: React.FunctionComponent = () => {
   );
 
   return (
-    <Global searchBar>
+    <Global banner searchBar>
       <Viewport fullBgColor={colors.primary.border}>
         {data?.domain ? (
           <Box borderRadius={1} bg={baseColors.white} my={5}>
