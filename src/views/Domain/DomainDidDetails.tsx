@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Flex, Text } from "rimble-ui";
-import { colors, CopyableTruncatableText, H6 , HighlightedJson} from "serto-ui";
+import { colors, CopyableTruncatableText, H6, HighlightedJson } from "serto-ui";
 import { useToggle } from "../../components";
 
 export interface DidDocEntryTypes {
