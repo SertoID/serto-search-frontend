@@ -46,7 +46,7 @@ export const RegisterPage: React.FunctionComponent = () => {
   }
 
   return (
-    <Global showSearch>
+    <Global searchBar>
       <Box bg={baseColors.white} border={2} borderRadius={1} boxShadow={2} maxWidth="480px" m="50px auto 100px">
         <Box py={5} px={3}>
           {success ? (

@@ -21,7 +21,7 @@ export const DomainPage: React.FunctionComponent = () => {
   );
 
   return (
-    <Global showSearch>
+    <Global searchBar>
       <Viewport></Viewport>
       <Viewport fullBgColor={colors.primary.border}>
         {data?.domain ? (

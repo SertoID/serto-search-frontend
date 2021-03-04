@@ -18,7 +18,7 @@ export const NavLink: React.FunctionComponent<NavLinkProps> = (props) => {
 };
 
 export interface NavProps {
-  showSearch?: boolean;
+  searchBar?: boolean;
 }
 
 export const Nav: React.FunctionComponent<NavProps> = (props) => {
@@ -32,7 +32,7 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
             </Link>
             <NavLink href={routes.HOW_IT_WORKS}>How it works</NavLink>
           </Flex>
-          {props.showSearch && (
+          {props.searchBar && (
             <Flex justifyContent="center" width="33%">
               <Box width="500px">
                 <Search />

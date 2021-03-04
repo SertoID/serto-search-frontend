@@ -4,13 +4,13 @@ import { Nav } from "./Nav";
 import { Footer } from "./Footer";
 
 export interface GlobalProps {
-  showSearch?: boolean;
+  searchBar?: boolean;
 }
 
 export const Global: React.FunctionComponent<GlobalProps> = (props) => {
   return (
     <Box pt="72px" position="relative" height="100vh" width="100%">
-      <Nav showSearch={props.showSearch} />
+      <Nav searchBar={props.searchBar} />
       {props.children}
       <Footer />
     </Box>
