@@ -22,9 +22,9 @@ export const Footer: React.FunctionComponent = () => {
 
   return (
     <Viewport fullBorderTop={2} fullBgColor={baseColors.white}>
-      <Flex alignItems="center" justifyContent="space-between" py={5} width="100%">
-        <Flex>
-          <Flex flexDirection="column" maxWidth="450px" mr={5}>
+      <Flex alignItems="center" flexWrap="wrap" justifyContent="space-between" py={5} width="100%">
+        <Flex flexWrap="wrap">
+          <Flex flexDirection="column" maxWidth="450px" mb={5} mr={5}>
             <H6 mt={0} mb={2}>
               About This Site
             </H6>
@@ -33,7 +33,7 @@ export const Footer: React.FunctionComponent = () => {
               activities.
             </Text>
           </Flex>
-          <Flex flexDirection="column" mr={5}>
+          <Flex flexDirection="column" mb={5} mr={5}>
             <H6 mt={0} mb={2}>
               Company
             </H6>
@@ -41,7 +41,7 @@ export const Footer: React.FunctionComponent = () => {
             <FooterLink href={routes.HOW_IT_WORKS}>How Serto Search works</FooterLink>
             <FooterLink href={links.FEEDBACK}>Send Feedback</FooterLink>
           </Flex>
-          <Flex flexDirection="column" mr={5}>
+          <Flex flexDirection="column" mb={5} mr={5}>
             <H6 mt={0} mb={2}>
               Social
             </H6>

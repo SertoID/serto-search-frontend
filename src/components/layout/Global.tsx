@@ -2,6 +2,7 @@ import * as React from "react";
 import { Box } from "rimble-ui";
 import { Nav } from "./Nav";
 import { Footer } from "./Footer";
+import { useWindowSize } from "../hooks";
 
 export interface GlobalProps {
   banner?: boolean;
@@ -9,9 +10,12 @@ export interface GlobalProps {
 }
 
 export const Global: React.FunctionComponent<GlobalProps> = (props) => {
+  const size = useWindowSize();
+  const mobile = size.width <= 800 ? true : false;
+
   return (
     <Box pt={props.banner ? "132px" : "72px"} position="relative" height="100vh" width="100%">
-      <Nav banner={props.banner} searchBar={props.searchBar} />
+      <Nav banner={props.banner} mobile={mobile} searchBar={props.searchBar} />
       {props.children}
       <Footer />
     </Box>

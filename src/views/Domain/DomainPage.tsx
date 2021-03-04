@@ -3,9 +3,9 @@ import useSWR from "swr";
 import { useParams } from "react-router-dom";
 import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
-import { Box, Flash, Flex, Loader, Text } from "rimble-ui";
+import { Box, Flash, Flex, Icon, Loader, Text } from "rimble-ui";
 import { baseColors, colors, H4, HighlightedJson } from "serto-ui";
-import { ArrowDown, ArrowUp, DomainDidDetails } from "./DomainDidDetails";
+import { DomainDidDetails } from "./DomainDidDetails";
 import { DomainHeader } from "./DomainHeader";
 import { useToggle, ErrorMsg, Global, Viewport } from "../../components";
 
@@ -26,14 +26,16 @@ export const DomainPage: React.FunctionComponent = () => {
       <Viewport fullBgColor={colors.primary.border}>
         {data?.domain ? (
           <Box borderRadius={1} bg={baseColors.white} my={5}>
-            <Box borderBottom={2} p={5}>
+            <Box borderBottom={2} p={[3, 5]}>
               <DomainHeader domain={data.domain} />
             </Box>
-            <Box borderBottom={2} p={5}>
+            <Box borderBottom={2} p={[3, 5]}>
               <Flex alignItems="center" justifyContent="space-between">
-                <H4 my={0}>DID Configuration</H4>
+                <H4 mr={3} my={0}>
+                  DID Configuration
+                </H4>
                 <Box onClick={toggleIsOpen} style={{ cursor: "pointer" }}>
-                  {isOpen ? <ArrowUp /> : <ArrowDown />}
+                  {isOpen ? <Icon name="KeyboardArrowUp" /> : <Icon name="KeyboardArrowDown" />}
                 </Box>
               </Flex>
               {isOpen && (
@@ -42,7 +44,7 @@ export const DomainPage: React.FunctionComponent = () => {
                 </Box>
               )}
             </Box>
-            <Box borderBottom={2} p={5}>
+            <Box borderBottom={2} p={[3, 5]}>
               <H4 mb={3} mt={0}>
                 Decentralized Identifiers (DID)
               </H4>
@@ -56,7 +58,7 @@ export const DomainPage: React.FunctionComponent = () => {
             </Box>
             {data.didDocEntries.map((didDocEntry: any, i: number) => {
               return (
-                <Box borderBottom={2} p={5} key={i}>
+                <Box borderBottom={2} p={[3, 5]} key={i}>
                   <DomainDidDetails didDocEntry={didDocEntry} />
                 </Box>
               );

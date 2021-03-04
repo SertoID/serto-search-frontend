@@ -27,7 +27,7 @@ export const Viewport: React.FunctionComponent<ViewportProps> = (props) => {
         bg={props.innerBgColor}
         borderBottom={props.innerBorderBottom}
         borderTop={props.innerBorderTop}
-        px={4}
+        px={[3, 4]}
         maxWidth="1440px"
         width="100%"
       >

@@ -9,7 +9,7 @@ export const Banner: React.FunctionComponent = () => {
     <Viewport fullBgColor={colors.primary.base}>
       <Flex alignItems="center" height="60px" justifyContent="center">
         <Icon color={baseColors.white} mr={1} name="Info" />
-        <Text color={baseColors.white} fontSize={2}>
+        <Text color={baseColors.white} fontSize={[0, 2]}>
           Serto Search is in beta. We welcome{" "}
           <a
             href={links.FEEDBACK}
