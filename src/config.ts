@@ -5,8 +5,7 @@ export interface ConfigType {
 
 const defaultConfig: ConfigType = {
   ENVIRONMENT: process.env.NODE_ENV || "development",
-  API_URL: "http://staging.api.search.serto.id",
-  // API_URL: "http://localhost:8000",
+  API_URL: process.env.API_URL || "http://localhost:8000",
 };
 
 const serverConfigString = (window as any).SERVER_CONFIG;
