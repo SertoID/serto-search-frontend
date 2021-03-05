@@ -81,20 +81,18 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
       <Box bg={colors.primary.border} boxShadow={1}>
         <Viewport>
           <Flex alignItems="center" height="72px" justifyContent="space-between">
-            <Flex alignItems="center" width="33%">
-              <Link href={routes.HOMEPAGE} mr={6}>
+            <Flex alignItems="center" width="30%">
+              <Link href={routes.HOMEPAGE} mr={5}>
                 <SertoSearchLogo />
               </Link>
               <NavLink href={routes.HOW_IT_WORKS}>How it works</NavLink>
             </Flex>
             {props.searchBar && (
-              <Flex justifyContent="center" width="33%">
-                <Box width="500px">
-                  <Search />
-                </Box>
+              <Flex justifyContent="center" width="39%">
+                <Search />
               </Flex>
             )}
-            <Flex justifyContent="flex-end" width="33%">
+            <Flex justifyContent="flex-end" width="30%">
               <Button as="a" href={routes.REGISTER}>
                 Add Domain
               </Button>

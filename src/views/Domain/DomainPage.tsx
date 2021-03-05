@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
 import { Box, Flash, Flex, Icon, Loader, Text } from "rimble-ui";
-import { baseColors, colors, H4, HighlightedJson } from "serto-ui";
+import { baseColors, colors, CopyToClipboard, H4, HighlightedJson } from "serto-ui";
 import { DomainDidDetails } from "./DomainDidDetails";
 import { DomainHeader } from "./DomainHeader";
 import { useToggle, ErrorMsg, Global, Viewport } from "../../components";
@@ -31,38 +31,58 @@ export const DomainPage: React.FunctionComponent = () => {
             </Box>
             <Box borderBottom={2} p={[3, 5]}>
               <Flex alignItems="center" justifyContent="space-between">
-                <H4 mr={3} my={0}>
-                  DID Configuration
-                </H4>
+                <Box mr={3}>
+                  <H4 mb={3} mt={0}>
+                    DID Configuration
+                  </H4>
+                  <Text color={colors.silver} fontSize={2} fontWeight={4} mb={0}>
+                    Copy and verify signature
+                  </Text>
+                  <Text color={colors.silver} fontSize={2} mb={0}>
+                    A DID Configuration is a Well-Known resource in the format of a JSON object that includes Domain
+                    Linkage Assertions.
+                  </Text>
+                </Box>
                 <Box onClick={toggleIsOpen} style={{ cursor: "pointer" }}>
-                  {isOpen ? <Icon name="KeyboardArrowUp" /> : <Icon name="KeyboardArrowDown" />}
+                  {isOpen ? (
+                    <Icon color={colors.primary.base} name="KeyboardArrowUp" />
+                  ) : (
+                    <Icon color={colors.primary.base} name="KeyboardArrowDown" />
+                  )}
                 </Box>
               </Flex>
               {isOpen && (
                 <Box mt={5}>
-                  <HighlightedJson json={data.didConfigEntry.didConfig} />
+                  <Box position="relative">
+                    <Box position="absolute" right={4} top={3} zIndex={1}>
+                      <CopyToClipboard text={data.didConfigEntry.didConfig} textButton />
+                    </Box>
+                    <HighlightedJson json={data.didConfigEntry.didConfig} />
+                  </Box>
                 </Box>
               )}
             </Box>
-            <Box borderBottom={2} p={[3, 5]}>
-              <H4 mb={3} mt={0}>
-                Decentralized Identifiers (DID)
-              </H4>
-              <Text color={colors.silver} fontSize={2} fontWeight={4} mb={0}>
-                View and verify the signature for each DID below.
-              </Text>
-              <Text color={colors.silver} fontSize={2} mb={0}>
-                A decentralized identifier or DID enables verifiable, decentralized digital identity. A DID identifies
-                any subject that the controller of the DID decides that it identifies.
-              </Text>
+            <Box p={[3, 5]}>
+              <Box borderBottom={2} pb={5}>
+                <H4 mb={3} mt={0}>
+                  Decentralized Identifiers (DID)
+                </H4>
+                <Text color={colors.silver} fontSize={2} fontWeight={4} mb={0}>
+                  View and verify the signature for each DID below.
+                </Text>
+                <Text color={colors.silver} fontSize={2} mb={0}>
+                  A decentralized identifier or DID enables verifiable, decentralized digital identity. A DID identifies
+                  any subject that the controller of the DID decides that it identifies.
+                </Text>
+              </Box>
+              {data.didDocEntries.map((didDocEntry: any, i: number) => {
+                return (
+                  <Box borderBottom={2} p={[3, 5]} key={i}>
+                    <DomainDidDetails didDocEntry={didDocEntry} />
+                  </Box>
+                );
+              })}
             </Box>
-            {data.didDocEntries.map((didDocEntry: any, i: number) => {
-              return (
-                <Box borderBottom={2} p={[3, 5]} key={i}>
-                  <DomainDidDetails didDocEntry={didDocEntry} />
-                </Box>
-              );
-            })}
           </Box>
         ) : isValidating ? (
           <Flex minHeight={8} alignItems="center" justifyContent="center">

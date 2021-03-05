@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Flex, Icon, Text } from "rimble-ui";
-import { colors, CopyableTruncatableText, H6, HighlightedJson } from "serto-ui";
+import { colors, CopyableTruncatableText, CopyToClipboard, H6, HighlightedJson } from "serto-ui";
 import { useToggle } from "../../components";
 
 export interface DidDocEntryTypes {
@@ -22,14 +22,18 @@ export const DomainDidDetails: React.FunctionComponent<DomainDidDetailsProps> = 
   return (
     <>
       <Flex alignItems="center" justifyContent="space-between">
-        <Box mr={3} width="550px">
-          <H6 mb={2} mt={0}>
+        <Box mr={3} width={["90%", "auto"]}>
+          <H6 color={colors.darkGray} mb={2} mt={0}>
             DID Address
           </H6>
-          <CopyableTruncatableText text={didDocEntry.did} />
+          <CopyableTruncatableText fontWeight={3} text={didDocEntry.did} />
         </Box>
         <Box onClick={toggleIsOpen} style={{ cursor: "pointer" }}>
-          {isOpen ? <Icon name="KeyboardArrowUp" /> : <Icon name="KeyboardArrowDown" />}
+          {isOpen ? (
+            <Icon color={colors.primary.base} name="KeyboardArrowUp" />
+          ) : (
+            <Icon color={colors.primary.base} name="KeyboardArrowDown" />
+          )}
         </Box>
       </Flex>
       {isOpen && (
@@ -39,7 +43,13 @@ export const DomainDidDetails: React.FunctionComponent<DomainDidDetailsProps> = 
               DID Document
             </Text>
           </Box>
-          <HighlightedJson json={didDocEntry.didDoc} />
+
+          <Box position="relative">
+            <Box position="absolute" right={4} top={3} zIndex={1}>
+              <CopyToClipboard text={didDocEntry.didDoc} textButton />
+            </Box>
+            <HighlightedJson json={didDocEntry.didDoc} />
+          </Box>
         </Box>
       )}
     </>
