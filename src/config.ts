@@ -3,9 +3,17 @@ export interface ConfigType {
   API_URL: string;
 }
 
+const domain = window.location.origin;
+let apiUrl = "http://localhost:8000";
+if (domain.includes("beta")) {
+  apiUrl = "http://beta.api.search.serto.id";
+} else if (domain.includes("staging")) {
+  apiUrl = "http://staging.api.search.serto.id";
+}
+
 const defaultConfig: ConfigType = {
   ENVIRONMENT: process.env.NODE_ENV || "development",
-  API_URL: process.env.API_URL || "http://localhost:8000",
+  API_URL: apiUrl,
 };
 
 const serverConfigString = (window as any).SERVER_CONFIG;
