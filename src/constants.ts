@@ -8,7 +8,7 @@ export enum routes {
 
 export const links = {
   BLOG: "https://serto.medium.com/",
-  FEEDBACK: "https://forms.gle/PhH6KuKt6uHKUE8P7",
+  FEEDBACK: "https://forms.gle/Kgw6bUGASZCp1GG26",
   PRIVACY: "https://consensys.net/privacy-policy/",
   SERTO: "https://serto.id",
   TERMS: "https://consensys.net/terms-of-use/",
