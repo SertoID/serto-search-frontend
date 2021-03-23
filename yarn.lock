@@ -1489,6 +1489,11 @@
   resolved "https://registry.yarnpkg.com/@rimble/icons/-/icons-1.1.0.tgz#e69bdff01190c304af95fae578a5d1b90f34e14d"
   integrity sha512-lR6cVMe/wum6bi6H5qmUH0wEPvCg269XdYMaRwgxpvqbhu0gytH9vTSMkWhbaBLWjmALONt/qjDCQGCESQ+qbg==
 
+"@rimble/icons@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@rimble/icons/-/icons-1.2.0.tgz#86dd1d770b894ae29dcb62ebfda34b0054546b68"
+  integrity sha512-v+qh/Bb3HFF9y1Gy/v1kHXqFJxf52jxwBL2mi1DPpR9pUaCsOZzmuw+DIHt9XIPfq19C2iuIQ6tcLhxTDryWPQ==
+
 "@rollup/plugin-node-resolve@^7.1.1":
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-node-resolve/-/plugin-node-resolve-7.1.3.tgz#80de384edfbd7bfc9101164910f86078151a3eca"
@@ -10430,10 +10435,10 @@ serialize-javascript@^5.0.1:
   dependencies:
     randombytes "^2.1.0"
 
-serto-ui@^0.2.8:
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/serto-ui/-/serto-ui-0.2.8.tgz#95ab4e113767a886545bee4ea51ddfda45824e4d"
-  integrity sha512-SBFjQK1hNW0s0fcLHCHkH+BWUPMAH2fkCFLC+vnBTH/MueMgqnHHOKCLEbnwX2Ik42eTNJWaM6ESEGV2yn5erQ==
+serto-ui@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/serto-ui/-/serto-ui-0.3.0.tgz#947f3de16b5627eaa7af0400499045354e703658"
+  integrity sha512-7N3mNuxseo0X9RC7s0xu9wXz9/argz6oqfHN8RCYLnMjwXKyTr61PFxLe4eBFnV74WztgUdSMit6fOpP2eL4bQ==
   dependencies:
     "@rimble/icons" ConsenSysMesh/rimble-icons
     "@sindresorhus/slugify" "^1.1.0"

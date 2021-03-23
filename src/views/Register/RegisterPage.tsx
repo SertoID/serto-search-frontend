@@ -3,9 +3,10 @@ import { useHistory, Link } from "react-router-dom";
 import { mutate } from "swr";
 import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
+import { Check } from "@rimble/icons";
 import { Box, Button, Flash, Flex, Input, Loader, Text } from "rimble-ui";
 import { domainRegex } from "../../utils/helpers";
-import { baseColors, colors, Check, H3 } from "serto-ui";
+import { baseColors, colors, H3 } from "serto-ui";
 import { routes } from "../../constants";
 import { ErrorMsg, Global, Viewport } from "../../components";
 

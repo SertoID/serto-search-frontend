@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Flex, Icon, Text } from "rimble-ui";
+import { KeyboardArrowDown, KeyboardArrowUp } from "@rimble/icons";
+import { Box, Flex, Text } from "rimble-ui";
 import { colors, CopyableTruncatableText, CopyToClipboard, H6, HighlightedJson } from "serto-ui";
 import { useToggle } from "../../components";
 
@@ -30,9 +31,9 @@ export const DomainDidDetails: React.FunctionComponent<DomainDidDetailsProps> = 
         </Box>
         <Box onClick={toggleIsOpen} style={{ cursor: "pointer" }}>
           {isOpen ? (
-            <Icon color={colors.primary.base} name="KeyboardArrowUp" />
+            <KeyboardArrowDown color={colors.primary.base} />
           ) : (
-            <Icon color={colors.primary.base} name="KeyboardArrowDown" />
+            <KeyboardArrowUp color={colors.primary.base} />
           )}
         </Box>
       </Flex>
