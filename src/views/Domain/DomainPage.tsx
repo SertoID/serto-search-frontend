@@ -5,10 +5,10 @@ import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@rimble/icons";
 import { Box, Flash, Flex, Loader, Text } from "rimble-ui";
-import { baseColors, colors, CopyToClipboard, H4, HighlightedJson } from "serto-ui";
+import { baseColors, colors, useToggle, CopyToClipboard, H4, HighlightedJson } from "serto-ui";
 import { DomainDidDetails } from "./DomainDidDetails";
 import { DomainHeader } from "./DomainHeader";
-import { useToggle, ErrorMsg, Global, Viewport } from "../../components";
+import { ErrorMsg, Global, Viewport } from "../../components";
 
 export const DomainPage: React.FunctionComponent = () => {
   const [isOpen, toggleIsOpen] = useToggle(false);
