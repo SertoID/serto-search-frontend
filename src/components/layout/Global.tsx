@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Box } from "rimble-ui";
+import { useWindowSize } from "serto-ui";
 import { Nav } from "./Nav";
 import { Footer } from "./Footer";
-import { useWindowSize } from "../hooks";
 
 export interface GlobalProps {
   banner?: boolean;

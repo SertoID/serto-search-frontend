@@ -1,11 +1,10 @@
 import React from "react";
 import { routes } from "../../constants";
 import { Box, Button, Flex, Icon, Link } from "rimble-ui";
-import { colors, SertoSearchLogo } from "serto-ui";
+import { colors, useToggle, SertoSearchLogo } from "serto-ui";
 import { Viewport } from "../";
 import { Search } from "../../views/Search/Search";
 import { Banner } from "./Banner";
-import { useToggle } from "../hooks";
 
 export interface NavLinkProps {
   href: string;

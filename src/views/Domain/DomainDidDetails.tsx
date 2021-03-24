@@ -1,7 +1,7 @@
 import React from "react";
-import { Box, Flex, Icon, Text } from "rimble-ui";
-import { colors, CopyableTruncatableText, CopyToClipboard, H6, HighlightedJson } from "serto-ui";
-import { useToggle } from "../../components";
+import { KeyboardArrowDown, KeyboardArrowUp } from "@rimble/icons";
+import { Box, Flex, Text } from "rimble-ui";
+import { colors, useToggle, CopyableTruncatableText, CopyToClipboard, H6, HighlightedJson } from "serto-ui";
 
 export interface DidDocEntryTypes {
   baselineEndpoint: string;
@@ -29,11 +29,7 @@ export const DomainDidDetails: React.FunctionComponent<DomainDidDetailsProps> = 
           <CopyableTruncatableText fontWeight={3} text={didDocEntry.did} />
         </Box>
         <Box onClick={toggleIsOpen} style={{ cursor: "pointer" }}>
-          {isOpen ? (
-            <Icon color={colors.primary.base} name="KeyboardArrowUp" />
-          ) : (
-            <Icon color={colors.primary.base} name="KeyboardArrowDown" />
-          )}
+          {isOpen ? <KeyboardArrowDown color={colors.primary.base} /> : <KeyboardArrowUp color={colors.primary.base} />}
         </Box>
       </Flex>
       {isOpen && (

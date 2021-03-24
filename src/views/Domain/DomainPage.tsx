@@ -3,11 +3,12 @@ import useSWR from "swr";
 import { useParams } from "react-router-dom";
 import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
-import { Box, Flash, Flex, Icon, Loader, Text } from "rimble-ui";
-import { baseColors, colors, CopyToClipboard, H4, HighlightedJson } from "serto-ui";
+import { KeyboardArrowDown, KeyboardArrowUp } from "@rimble/icons";
+import { Box, Flash, Flex, Loader, Text } from "rimble-ui";
+import { baseColors, colors, useToggle, CopyToClipboard, H4, HighlightedJson } from "serto-ui";
 import { DomainDidDetails } from "./DomainDidDetails";
 import { DomainHeader } from "./DomainHeader";
-import { useToggle, ErrorMsg, Global, Viewport } from "../../components";
+import { ErrorMsg, Global, Viewport } from "../../components";
 
 export const DomainPage: React.FunctionComponent = () => {
   const [isOpen, toggleIsOpen] = useToggle(false);
@@ -45,9 +46,9 @@ export const DomainPage: React.FunctionComponent = () => {
                 </Box>
                 <Box onClick={toggleIsOpen} style={{ cursor: "pointer" }}>
                   {isOpen ? (
-                    <Icon color={colors.primary.base} name="KeyboardArrowUp" />
+                    <KeyboardArrowUp color={colors.primary.base} />
                   ) : (
-                    <Icon color={colors.primary.base} name="KeyboardArrowDown" />
+                    <KeyboardArrowDown color={colors.primary.base} />
                   )}
                 </Box>
               </Flex>

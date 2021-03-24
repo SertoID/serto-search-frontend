@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Flex, Text } from "rimble-ui";
-import { baseColors, colors, H4 } from "serto-ui";
-import { DomainImage, VerificationStatus } from "../../components";
+import { baseColors, colors, DomainImage, H4, VerificationStatus } from "serto-ui";
 
 export interface DomainHeaderProps {
   domain: string;
@@ -22,7 +21,7 @@ export const DomainHeader: React.FunctionComponent<DomainHeaderProps> = (props) 
         </H4>
       </Box>
       <Box ml={[0, 5]} width={["100%", "250px"]}>
-        <VerificationStatus />
+        <VerificationStatus didConfig />
       </Box>
     </Flex>
   );
