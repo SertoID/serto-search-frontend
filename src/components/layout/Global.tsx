@@ -7,15 +7,17 @@ import { Footer } from "./Footer";
 export interface GlobalProps {
   banner?: boolean;
   searchBar?: boolean;
+  nftSearchBar?: boolean;
+  vcBar?: boolean;
 }
 
 export const Global: React.FunctionComponent<GlobalProps> = (props) => {
   const size = useWindowSize();
   const mobile = size.width <= 800 ? true : false;
-
+  console.log("nftSearchBar: ", props.nftSearchBar)
   return (
     <Box pt={props.banner ? "132px" : "72px"} position="relative" height="100vh" width="100%">
-      <Nav banner={props.banner} mobile={mobile} searchBar={props.searchBar} />
+      <Nav {...props} mobile={mobile} />
       {props.children}
       <Footer />
     </Box>

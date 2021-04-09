@@ -4,6 +4,8 @@ import { Box, Button, Flex, Icon, Link } from "rimble-ui";
 import { colors, useToggle, SertoSearchLogo } from "serto-ui";
 import { Viewport } from "../";
 import { Search } from "../../views/Search/Search";
+import { VcValidator } from "../../views/VcValidator/VcValidator";
+import { NftSearch } from "../../views/NftSearch/NftSearch";
 import { Banner } from "./Banner";
 
 export interface NavLinkProps {
@@ -22,11 +24,13 @@ export interface NavProps {
   banner?: boolean;
   mobile: boolean;
   searchBar?: boolean;
+  nftSearchBar?: boolean;
+  vcBar?: boolean;
 }
 
 export const Nav: React.FunctionComponent<NavProps> = (props) => {
   const [isOpen, toggleIsOpen] = useToggle(false);
-
+  console.log("Nav. nftSearchBar: ", props.nftSearchBar);
   if (props.mobile) {
     return (
       <Box position="fixed" top="0" width="100%" zIndex="10">
@@ -63,7 +67,8 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
                     </Button>
                   </Box>
                   <Box pb={3} width="100%">
-                    <Search />
+                    {props.searchBar && <Search />}
+                    {props.nftSearchBar && <NftSearch />}
                   </Box>
                 </Box>
               )}
@@ -90,6 +95,16 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
               <Flex justifyContent="center" width="39%">
                 <Search />
               </Flex>
+            )}
+            {props.nftSearchBar && (
+              <Flex justifyContent="center" width="39%">
+                <NftSearch />
+              </Flex>
+            )}
+            {props.vcBar && (
+              <Flex justifyContent="center" width="39%">
+                <VcValidator />
+            </Flex>
             )}
             <Flex justifyContent="flex-end" width="30%">
               <Button as="a" href={routes.REGISTER}>

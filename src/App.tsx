@@ -10,7 +10,9 @@ import { HomePage } from "./views/Home/HomePage";
 import { RegisterPage } from "./views/Register/RegisterPage";
 import { DomainPage } from "./views/Domain/DomainPage";
 import { SearchPage } from "./views/Search/SearchPage";
+import { NftSearchPage } from "./views/NftSearch/NftSearchPage";
 import { HowItWorksPage } from "./views/HowItWorks/HowItWorksPage";
+import { VcValidatorPage } from "./views/VcValidator/VcValidatorPage";
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -40,6 +42,8 @@ export const App = () => {
               <Route path={routes.DOMAIN_PAGE} component={DomainPage} />
               <Route path={routes.REGISTER} component={RegisterPage} />
               <Route path={routes.SEARCH} component={SearchPage} />
+              <Route path={routes.VC_VALIDATOR} component={VcValidatorPage} />
+              <Route path={routes.NFT_SERACH} component={NftSearchPage} />
               <Route path={routes.HOW_IT_WORKS} component={HowItWorksPage} />
             </Switch>
           </IdentityThemeProvider>
