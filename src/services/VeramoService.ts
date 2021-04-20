@@ -5,7 +5,7 @@ import { JwtMessageHandler } from "@veramo/did-jwt";
 import { DIDResolverPlugin, UniversalResolver } from '@veramo/did-resolver'
 import { Resolver, DIDResolver } from "did-resolver";
 import { EthrDIDProvider } from "@veramo/did-provider-ethr";
-import { getResolver as getEthrResolver } from "ethr-did-resolver";
+import { getResolver as ethrDidResolver } from "ethr-did-resolver";
 
 const infuraProjectId = "474dcf9e96a44844983cdb88648f43e7";
 
@@ -38,8 +38,10 @@ export const agent = createAgent<MessageHandler & IResolver>({
       resolver: new Resolver({
         key: uniresolver,
         web: uniresolver,
-        ...getEthrResolver(ethrRinkebyDidProvider),
-        ...getEthrResolver(ethrDidProvider),
+        ethr: ethrDidResolver({
+          networks: [{ name: 'rinkeby', rpcUrl: 'https://rinkeby.infura.io/v3/' + infuraProjectId }],
+        }).ethr,
+        // ...getEthrResolver(ethrDidProvider),
         ion: uniresolver,
         elem: uniresolver,
       }),

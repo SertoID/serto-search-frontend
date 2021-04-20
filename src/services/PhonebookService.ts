@@ -15,7 +15,11 @@ export class PhonebookService {
     return this.request("/v1/domain-listing", "POST", { domain });
   }
 
-  public async getNftData(contractAddress: string, tokenId: number): Promise<any> {
+  public async getDidListings(dids: string[]): Promise<any> {
+    return this.request("/v1/did-listings", "POST", { dids });
+  }
+
+  public async getNftData(contractAddress: string, tokenId: string): Promise<any> {
     return this.request("/v1/eth-nft-creator", "POST", { contractAddress, tokenId })
   }
 

@@ -1,24 +1,27 @@
+import { VerifiableCredential } from "@veramo/core";
+import { Message } from "@veramo/message-handler";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Box, Flex, Text } from "rimble-ui";
-import { baseColors, colors, DidView, H4 } from "serto-ui";
+import { baseColors, colors, DidView, H4, VC, Credential, CredentialViewTypes } from "serto-ui";
 import { DomainImage, VerificationStatus } from "../../components";
 
-export interface VcValidatorResultTypes {
-  domain: string;
-  dids: any;
-}
-
 export interface VcValidatorResultProps {
-  searchResult: VcValidatorResultTypes;
+  validated: boolean;
+  vc: VerifiableCredential;
+  didResults: any[];
 }
 
 export const VcValidatorResult: React.FunctionComponent<VcValidatorResultProps> = (props) => {
-  const { searchResult } = props;
-
+  const { vc, validated } = props;
+  console.log("vc: ", vc);
+  if (!validated) {
+    return <div>{"NOT VALIDATED"}</div>
+  }
+  // return <div>{"OK"}</div>
   return (
     <div>
-      {VcValidatorResult}
+      <Credential vc={vc as VC} viewType={CredentialViewTypes.DEFAULT} />
     </div>
   );
 

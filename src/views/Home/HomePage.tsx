@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Flex, Text } from "rimble-ui";
-import { baseColors, colors, H1 } from "serto-ui";
+import { baseColors, colors, H1, Tab, Tabs } from "serto-ui";
 import { Search } from "../Search/Search";
 import { hpSplashImg, Global, Viewport } from "../../components";
+import { VcValidator } from "../VcValidator/VcValidator";
+import { NftSearch } from "../NftSearch/NftSearch";
+
+const tabs: Tab[] = [
+  {tabName: "search", title: "Search", content: <Search />},
+  {tabName: "vc", title: "Validate VC", content: <VcValidator />},
+  {tabName: "nft", title: "NFT Lookup", content: <NftSearch />}
+];
 
 export const HomePage: React.FunctionComponent = () => {
+  const [activeTabName, setActiveTabName] = useState("search");
   return (
     <Global banner>
       <Box bg={baseColors.black} mx="auto" maxWidth="1440px" position="relative" width="100%">
@@ -27,7 +36,7 @@ export const HomePage: React.FunctionComponent = () => {
               <Text color={baseColors.white} fontSize={[1, "16px"]} fontWeight={3} mb={[2, 5]} mt={0}>
                 The internet’s source of entities represented by decentralized identitifers, or DIDs
               </Text>
-              <Search />
+              <Tabs tabs={tabs} activeTabName={activeTabName} onTabClicked={(tabName) => setActiveTabName(tabName)}/>
             </Box>
           </Flex>
         </Viewport>

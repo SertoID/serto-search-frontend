@@ -5,7 +5,6 @@ import { NftSearchBox } from "serto-ui";
 
 export const NftSearch: React.FunctionComponent = () => {
   const history = useHistory();
-  console.log("NFT SEARCH.");
   return (
     <NftSearchBox
       onSearch={(contract, tokenId) => history.push(routes.NFT_SERACH + "?contract=" + contract + "&tokenId=" + tokenId)}
