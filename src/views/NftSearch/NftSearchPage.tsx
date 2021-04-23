@@ -29,21 +29,23 @@ export const NftSearchPage: React.FunctionComponent = () => {
             <ErrorMsg error={error.message} />
           </Flash>
         ) : data ? (
-          <Flex flexDirection="column" alignItems="center" my={3} maxWidth="500px">
-            { (data.didListing && data.didListing.domains && data.didListing.domains.length > 0) ? (
-              <Flex flexDirection="column">
-                <SertoVerifiedCheckmark />
-                <Text>We've verified that the entity owning the domain {data.didListing.domains[0]} created the NFT: {data.ethNftDetails.name}</Text>
-              </Flex>
-            ) : (
-              <Flex>
-                <Text>
-                  We were unable to verify that the entity that created the NFT is linked to any known domains.
-                </Text>
-              </Flex>
-            )}
-            <Box>
-              <NftDetails {...nftDetailsProps} />
+          <Flex flexDirection="column" alignItems="center" my={3} >
+            <Box maxWidth="500px">
+              { (data.didListing && data.didListing.domains && data.didListing.domains.length > 0) ? (
+                <Flex flexDirection="column">
+                  <SertoVerifiedCheckmark />
+                  <Text>We've verified that the entity owning the domain {data.didListing.domains[0]} created the NFT: {data.ethNftDetails.name}</Text>
+                </Flex>
+              ) : (
+                <Flex>
+                  <Text>
+                    We were unable to verify that the entity that created the NFT is linked to any known domains.
+                  </Text>
+                </Flex>
+              )}
+              <Box>
+                <NftDetails {...nftDetailsProps} />
+              </Box>
             </Box>
           </Flex>
         ) : isValidating ? (

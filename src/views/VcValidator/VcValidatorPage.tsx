@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import useSWR from "swr";
 import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
-import { Box, Flash, Flex, Loader, Text } from "rimble-ui";
-import { baseColors, colors } from "serto-ui";
+import { Loader } from "rimble-ui";
+import { colors } from "serto-ui";
 import { ErrorMsg, Global, Viewport } from "../../components";
 import { VcValidatorResult, VcValidatorResultProps } from "./VcValidatorResult";
 import { agent } from "../../services/VeramoService";
@@ -21,13 +20,18 @@ export const VcValidatorPage: React.FunctionComponent = () => {
   useEffect(() => {
     return void async function validate() {
       try {
+        console.log("try handle message 1. vc: ", vc);
+        console.log("agent: ", agent);
         const res = await agent.handleMessage({raw: vc});
+        console.log("try handle message 2. res: ", res);
         
         setVcMessage((res.credentials!)[0]);
         if (res.isValid()) {
           const didResults = await Phonebook.getDidListings([(res.from as any)?.id, (res.to as any)?.id]);
           setDidResults(didResults);
           setVcValidated(true);
+        } else {
+          setVcValidated(false);
         }
       } catch (error) {
         setVcValidated(false);

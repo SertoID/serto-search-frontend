@@ -3,10 +3,9 @@ import { routes } from "../../constants";
 import { Box, Button, Flex, Icon, Link } from "rimble-ui";
 import { colors, useToggle, SertoSearchLogo } from "serto-ui";
 import { Viewport } from "../";
-import { Search } from "../../views/Search/Search";
-import { VcValidator } from "../../views/VcValidator/VcValidator";
-import { NftSearch } from "../../views/NftSearch/NftSearch";
 import { Banner } from "./Banner";
+import { useToggle } from "../hooks";
+import { CombinedSearch } from "../../views/CombinedSearch/NftSearch";
 
 export interface NavLinkProps {
   href: string;
@@ -67,8 +66,7 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
                     </Button>
                   </Box>
                   <Box pb={3} width="100%">
-                    {props.searchBar && <Search />}
-                    {props.nftSearchBar && <NftSearch />}
+                    <CombinedSearch />
                   </Box>
                 </Box>
               )}
@@ -91,21 +89,9 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
               </Link>
               <NavLink href={routes.HOW_IT_WORKS}>How it works</NavLink>
             </Flex>
-            {props.searchBar && (
-              <Flex justifyContent="center" width="39%">
-                <Search />
-              </Flex>
-            )}
-            {props.nftSearchBar && (
-              <Flex justifyContent="center" width="39%">
-                <NftSearch />
-              </Flex>
-            )}
-            {props.vcBar && (
-              <Flex justifyContent="center" width="39%">
-                <VcValidator />
+            <Flex justifyContent="center" width="39%">
+              <CombinedSearch />
             </Flex>
-            )}
             <Flex justifyContent="flex-end" width="30%">
               <Button as="a" href={routes.REGISTER}>
                 Add Domain
