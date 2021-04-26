@@ -4,7 +4,6 @@ import { Box, Button, Flex, Icon, Link } from "rimble-ui";
 import { colors, useToggle, SertoSearchLogo } from "serto-ui";
 import { Viewport } from "../";
 import { Banner } from "./Banner";
-import { useToggle } from "../hooks";
 import { CombinedSearch } from "../../views/CombinedSearch/NftSearch";
 
 export interface NavLinkProps {

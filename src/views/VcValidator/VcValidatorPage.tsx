@@ -3,10 +3,9 @@ import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
 import { Loader } from "rimble-ui";
 import { colors } from "serto-ui";
-import { ErrorMsg, Global, Viewport } from "../../components";
-import { VcValidatorResult, VcValidatorResultProps } from "./VcValidatorResult";
+import { Global, Viewport } from "../../components";
+import { VcValidatorResult } from "./VcValidatorResult";
 import { agent } from "../../services/VeramoService";
-import { Message } from "@veramo/message-handler";
 import { VerifiableCredential } from "@veramo/core";
 
 export const VcValidatorPage: React.FunctionComponent = () => {
@@ -38,7 +37,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
       }
       setLoading(false);
     }();
-  }, [vc]);
+  }, [vc, Phonebook]);
 
   return (
     <Global banner vcBar>

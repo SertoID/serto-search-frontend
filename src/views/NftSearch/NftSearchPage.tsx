@@ -2,11 +2,9 @@ import React from "react";
 import useSWR from "swr";
 import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
-import { Box, Flash, Flex, Loader, Text, Icon } from "rimble-ui";
-import { baseColors, colors, NftDetails, SertoVerifiedCheckmark } from "serto-ui";
+import { Box, Flash, Flex, Loader, Text } from "rimble-ui";
+import { colors, NftDetails, SertoVerifiedCheckmark } from "serto-ui";
 import { ErrorMsg, Global, Viewport } from "../../components";
-import { SearchResult, SearchResultTypes } from "./NftSearchResult";
-import styled from "styled-components";
 
 export const NftSearchPage: React.FunctionComponent = () => {
   const Phonebook = React.useContext<PhonebookService>(PhonebookContext);

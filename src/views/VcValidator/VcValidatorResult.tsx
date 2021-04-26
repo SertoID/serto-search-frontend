@@ -1,7 +1,7 @@
 import { VerifiableCredential } from "@veramo/core";
 import React from "react";
 import { Box, Flex, Text } from "rimble-ui";
-import { colors, H4, VC, Credential, CredentialViewTypes } from "serto-ui";
+import { colors, VC, Credential, CredentialViewTypes } from "serto-ui";
 
 export interface VcValidatorResultProps {
   validated: boolean;

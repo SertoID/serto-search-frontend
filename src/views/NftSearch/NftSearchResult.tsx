@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Box, Flex, Text } from "rimble-ui";
-import { baseColors, colors, DidView, H4 } from "serto-ui";
-import { DomainImage, VerificationStatus } from "../../components";
+import { baseColors, colors, DidView, H4, DomainImage, VerificationStatus } from "serto-ui";
 
 export interface SearchResultTypes {
   domain: string;
