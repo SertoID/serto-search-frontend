@@ -1,51 +1,31 @@
 import { VerifiableCredential } from "@veramo/core";
-import { Message } from "@veramo/message-handler";
 import React from "react";
-import { Link } from "react-router-dom";
 import { Box, Flex, Text } from "rimble-ui";
-import { baseColors, colors, DidView, H4, VC, Credential, CredentialViewTypes } from "serto-ui";
-import { DomainImage, VerificationStatus } from "../../components";
+import { colors, H4, VC, Credential, CredentialViewTypes } from "serto-ui";
 
 export interface VcValidatorResultProps {
   validated: boolean;
-  vc: VerifiableCredential;
+  vc?: VerifiableCredential;
   didResults: any[];
 }
 
 export const VcValidatorResult: React.FunctionComponent<VcValidatorResultProps> = (props) => {
   const { vc, validated } = props;
-  console.log("vc: ", vc);
-  if (!validated) {
-    return <div>{"NOT VALIDATED"}</div>
+  if (!validated || !vc) {
+    return (
+      <Flex flexDirection="column" alignItems="center" my={3}>
+        <Box maxWidth="500px" bg={colors.danger.light} borderColor={colors.danger.base} border={1} p={2}>
+          <Text>
+            {"Sorry, we were not able to Verify the Credential enterred. Please ensure you're entering the token string of the VC. If you believe your VC is valid, please contact support@serto.id"}
+          </Text>
+        </Box>
+      </Flex>
+    );
   }
-  // return <div>{"OK"}</div>
-  return (
-    <div>
-      <Credential vc={vc as VC} viewType={CredentialViewTypes.DEFAULT} />
-    </div>
-  );
 
-  // return (
-  //   <Flex borderBottom={2} flexWrap="wrap" justifyContent="space-between" p={[3, 5]}>
-  //     <Box borderBottom={[2, 0]} pb={[5, 0]} maxWidth="700px" mb={[5, 0]} width={["100%", "auto"]}>
-  //       <Box mb={4}>
-  //         <Link to={"domain/" + searchResult.domain} style={{ textDecoration: "none" }}>
-  //           <Flex alignItems="center" mb={3}>
-  //             <DomainImage domain={searchResult.domain} />
-  //             <Text color={baseColors.black}>{searchResult.domain}</Text>
-  //           </Flex>
-  //           <H4 color={colors.primary.base} lineHeight="solid" mb={1} mt={0}>
-  //             {searchResult.domain}
-  //           </H4>
-  //         </Link>
-  //       </Box>
-  //       <Box ml={[0, 5]}>
-  //         <DidView did={searchResult.dids} color={colors.primary.base} ellipsis icon />
-  //       </Box>
-  //     </Box>
-  //     <Box ml={[0, 5]} width="250px">
-  //       <VerificationStatus />
-  //     </Box>
-  //   </Flex>
-  // );
+  return (
+    <Flex flexDirection="column" alignItems="center" my={3}>
+      <Credential vc={vc as VC} viewType={CredentialViewTypes.DEFAULT} />
+    </Flex>
+  );
 };

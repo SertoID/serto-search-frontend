@@ -23,13 +23,10 @@ export interface NavProps {
   banner?: boolean;
   mobile: boolean;
   searchBar?: boolean;
-  nftSearchBar?: boolean;
-  vcBar?: boolean;
 }
 
 export const Nav: React.FunctionComponent<NavProps> = (props) => {
   const [isOpen, toggleIsOpen] = useToggle(false);
-  console.log("Nav. nftSearchBar: ", props.nftSearchBar);
   if (props.mobile) {
     return (
       <Box position="fixed" top="0" width="100%" zIndex="10">
@@ -65,9 +62,11 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
                       Add Domain
                     </Button>
                   </Box>
-                  <Box pb={3} width="100%">
-                    <CombinedSearch />
-                  </Box>
+                  {props.searchBar && (
+                    <Box pb={3} width="100%">
+                      <CombinedSearch />
+                    </Box>
+                  )}
                 </Box>
               )}
             </Box>
@@ -89,9 +88,11 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
               </Link>
               <NavLink href={routes.HOW_IT_WORKS}>How it works</NavLink>
             </Flex>
-            <Flex justifyContent="center" width="39%">
-              <CombinedSearch />
-            </Flex>
+            {props.searchBar && (
+              <Flex justifyContent="center" width="39%">
+                <CombinedSearch />
+              </Flex>
+            )}
             <Flex justifyContent="flex-end" width="30%">
               <Button as="a" href={routes.REGISTER}>
                 Add Domain

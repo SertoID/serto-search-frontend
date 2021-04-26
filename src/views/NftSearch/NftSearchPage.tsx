@@ -22,7 +22,7 @@ export const NftSearchPage: React.FunctionComponent = () => {
 //  const newProps = { name, imgUrl, details, domains } = data;
 
   return (
-    <Global banner nftSearchBar>
+    <Global banner searchBar>
       <Viewport>
         { error ? (
           <Flash my={3} variant="danger">
@@ -32,9 +32,9 @@ export const NftSearchPage: React.FunctionComponent = () => {
           <Flex flexDirection="column" alignItems="center" my={3} >
             <Box maxWidth="500px">
               { (data.didListing && data.didListing.domains && data.didListing.domains.length > 0) ? (
-                <Flex flexDirection="column">
+                <Flex flexDirection="column" alignItems="center">
                   <SertoVerifiedCheckmark />
-                  <Text>We've verified that the entity owning the domain {data.didListing.domains[0]} created the NFT: {data.ethNftDetails.name}</Text>
+                  <Text textAlign="center">We've verified that the entity owning the domain {data.didListing.domains[0]} created the NFT: {data.ethNftDetails.name}</Text>
                 </Flex>
               ) : (
                 <Flex>
