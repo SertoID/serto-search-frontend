@@ -3,8 +3,8 @@ import { routes } from "../../constants";
 import { Box, Button, Flex, Icon, Link } from "rimble-ui";
 import { colors, useToggle, SertoSearchLogo } from "serto-ui";
 import { Viewport } from "../";
-import { Search } from "../../views/Search/Search";
 import { Banner } from "./Banner";
+import { CombinedSearch } from "../../views/CombinedSearch/NftSearch";
 
 export interface NavLinkProps {
   href: string;
@@ -26,7 +26,6 @@ export interface NavProps {
 
 export const Nav: React.FunctionComponent<NavProps> = (props) => {
   const [isOpen, toggleIsOpen] = useToggle(false);
-
   if (props.mobile) {
     return (
       <Box position="fixed" top="0" width="100%" zIndex="10">
@@ -62,9 +61,11 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
                       Add Domain
                     </Button>
                   </Box>
-                  <Box pb={3} width="100%">
-                    <Search />
-                  </Box>
+                  {props.searchBar && (
+                    <Box pb={3} width="100%">
+                      <CombinedSearch />
+                    </Box>
+                  )}
                 </Box>
               )}
             </Box>
@@ -88,7 +89,7 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
             </Flex>
             {props.searchBar && (
               <Flex justifyContent="center" width="39%">
-                <Search />
+                <CombinedSearch />
               </Flex>
             )}
             <Flex justifyContent="flex-end" width="30%">

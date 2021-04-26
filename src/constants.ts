@@ -4,6 +4,8 @@ export enum routes {
   HOW_IT_WORKS = "/how-it-works",
   REGISTER = "/register",
   SEARCH = "/search",
+  NFT_SERACH = "/nft-search",
+  VC_VALIDATOR = "/vc-validator"
 }
 
 export const links = {

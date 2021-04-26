@@ -15,6 +15,14 @@ export class PhonebookService {
     return this.request("/v1/domain-listing", "POST", { domain });
   }
 
+  public async getDidListings(dids: string[]): Promise<any> {
+    return this.request("/v1/did-listings", "POST", { dids });
+  }
+
+  public async getNftData(contractAddress: string, tokenId: string): Promise<any> {
+    return this.request("/v1/eth-nft-creator", "POST", { contractAddress, tokenId })
+  }
+
   private async request(path: string, method: "GET" | "DELETE" | "POST" = "GET", body?: any): Promise<any> {
     const headers: any = {};
     if (body) {
