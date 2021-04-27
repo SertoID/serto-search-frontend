@@ -131,7 +131,7 @@ workflows:
             branches:
               only:
               - main
-              - nickreynolds/circleci
+              - aldigjo/upgrade-aws-eb-orb
           requires:
             - build
       - eb-deploy:
@@ -142,6 +142,6 @@ workflows:
             branches:
               only:
                 - main
-                - nickreynolds/circleci
+                - aldigjo/upgrade-aws-eb-orb
           requires:
             - push-image
