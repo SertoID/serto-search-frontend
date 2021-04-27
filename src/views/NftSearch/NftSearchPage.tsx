@@ -15,9 +15,7 @@ export const NftSearchPage: React.FunctionComponent = () => {
     revalidateOnFocus: false,
   });
 
-  console.log("data: ", data);
   let nftDetailsProps = { name: data?.ethNftDetails?.name, details: data?.ethNftDetails?.details, imgUrl: data?.ethNftDetails?.imgUrl, domains: data?.didListing?.domains }
-//  const newProps = { name, imgUrl, details, domains } = data;
 
   return (
     <Global banner searchBar>

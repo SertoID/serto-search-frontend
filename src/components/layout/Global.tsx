@@ -14,7 +14,6 @@ export interface GlobalProps {
 export const Global: React.FunctionComponent<GlobalProps> = (props) => {
   const size = useWindowSize();
   const mobile = size.width <= 800 ? true : false;
-  console.log("nftSearchBar: ", props.nftSearchBar)
   return (
     <Box pt={props.banner ? "132px" : "72px"} position="relative" height="100vh" width="100%">
       <Nav {...props} mobile={mobile} />
