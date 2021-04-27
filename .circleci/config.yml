@@ -131,7 +131,6 @@ workflows:
             branches:
               only:
               - main
-              - aldigjo/upgrade-aws-eb-orb
           requires:
             - build
       - eb-deploy:
@@ -142,6 +141,5 @@ workflows:
             branches:
               only:
                 - main
-                - aldigjo/upgrade-aws-eb-orb
           requires:
             - push-image
