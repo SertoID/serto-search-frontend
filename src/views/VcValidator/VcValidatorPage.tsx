@@ -19,10 +19,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
   useEffect(() => {
     return void async function validate() {
       try {
-        console.log("try handle message 1. vc: ", vc);
-        console.log("agent: ", agent);
         const res = await agent.handleMessage({raw: vc});
-        console.log("try handle message 2. res: ", res);
         
         setVcMessage((res.credentials!)[0]);
         if (res.isValid()) {
