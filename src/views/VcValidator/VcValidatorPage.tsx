@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 
 
 export const VcValidatorPage: React.FunctionComponent = () => {
-  console.log("WHAT")
   const Phonebook = React.useContext<PhonebookService>(PhonebookContext);
   const urlParams = new URLSearchParams(window.location.search);
   const vc = urlParams.get("vc") || "";
@@ -21,22 +20,16 @@ export const VcValidatorPage: React.FunctionComponent = () => {
   const [loading, setLoading] = useState(true);
   const [didResults, setDidResults] = useState([]);
   const [schemaVerified, setSchemaVerified] = useState(false);
-  const [schemaValidation, setSchemaValidation] = useState({});
   const [expired, setVcExpired] = useState(false);
-  let issuer = "";
+  const [issuer, setIssuer] = useState("");
   useEffect(() => {
     return void async function validate() {
       try {
         const res = await agent.handleMessage({raw: vc});
-        console.log("res: ", res);
         if (res.isValid() && res.credentials && res.credentials.length === 1) {
           setVcMessage((res.credentials!)[0]);
           const vcToValidate = (res.credentials!)[0];
           const { valid, warnings, errors } = await validateVc(JSON.stringify(vcToValidate));
-          setSchemaValidation({ valid, warnings, errors })
-          console.log("valid: ", valid);
-          console.log("warnings: ", warnings);
-          console.log("errors: ", errors);
           if (valid) {
             setSchemaVerified(true);
           } 
@@ -58,10 +51,9 @@ export const VcValidatorPage: React.FunctionComponent = () => {
             }
           }
           setVcExpired(true);
-          issuer = (typeof vcToValidate.issuer === "string" && vcToValidate.issuer || (vcToValidate.issuer as any).id);
+          setIssuer((typeof vcToValidate.issuer === "string") ? vcToValidate.issuer : (vcToValidate.issuer as any).id);
           let didResults = await Phonebook.getDidListings([issuer, (res.credentials[0].id as any)?.id]);
           didResults = didResults.filter((didListing: any) => didListing.did != null);
-          console.log("didResults filtered: ", didResults);
           setDidResults(didResults);
           setVcValidated(true);
         } else {
@@ -73,7 +65,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
       }
       setLoading(false);
     }();
-  }, [vc, Phonebook]);
+  }, [vc, Phonebook, issuer]);
 
   const shouldHaveBlueCheck = vcMessage && vcValidated && schemaVerified && !expired;
   const shouldHaveYellowCheck = vcMessage && vcValidated && (!schemaVerified || expired);
@@ -88,6 +80,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
           return (
             <>
               <Link to={"domain/" + domain} color={colors.primary.base}>{domain}</Link>
+              {/* eslint-disable-next-line */}
               {(i < domains.length - 1) && (<Text.span>{", "}</Text.span>)}
             </>
           )
@@ -96,17 +89,16 @@ export const VcValidatorPage: React.FunctionComponent = () => {
     )
   }
 
-  console.log("loading: ", loading);
-  console.log("vcMessage: ", vcMessage);
 
   return (
     <Global banner vcBar>
       <Viewport>
         {loading && <Loader color={colors.primary.base} size={5} /> }
         {(!loading && !vcMessage) && (
-          <Flex flexDirection="column" alignItems="center" mt={3}>
+          <Flex flexDirection="column" alignItems="center" m={3}>
             <SertoVerificationError />
             <Box bg={colors.danger.light} borderColor={colors.danger.base} borderRadius={1} border={1} p={2}>
+              {/* eslint-disable-next-line */}
               <Text.span color={colors.danger.dark}>
                 An error has occured while trying to verify this credential. Please contact the Issuer for more information.
               </Text.span>
@@ -117,7 +109,9 @@ export const VcValidatorPage: React.FunctionComponent = () => {
           <Flex flexDirection="column" alignItems="center" mt={3}>
             {shouldHaveBlueCheck && <SertoVerifiedCheckmark />}
             {shouldHaveYellowCheck && <SertoVerifiedCheckmark color={colors.warning.base}/>}
+            {/* eslint-disable-next-line */}
             {(domains && domains.length > 0) ? (<Text.span>We've verified that the owner of {domainLinks} is the issuer of this credential</Text.span>) : (<Text.span>We were unable to find any domains linked to the issuer of this Verifiable Credential</Text.span>)}
+            {/* eslint-disable-next-line */}
             {expired && (<Box bg={colors.warning.light} borderColor={colors.warning.base} borderRadius={1}><Text.span color={colors.warning.dark}>This credential is expired. Contact the Issuer for more information.</Text.span></Box>)}
             <VcValidatorResult validated={vcValidated} vc={vcMessage} didResults={didResults} schemaVerified={schemaVerified} /> 
           </Flex>
