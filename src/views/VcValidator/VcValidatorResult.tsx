@@ -1,16 +1,19 @@
 import { VerifiableCredential } from "@veramo/core";
 import React from "react";
 import { Box, Flex, Text } from "rimble-ui";
-import { colors, VC, Credential, CredentialViewTypes } from "serto-ui";
+import { AdditionalVCData, colors, VC, Credential, CredentialViewTypes } from "serto-ui";
 
 export interface VcValidatorResultProps {
   validated: boolean;
   vc?: VerifiableCredential;
   didResults: any[];
+  schemaVerified: boolean;
 }
 
 export const VcValidatorResult: React.FunctionComponent<VcValidatorResultProps> = (props) => {
-  const { vc, validated } = props;
+  console.log("VcValidatorResult 1");
+  const { vc, validated, didResults, schemaVerified } = props;
+  const additionalVcData = { didListings: didResults, schemaVerified };
   if (!validated || !vc) {
     return (
       <Flex flexDirection="column" alignItems="center" my={3}>
@@ -23,9 +26,11 @@ export const VcValidatorResult: React.FunctionComponent<VcValidatorResultProps> 
     );
   }
 
+  console.log("VcValidatorResult 2");
+  console.log("additionalVcData: ", additionalVcData);
   return (
     <Flex flexDirection="column" alignItems="center" my={3}>
-      <Credential vc={vc as VC} viewType={CredentialViewTypes.DEFAULT} />
+      <Credential vc={vc as VC} viewType={CredentialViewTypes.DEFAULT}  additionalVCData={additionalVcData as AdditionalVCData}/>
     </Flex>
   );
 };

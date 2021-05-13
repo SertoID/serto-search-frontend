@@ -4,7 +4,7 @@ export interface ConfigType {
 }
 
 const domain = window.location.origin;
-let apiUrl = "http://localhost:8000";
+let apiUrl = "http://staging.api.search.serto.id";
 if (domain.includes("beta")) {
   apiUrl = "https://beta.api.search.serto.id";
 } else if (domain.includes("staging")) {
