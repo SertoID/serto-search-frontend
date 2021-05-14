@@ -7,7 +7,9 @@ export const NftSearch: React.FunctionComponent = () => {
   const history = useHistory();
   return (
     <NftSearchBox
-      onSearch={(contract, tokenId) => history.push(routes.NFT_SERACH + "?contract=" + contract + "&tokenId=" + tokenId)}
+      onSearch={(contract, tokenId) =>
+        history.push(routes.NFT_SERACH + "?contract=" + contract + "&tokenId=" + tokenId)
+      }
     />
   );
 };

@@ -19,7 +19,9 @@ export const VcValidatorResult: React.FunctionComponent<VcValidatorResultProps> 
       <Flex flexDirection="column" alignItems="center" my={3}>
         <Box maxWidth="500px" bg={colors.danger.light} borderColor={colors.danger.base} border={1} p={2}>
           <Text>
-            {"Sorry, we were not able to Verify the Credential enterred. Please ensure you're entering the token string of the VC. If you believe your VC is valid, please contact support@serto.id"}
+            {
+              "Sorry, we were not able to Verify the Credential enterred. Please ensure you're entering the token string of the VC. If you believe your VC is valid, please contact support@serto.id"
+            }
           </Text>
         </Box>
       </Flex>
@@ -30,7 +32,11 @@ export const VcValidatorResult: React.FunctionComponent<VcValidatorResultProps> 
   console.log("additionalVcData: ", additionalVcData);
   return (
     <Flex flexDirection="column" alignItems="center" my={3}>
-      <Credential vc={vc as VC} viewType={CredentialViewTypes.DEFAULT}  additionalVCData={additionalVcData as AdditionalVCData}/>
+      <Credential
+        vc={vc as VC}
+        viewType={CredentialViewTypes.DEFAULT}
+        additionalVCData={additionalVcData as AdditionalVCData}
+      />
     </Flex>
   );
 };

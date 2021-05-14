@@ -11,26 +11,38 @@ export const NftSearchPage: React.FunctionComponent = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const contractAddress = urlParams.get("contract") || "";
   const tokenId = urlParams.get("tokenId") || "";
-  const { data, error, isValidating } = useSWR(["/v1/eth-nft-creator", contractAddress, tokenId], () => Phonebook.getNftData(contractAddress, tokenId), {
-    revalidateOnFocus: false,
-  });
+  const { data, error, isValidating } = useSWR(
+    ["/v1/eth-nft-creator", contractAddress, tokenId],
+    () => Phonebook.getNftData(contractAddress, tokenId),
+    {
+      revalidateOnFocus: false,
+    },
+  );
 
-  let nftDetailsProps = { name: data?.ethNftDetails?.name, details: data?.ethNftDetails?.details, imgUrl: data?.ethNftDetails?.imgUrl, domains: data?.didListing?.domains }
+  let nftDetailsProps = {
+    name: data?.ethNftDetails?.name,
+    details: data?.ethNftDetails?.details,
+    imgUrl: data?.ethNftDetails?.imgUrl,
+    domains: data?.didListing?.domains,
+  };
 
   return (
     <Global banner searchBar>
       <Viewport>
-        { error ? (
+        {error ? (
           <Flash my={3} variant="danger">
             <ErrorMsg error={error.message} />
           </Flash>
         ) : data ? (
-          <Flex flexDirection="column" alignItems="center" my={3} >
+          <Flex flexDirection="column" alignItems="center" my={3}>
             <Box maxWidth="500px">
-              { (data.didListing && data.didListing.domains && data.didListing.domains.length > 0) ? (
+              {data.didListing && data.didListing.domains && data.didListing.domains.length > 0 ? (
                 <Flex flexDirection="column" alignItems="center">
                   <SertoVerifiedCheckmark />
-                  <Text textAlign="center">We've verified that the entity owning the domain {data.didListing.domains[0]} created the NFT: {data.ethNftDetails.name}</Text>
+                  <Text textAlign="center">
+                    We've verified that the entity owning the domain {data.didListing.domains[0]} created the NFT:{" "}
+                    {data.ethNftDetails.name}
+                  </Text>
                 </Flex>
               ) : (
                 <Flex>
