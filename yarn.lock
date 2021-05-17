@@ -1552,13 +1552,13 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
+"@rimble/icons@ConsenSysMesh/rimble-icons":
+  version "1.2.0"
+  resolved "https://codeload.github.com/ConsenSysMesh/rimble-icons/tar.gz/faa8c0842e1c42f46b9e355cb65084fdf0ec1074"
+
 "@rimble/icons@^1.0.2", "@rimble/icons@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@rimble/icons/-/icons-1.2.0.tgz#86dd1d770b894ae29dcb62ebfda34b0054546b68"
-
-"@rimble/icons@github:ConsenSysMesh/rimble-icons":
-  version "1.2.0"
-  resolved "https://codeload.github.com/ConsenSysMesh/rimble-icons/tar.gz/faa8c0842e1c42f46b9e355cb65084fdf0ec1074"
 
 "@rollup/plugin-node-resolve@^7.1.1":
   version "7.1.3"
@@ -3917,7 +3917,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.4, create-hmac@^1.1.7:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-cross-fetch@^3.0.6:
+cross-fetch@^3.0.6, cross-fetch@^3.1.4:
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.4.tgz#9723f3a3a247bf8b89039f3a380a9244e8fa2f39"
   dependencies:
@@ -9800,9 +9800,10 @@ serialize-javascript@^5.0.1:
   dependencies:
     randombytes "^2.1.0"
 
-serto-ui@^0.3.8:
-  version "0.3.8"
-  resolved "https://registry.yarnpkg.com/serto-ui/-/serto-ui-0.3.8.tgz#ce68c7d83a6b1183fdea7fa817b0324d24944d99"
+serto-ui@^0.3.10:
+  version "0.3.10"
+  resolved "https://registry.yarnpkg.com/serto-ui/-/serto-ui-0.3.10.tgz#f1d8a003a2889d72e842c38f977db2dc4e9a4c0a"
+  integrity sha512-2U0h+zHM075pGrzCx1WHSJolXw+ThLlW9dv/MqyZ7b4uIew9/BUsnvVUTAqOeo8ejFZRMwcV4KONb2gXq1GLFw==
   dependencies:
     "@rimble/icons" ConsenSysMesh/rimble-icons
     "@sindresorhus/slugify" "^1.1.0"
@@ -10985,6 +10986,16 @@ vc-schema-tools@^0.1.1:
   resolved "https://registry.yarnpkg.com/vc-schema-tools/-/vc-schema-tools-0.1.1.tgz#90620e1f8355083259282a0027e4636b3cf70cb7"
   dependencies:
     ajv "^6.12.3"
+    deepdash-es "^5.3.5"
+    typescript "^4.1.3"
+
+vc-schema-tools@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/vc-schema-tools/-/vc-schema-tools-0.2.1.tgz#38b42bfee981dc1c82f90acf90547b1cb6fc8076"
+  integrity sha512-jDaQ5amI+jQAZ60hKD0RuYRBvBL7tDQjlJ+GRL8qIFlb6O/gST/1k6jDuCo0wwO8ILhBDBZesYLxk2vdblHsRQ==
+  dependencies:
+    ajv "^6.12.3"
+    cross-fetch "^3.1.4"
     deepdash-es "^5.3.5"
     typescript "^4.1.3"
 

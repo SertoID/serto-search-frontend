@@ -8,7 +8,9 @@ export const CombinedSearch: React.FunctionComponent = () => {
   return (
     <CombinedSearchBar
       onSearch={(search) => history.push(routes.SEARCH + "?filter=" + search)}
-      onNftVerify={(contract, tokenId) => history.push(routes.NFT_SERACH + "?contract=" + contract + "&tokenId=" + tokenId)}
+      onNftVerify={(contract, tokenId) =>
+        history.push(routes.NFT_SERACH + "?contract=" + contract + "&tokenId=" + tokenId)
+      }
       onVcVerify={(vc) => history.push(routes.VC_VALIDATOR + "?vc=" + vc)}
     />
   );
