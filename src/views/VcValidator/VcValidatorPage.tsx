@@ -69,14 +69,17 @@ export const VcValidatorPage: React.FunctionComponent = () => {
   const shouldHaveBlueCheck = vcMessage && vcValidated && schemaVerified && !expired;
   const shouldHaveYellowCheck = vcMessage && vcValidated && (!schemaVerified || expired);
 
-  const domains =
-    issuer &&
-    didResults.filter((didResult: any) => didResult.did === issuer).map((didResult: any) => didResult.domains);
+  const filteredDidResults = issuer && didResults.find((didResult: any) => didResult.did === issuer);
+  let domains;
+  if (filteredDidResults) {
+    domains = (filteredDidResults as any).domains;
+  }
+  
   let domainLinks;
   if (domains && domains.length > 0) {
     domainLinks = (
       <>
-        {domains.map((domain, i) => {
+        {domains.map((domain: string, i: number) => {
           return (
             /* eslint-disable-next-line */
             <Text.span key={domain}>
