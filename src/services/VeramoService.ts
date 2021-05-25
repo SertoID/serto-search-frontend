@@ -9,7 +9,7 @@ import { getResolver as ethrDidResolver } from "ethr-did-resolver";
 const infuraProjectId = "474dcf9e96a44844983cdb88648f43e7";
 
 const uniresolver = new UniversalResolver({
-  url: "https://uniresolver.io/1.0/identifiers/",
+  url: "https://uniresolver.serto.id/1.0/identifiers/",
 }) as DIDResolver;
 
 export const agent = createAgent<MessageHandler & IResolver>({
