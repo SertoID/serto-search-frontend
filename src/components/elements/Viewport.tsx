@@ -1,5 +1,4 @@
-import * as React from "react";
-import { Box, Flex } from "rimble-ui";
+import { Box } from "rimble-ui";
 
 export interface ViewportProps {
   fullBgColor?: string;
@@ -14,11 +13,10 @@ export interface ViewportProps {
 
 export const Viewport: React.FunctionComponent<ViewportProps> = (props) => {
   return (
-    <Flex
+    <Box
       bg={props.fullBgColor}
       borderBottom={props.fullBorderBottom}
       borderTop={props.fullBorderTop}
-      justifyContent="center"
       mb={props.mb}
       mt={props.mt}
       width="100%"
@@ -27,12 +25,13 @@ export const Viewport: React.FunctionComponent<ViewportProps> = (props) => {
         bg={props.innerBgColor}
         borderBottom={props.innerBorderBottom}
         borderTop={props.innerBorderTop}
-        px={[3, 4]}
+        mx="auto"
         maxWidth="1440px"
+        px={[3, 4]}
         width="100%"
       >
         {props.children}
       </Box>
-    </Flex>
+    </Box>
   );
 };

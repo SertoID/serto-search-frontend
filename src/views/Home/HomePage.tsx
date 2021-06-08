@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box, Flex, Text } from "rimble-ui";
 import { baseColors, colors, H2, H3, Tab, Tabs } from "serto-ui";
 import { Search } from "../Search/Search";
@@ -16,8 +16,13 @@ export const HomePage: React.FunctionComponent = () => {
   const [activeTabName, setActiveTabName] = useState("search");
   return (
     <Global banner>
-      <Box bg={baseColors.black} mx="auto" maxWidth="1440px" position="relative" width="100%">
-        <img src={hpSplashImg} alt="Taken by Olena Sergienko" width="100%" />
+      <Box bg={baseColors.black} position="relative">
+        <img
+          src={hpSplashImg}
+          alt="Taken by Olena Sergienko"
+          style={{ display: "block", margin: "0 auto", maxWidth: "1440px" }}
+          width="100%"
+        />
         <Viewport>
           <Flex
             alignItems="center"
@@ -46,20 +51,23 @@ export const HomePage: React.FunctionComponent = () => {
           Photo by Olena Sergienko
         </Text>
         <Box maxWidth="750px" mx="auto" mt={6}>
-          <H3 mb={3} mt={0}>A Tool To Discover DIDs</H3>
+          <H3 mb={3} mt={0}>
+            A Tool To Discover DIDs
+          </H3>
           <Text mb={3}>
-            This service uses innovative decentralized identity technology to create digital trust. Our goal is to provide
-            the foundation for people, organizations, and entities to streamline and modernize digital services and Web3
-            activities.
+            This service uses innovative decentralized identity technology to create digital trust. Our goal is to
+            provide the foundation for people, organizations, and entities to streamline and modernize digital services
+            and Web3 activities.
           </Text>
           <Text mb={3}>
             Right now, you can use Serto Search to quickly verify an entity’s identity - who they say they are - as
-            credential issuers. You can verify by seeing if an entity’s DID is cryptographically associated with their web
-            address via DNS, and trust its provenance. Learn more about how this works.
+            credential issuers. You can verify by seeing if an entity’s DID is cryptographically associated with their
+            web address via DNS, and trust its provenance. Learn more about how this works.
           </Text>
           <Text mb={3}>
-            In the future, Serto will offer multiple way to use “trust anchors” to provide robust and deep verification of
-            DIDs. In addition, verifiable data and credentials will be added to offer each entity a more richer profile.
+            In the future, Serto will offer multiple way to use “trust anchors” to provide robust and deep verification
+            of DIDs. In addition, verifiable data and credentials will be added to offer each entity a more richer
+            profile.
           </Text>
         </Box>
       </Viewport>

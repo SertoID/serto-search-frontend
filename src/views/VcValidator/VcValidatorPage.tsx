@@ -74,7 +74,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
   if (filteredDidResults) {
     domains = (filteredDidResults as any).domains;
   }
-  
+
   let domainLinks;
   if (domains && domains.length > 0) {
     domainLinks = (
