@@ -87,7 +87,9 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
               </Link>
               <NavLink href={routes.HOW_IT_WORKS}>How it works</NavLink>
             </Flex>
-            <Flex flexGrow="1" justifyContent="center" maxWidth="600px" mr={5}>{props.searchBar && <CombinedSearch />}</Flex>
+            <Flex flexGrow="1" justifyContent="center" maxWidth="600px" mr={5}>
+              {props.searchBar && <CombinedSearch />}
+            </Flex>
             <Button as="a" href={routes.REGISTER}>
               Add Organization
             </Button>
