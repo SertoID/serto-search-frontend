@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { Box, Flex, Text } from "rimble-ui";
-import { baseColors, colors, H2, H3, Tab, Tabs } from "serto-ui";
+import { Box, Text } from "rimble-ui";
+import { baseColors, colors, H2, H3, Tab, TabbedSearch } from "serto-ui";
 import { Search } from "../Search/Search";
-import { hpSplashImg, Global, Viewport } from "../../components";
+import { Global, Viewport } from "../../components";
 import { VcValidator } from "../VcValidator/VcValidator";
 import { NftSearch } from "../NftSearch/NftSearch";
 
@@ -13,43 +12,22 @@ const tabs: Tab[] = [
 ];
 
 export const HomePage: React.FunctionComponent = () => {
-  const [activeTabName, setActiveTabName] = useState("search");
   return (
     <Global banner>
-      <Box bg={baseColors.black} position="relative">
-        <img
-          src={hpSplashImg}
-          alt="Taken by Olena Sergienko"
-          style={{ display: "block", margin: "0 auto", maxWidth: "1440px" }}
-          width="100%"
-        />
+      <Box bg={colors.darkGray} position="relative">
         <Viewport>
-          <Flex
-            alignItems="center"
-            height="100%"
-            justifyContent="center"
-            p={4}
-            position="absolute"
-            left="0"
-            top="0"
-            width="100%"
-          >
-            <Box maxWidth="750px" mb={[0, 7]} width="100%">
-              <H2 color={baseColors.white} lineHeight="solid" mb={1} mt={0}>
-                Search Engine for Decentralized Identities (DIDs)
-              </H2>
-              <Text color={baseColors.white} fontSize={[1, "16px"]} fontWeight={3} mb={[2, 5]} mt={0}>
-                Use Serto Search to verify credential issuers’ identity, and discover their public keys and endpoints.
-              </Text>
-              <Tabs tabs={tabs} activeTabName={activeTabName} onTabClicked={(tabName) => setActiveTabName(tabName)} />
-            </Box>
-          </Flex>
+          <Box maxWidth="750px" mx="auto" py={[5, 7]} width="100%">
+            <H2 color={baseColors.white} lineHeight="solid" mb={1} mt={0}>
+              Search Engine for Decentralized Identities (DIDs)
+            </H2>
+            <Text color={baseColors.white} fontSize={[1, "16px"]} fontWeight={3} mb={[2, 5]} mt={0}>
+              Use Serto Search to verify credential issuers’ identity, and discover their public keys and endpoints.
+            </Text>
+            <TabbedSearch tabs={tabs} activeTab="search" />
+          </Box>
         </Viewport>
       </Box>
       <Viewport mb={7} mt={1}>
-        <Text color={colors.silver} fontSize={0}>
-          Photo by Olena Sergienko
-        </Text>
         <Box maxWidth="750px" mx="auto" mt={6}>
           <H3 mb={3} mt={0}>
             A Tool To Discover DIDs

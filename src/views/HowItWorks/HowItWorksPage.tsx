@@ -50,7 +50,7 @@ export const HowItWorksPage: React.FunctionComponent = () => {
   return (
     <Global banner searchBar>
       <Viewport fullBgColor={baseColors.white}>
-        <Box m="0 auto 100px" maxWidth="850px" width="100%">
+        <Box m="50px auto 100px" maxWidth="850px" width="100%">
           <Box mb={5}>
             <H1 my={5}>How it works</H1>
             <Text.p>Serto Search is a discovery and verification tool for decentralized Identities or DIDs.</Text.p>

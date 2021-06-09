@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Box, Flex, Text } from "rimble-ui";
 import { baseColors, colors, DidView, DomainImage, H4, VerificationStatus } from "serto-ui";
@@ -30,7 +29,7 @@ export const SearchResult: React.FunctionComponent<SearchResultProps> = (props) 
           </Link>
         </Box>
         <Box ml={[0, 5]}>
-          <DidView did={searchResult.dids} color={colors.primary.base} ellipsis icon />
+          <DidView did={searchResult.dids} />
         </Box>
       </Box>
       <Box ml={[0, 5]} width="250px">
