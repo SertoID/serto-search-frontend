@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Box, Flex, Text } from "rimble-ui";
-import { baseColors, colors, CredentialCheck, H1, H4 } from "serto-ui";
+import { baseColors, colors, CredentialCheckFilled, H1, H4 } from "serto-ui";
 import { Global, Viewport } from "../../components";
 
 const Circle = styled.div`
@@ -31,7 +31,7 @@ export const HowItWorksItem: React.FunctionComponent<HowItWorksItemProps> = (pro
     <Box pl={3} position="relative">
       {props.last ? (
         <Box left="0" position="absolute" top="-2px">
-          <CredentialCheck size="32px" />
+          <CredentialCheckFilled />
         </Box>
       ) : (
         <Circle>{props.number}</Circle>

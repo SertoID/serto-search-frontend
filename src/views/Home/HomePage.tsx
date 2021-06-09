@@ -23,7 +23,9 @@ export const HomePage: React.FunctionComponent = () => {
             <Text color={baseColors.white} fontSize={[1, "16px"]} fontWeight={3} mb={[2, 5]} mt={0}>
               Use Serto Search to verify credential issuers’ identity, and discover their public keys and endpoints.
             </Text>
-            <TabbedSearch tabs={tabs} activeTab="search" />
+            <Box mb={5}>
+              <TabbedSearch tabs={tabs} activeTab="search" />
+            </Box>
           </Box>
         </Viewport>
       </Box>
