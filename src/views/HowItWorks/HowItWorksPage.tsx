@@ -53,55 +53,57 @@ export const HowItWorksPage: React.FunctionComponent = () => {
         <Box m="50px auto 100px" maxWidth="850px" width="100%">
           <Box mb={5}>
             <H1 my={5}>How it works</H1>
-            <Text.p>Serto Search is a discovery and verification tool for decentralized Identities or DIDs.</Text.p>
+            <Text.p>Serto Search is a discovery and verification tool for decentralized identities or DIDs.</Text.p>
             <Text.p>
               Businesses, brands and individuals listed on Serto Search control their own public identities.{" "}
               <b>This means they have all adopted a decentralized identifier (DID).</b>
             </Text.p>
             <Text.p>
-              Our Search engine displays cryptographically signed data, so anyone can independently check the original
-              source. <b>This means that anyone can verify Serto Search results.</b>
+              Our search engine displays cryptographically signed data, and anyone can independently check the original
+              source for authenticity. <b>This means that anyone can verify Serto Search results.</b>
             </Text.p>
-            <Text.p>Here’s how this process works:</Text.p>
+            <Text.p>Here’s how the process works:</Text.p>
           </Box>
           <Flex justifyContent="flex-end">
             <Box maxWidth="670px">
               <HowItWorksItem number="1" title="Create a decentralized identifier or DID">
                 <Text mb={3}>
-                  DIDs are like your public addresses that allow others to identify you. Currently, an IT Manager or
-                  developer can create a DID to represent an entity by following these steps.
+                  DIDs are public addresses that allow others to identify you. Currently, an IT manager or developer can
+                  create a DID to represent an entity by following these steps.
                 </Text>
                 <Text>
-                  Soon, Serto Agent, a low-code tool will make this process easier. It is currently in private beta.
+                  Soon, Serto Agent, a low-code tool, will make this process easier. It is currently in private beta.
                 </Text>
               </HowItWorksItem>
               <HowItWorksItem number="2" title="Generate a DID Configuration">
                 <Text>
-                  A DID Configuration is a file that contains a cryptographically signed VC linking your site domain to
-                  your DID. To generate one, use the Well-known DID configuration Veramo plugin
+                  A DID Configuration is a file that contains a cryptographically signed verifiable credential (VC)
+                  linking your site domain to your DID. To generate one, you can use the well-known DID configuration
+                  Veramo plugin.
                 </Text>
               </HowItWorksItem>
               <HowItWorksItem number="3" title="Store the DID Configuration file in your website">
-                <Text>Upload the file to the company website and host it under the well-known URI. </Text>
+                <Text>Upload the file to the company website and host it under the well-known URI.</Text>
               </HowItWorksItem>
               <HowItWorksItem last title="Validated public addresses">
                 <Text>
-                  When anyone types your domain name into Serto Search engine, they will find the public addresses with
-                  which it is associated. In this way, your public address is directly verifiable.{" "}
+                  When anyone enters your domain name into Serto Search, they will find the public addresses with which
+                  it is associated. In this way, your public address is directly verifiable.{" "}
                 </Text>
               </HowItWorksItem>
               <Box bg={colors.primary.background} border={3} mt={5} p={4}>
                 <H4 my={0}>Trust Anchors</H4>
                 <Text.p>
-                  The mechanism by which Serto establishes this trust is by piggybacking on the trustworthiness of the
-                  domain name. All domain names are verified by the centralized entity known as ICANN through the Domain
-                  Name System (DNS). In being able to control your domain name by adding the DID Configuration file to
-                  the website, you effectively endorse your DID.
+                  Serto establishes this by piggybacking on the trustworthiness of the domain name. All domain names are
+                  verified by the centralized entity known as ICANN through the Domain Name System (DNS). In being able
+                  to control your domain name by adding the DID Configuration file to the website, you effectively
+                  endorse your DID.
                 </Text.p>
                 <Text.p>
                   One endorsement alone is not infallible, but it is a starting point for authentication. The long-term
                   goal of Serto is to use multiple “trust anchors” to provide robust and deep verification of DIDs. Many
-                  varied endorsements may come from corporations, institutions, media, or social peers, among others.
+                  varied endorsements may come from corporations, institutions, the media, or social peers, among
+                  others.
                 </Text.p>
               </Box>
             </Box>
