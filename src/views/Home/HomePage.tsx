@@ -40,14 +40,14 @@ export const HomePage: React.FunctionComponent = () => {
             and Web3 activities.
           </Text>
           <Text mb={3}>
-            Right now, you can use Serto Search to quickly verify an entity’s identity - who they say they are - as
-            credential issuers. You can verify by seeing if an entity’s DID is cryptographically associated with their
-            web address via DNS, and trust its provenance. Learn more about how this works.
+            Right now, you can use Serto Search to quickly verify an entity’s identity&mdash;who they say they
+            are&mdash;as a credential issuer. You can verify this by seeing if an entity’s DID is cryptographically
+            associated with their web address via DNS, and therefore can trust its provenance. Learn more about how this
+            works.
           </Text>
           <Text mb={3}>
-            In the future, Serto will offer multiple way to use “trust anchors” to provide robust and deep verification
-            of DIDs. In addition, verifiable data and credentials will be added to offer each entity a more richer
-            profile.
+            In the future, Serto will offer multiple ways to use “trust anchors” to provide robust and deep verification
+            of DIDs. In addition, verifiable data and credentials will be added to offer each entity a richer profile.
           </Text>
         </Box>
       </Viewport>
