@@ -1,9 +1,10 @@
-import { Box, Text } from "rimble-ui";
+import { Box, Link, Text } from "rimble-ui";
 import { baseColors, colors, H2, H3, Tab, TabbedSearch } from "serto-ui";
 import { Search } from "../Search/Search";
 import { Global, Viewport } from "../../components";
 import { VcValidator } from "../VcValidator/VcValidator";
 import { NftSearch } from "../NftSearch/NftSearch";
+import { routes } from "../../constants";
 
 const tabs: Tab[] = [
   { tabName: "search", title: "Domains & DIDs", content: <Search /> },
@@ -42,8 +43,8 @@ export const HomePage: React.FunctionComponent = () => {
           <Text mb={3}>
             Right now, you can use Serto Search to quickly verify an entity’s identity&mdash;who they say they
             are&mdash;as a credential issuer. You can verify this by seeing if an entity’s DID is cryptographically
-            associated with their web address via DNS, and therefore can trust its provenance. Learn more about how this
-            works.
+            associated with their web address via DNS, and therefore can trust its provenance.{" "}
+            <Link href={routes.HOW_IT_WORKS}>Learn more about how this works.</Link>
           </Text>
           <Text mb={3}>
             In the future, Serto will offer multiple ways to use “trust anchors” to provide robust and deep verification
