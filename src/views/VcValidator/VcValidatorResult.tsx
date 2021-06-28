@@ -2,6 +2,7 @@ import { VerifiableCredential } from "@veramo/core";
 import { VC } from "vc-schema-tools";
 import { Box, Flex, Text } from "rimble-ui";
 import { AdditionalVCData, colors, Credential, CredentialViewTypes } from "serto-ui";
+import { VC } from "vc-schema-tools";
 
 export interface VcValidatorResultProps {
   validated: boolean;
@@ -28,8 +29,6 @@ export const VcValidatorResult: React.FunctionComponent<VcValidatorResultProps> 
     );
   }
 
-  console.log("VcValidatorResult 2");
-  console.log("additionalVcData: ", additionalVcData);
   return (
     <Flex flexDirection="column" alignItems="center" my={3}>
       <Credential
