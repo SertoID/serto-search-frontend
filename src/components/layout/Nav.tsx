@@ -89,11 +89,9 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
             </Flex>
             <Flex flexGrow="1" justifyContent="center" maxWidth="600px" mr={5}>
               {props.searchBar && <CombinedSearch />}
-              <Flex justifyContent="flex-end" width="30%">
-                <Button as="a" href={routes.PRE_REGISTRATION}>
-                  Add My Organization
-                </Button>
-              </Flex>
+              <Button as="a" href={routes.PRE_REGISTRATION}>
+                Add My Organization
+              </Button>
             </Flex>
           </Flex>
         </Viewport>
