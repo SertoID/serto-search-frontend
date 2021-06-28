@@ -2,7 +2,6 @@ import { VerifiableCredential } from "@veramo/core";
 import { VC } from "vc-schema-tools";
 import { Box, Flex, Text } from "rimble-ui";
 import { AdditionalVCData, colors, Credential, CredentialViewTypes } from "serto-ui";
-import { VC } from "vc-schema-tools";
 
 export interface VcValidatorResultProps {
   validated: boolean;
