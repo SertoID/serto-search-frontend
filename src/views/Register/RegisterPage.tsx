@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { mutate } from "swr";
 import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
-import { Check } from "@rimble/icons";
-import { Box, Button, Flash, Flex, Input, Loader, Text } from "rimble-ui";
+import { Button, Flash, Flex, Input, Loader, Text, Link } from "rimble-ui";
 import { domainRegex } from "../../utils/helpers";
 import { baseColors, colors, H3 } from "serto-ui";
 import { routes } from "../../constants";
@@ -17,7 +16,6 @@ export const RegisterPage: React.FunctionComponent = () => {
   const [error, setError] = useState<any | undefined>();
   const [disabled, setDisabled] = useState(true);
   const [isValidating, setIsValidating] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   async function addDomain() {
     setError("");
@@ -25,8 +23,8 @@ export const RegisterPage: React.FunctionComponent = () => {
     try {
       await Phonebook.registerDomain(domain);
       setIsValidating(false);
-      setSuccess(true);
       mutate("/register");
+      history.push("add-org-profile/" + domain);
     } catch (err) {
       console.error(err);
       setError(<ErrorMsg error={err.message} />);
@@ -49,61 +47,38 @@ export const RegisterPage: React.FunctionComponent = () => {
   return (
     <Global banner searchBar>
       <Viewport>
-        <Box bg={baseColors.white} border={2} borderRadius={1} boxShadow={2} maxWidth="480px" m="50px auto 100px">
-          <Box py={5} px={3}>
-            {success ? (
-              <>
-                <Flex
-                  alignItems="center"
-                  bg={colors.success.light}
-                  borderRadius="50%"
-                  justifyContent="center"
-                  m="0 auto"
-                  height="50px"
-                  width="50px"
-                >
-                  <Check color={baseColors.success} size="40px" />
-                </Flex>
-                <H3 color={baseColors.success} mb={5} mt={3} textAlign="center">
-                  {domain} was added
-                </H3>
-                <Button onClick={() => history.push("/domain/" + domain)} width="100%">
-                  Done
-                </Button>
-              </>
-            ) : (
-              <>
-                <H3 mb={3} mt={0}>
-                  Add Domain
-                </H3>
-                <Text color={colors.silver} fontSize={1} fontWeight={4} mb={3}>
-                  Your domain needs a DID configuration to be added to Search.{" "}
-                  <Link to={routes.HOW_IT_WORKS} style={{ color: colors.primary.base, textDecoration: "none" }}>
-                    Learn more.
-                  </Link>
-                </Text>
-                <Text fontSize={1} fontWeight={3} mb={1}>
-                  Domain Name
-                </Text>
-                <Input
-                  type="url"
-                  placeholder="example.com"
-                  onChange={(event: any) => onChange(event.target.value)}
-                  onKeyDown={(event: any) => onKeyDown(event)}
-                  width="100%"
-                />
-                {error && (
-                  <Flash mt={3} variant="danger">
-                    {error}
-                  </Flash>
-                )}
-                <Button disabled={disabled} onClick={addDomain} mt={3} width="100%">
-                  {isValidating ? <Loader color={baseColors.white} /> : <>Add Domain</>}
-                </Button>
-              </>
+        <Flex flexDirection="column" maxWidth="720px" m="50px auto 100px">
+          <H3 mb={3} mt={0}>
+            Add Your Organization to Serto Search
+          </H3>
+          <Text color={colors.silver} fontSize={1} fontWeight={4} mb={3}>
+            To add your organization, first add your organization's domain. Then, submit your organization profile verifiable credential (VC). If you already added your domain, you can skip this step.{" "}
+            <Link to={routes.HOW_IT_WORKS} style={{ color: colors.primary.base, textDecoration: "none" }}>
+              Learn more.
+            </Link>
+          </Text>
+          <Text fontSize={1} fontWeight={3} mb={1}>
+            Domain Name
+          </Text>
+          <Flex flexDirection="column" alignItems="center">
+            <Input
+              type="url"
+              placeholder="example.com"
+              onChange={(event: any) => onChange(event.target.value)}
+              onKeyDown={(event: any) => onKeyDown(event)}
+              width="100%"
+            />
+            {error && (
+              <Flash mt={3} variant="danger">
+                {error}
+              </Flash>
             )}
-          </Box>
-        </Box>
+            <Button disabled={disabled} onClick={addDomain} mt={3} mb={3} width="100%">
+              {isValidating ? <Loader color={baseColors.white} /> : <>Add Domain</>}
+            </Button>
+            <Link href={"/add-org-profile"}>I already added a domain. Skip this step.</Link>
+          </Flex>
+        </Flex>
       </Viewport>
     </Global>
   );

@@ -28,8 +28,6 @@ export const VcValidatorResult: React.FunctionComponent<VcValidatorResultProps> 
     );
   }
 
-  console.log("VcValidatorResult 2");
-  console.log("additionalVcData: ", additionalVcData);
   return (
     <Flex flexDirection="column" alignItems="center" my={3}>
       <Credential

@@ -7181,6 +7181,7 @@ locate-path@^5.0.0:
 lodash-es@^4.17.15, lodash-es@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
 
 lodash._reinterpolate@^3.0.0:
   version "3.0.0"
@@ -9808,10 +9809,10 @@ serialize-javascript@^5.0.1:
   dependencies:
     randombytes "^2.1.0"
 
-serto-ui@^0.3.16:
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/serto-ui/-/serto-ui-0.3.16.tgz#b956e5916922b58443668a187b4793cd36825841"
-  integrity sha512-Rqwct3D9ddAkwLZEvWfskjsUx6sHGuAXy65H2cl6Rn7WvkqPd+C5zmbqFafrsHJLkK+1WX/oC5V1oG+ViJepDQ==
+serto-ui@^0.3.20:
+  version "0.3.20"
+  resolved "https://registry.yarnpkg.com/serto-ui/-/serto-ui-0.3.20.tgz#6bfc853603c02951f3b03a272072a94f087e0c20"
+  integrity sha512-vKhuT4kkf9fJKwXxzYmGeKb6RlUeuLFg6AiFHPq78KNtefCF61wFX6pJ+n1/FBGLITD/xXfj14ZLuVuPh6iC0g==
   dependencies:
     "@rimble/icons" ConsenSysMesh/rimble-icons
     "@sindresorhus/slugify" "^1.1.0"

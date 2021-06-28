@@ -2,10 +2,12 @@ export enum routes {
   DOMAIN_PAGE = "/domain/:domain",
   HOMEPAGE = "/",
   HOW_IT_WORKS = "/how-it-works",
+  PRE_REGISTRATION = "/pre-registration",
   REGISTER = "/register",
   SEARCH = "/search",
   NFT_SERACH = "/nft-search",
   VC_VALIDATOR = "/vc-validator",
+  ADD_ORG_PROFILE = "/add-org-profile/:domain?"
 }
 
 export const links = {
