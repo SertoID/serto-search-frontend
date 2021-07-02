@@ -1,27 +1,41 @@
 import React from "react";
-import { Box, Flex, Text } from "rimble-ui";
-import { baseColors, colors, DomainImage, H4, VerificationStatus } from "serto-ui";
+import { Box, Flex, Text, Pill } from "rimble-ui";
+import { baseColors, colors, DomainImage, fonts, H4, SertoVerifiedCheckmark } from "serto-ui";
 
 export interface DomainHeaderProps {
   domain: string;
   baselineStatus?: boolean;
+  orgName?: string;
+  description?: string;
 }
 
 export const DomainHeader: React.FunctionComponent<DomainHeaderProps> = (props) => {
-  const { domain } = props;
+  const { domain, orgName, description } = props;
   return (
-    <Flex flexWrap="wrap" justifyContent="space-between">
-      <Box borderBottom={[2, 0]} pb={[5, 0]} maxWidth="700px" mb={[5, 0]} width={["100%", "auto"]}>
-        <Flex alignItems="center" mb={3}>
+    <Flex flexWrap="wrap" justifyContent="space-between" m={3}>
+      <Flex flexDirection="column" mb={3}>
+        <Flex flexDirection="row" alignItems="center">
           <DomainImage domain={domain} />
-          <Text color={baseColors.black}>{domain}</Text>
+          <H4 color={baseColors.black} mb={0} mt={0} ml={"12px"} mr={"12px"}>{domain}</H4>
+          <Pill color={colors.primary.base} fontFamily={fonts.sansSerif}>Verified</Pill>
         </Flex>
-        <H4 color={colors.primary.base} lineHeight="solid" mb={1} mt={0}>
-          {domain}
-        </H4>
-      </Box>
-      <Box ml={[0, 5]} width={["100%", "250px"]}>
-        <VerificationStatus didConfig />
+        {orgName && (<Text ml={"28px"}>{orgName}</Text>)}
+        {description && (<Text ml={"28px"}>{description}</Text>)}
+      </Flex>
+      <Box borderRadius={1} border="1px solid" borderColor={colors.primary.light} padding="20px" bg={colors.primary.background}>
+        <Flex flexDirection="row" alignItems="center">
+          <Flex>
+            <SertoVerifiedCheckmark />
+          </Flex>
+          <Flex flexDirection="column">
+            <Text>
+              We've verified that the entity {domain} controls the DIDs or public addresses below
+            </Text>
+            <Text>
+              This entity has cryptographically linked their domain to their DIDs. When you interact with their public addresses, you can trust their provenance. Learn more.
+             </Text>
+          </Flex>
+        </Flex>
       </Box>
     </Flex>
   );
