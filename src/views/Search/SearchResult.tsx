@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Box, Flex } from "rimble-ui";
-import { DidByDomain, VerificationStatus } from "serto-ui";
+import { DidByDomain } from "serto-ui";
 
 const StyledWrap = styled(Flex)`
   &:last-of-type {
@@ -11,6 +11,7 @@ const StyledWrap = styled(Flex)`
 export interface SearchResultTypes {
   domain: string;
   dids: any;
+  didDocs: any[];
 }
 
 export interface SearchResultProps {
@@ -24,14 +25,11 @@ export const SearchResult: React.FunctionComponent<SearchResultProps> = (props) 
     <StyledWrap borderBottom={2} flexWrap="wrap" justifyContent="space-between" p={[3, 5]}>
       <Box borderBottom={[2, 0]} flexGrow="1" maxWidth="700px" mb={[5, 0]} pb={[5, 0]} width={["100%", "auto"]}>
         <DidByDomain
-          did={searchResult.dids}
-          didCopy
+          didDocs={searchResult.didDocs}
+          didCopy={false}
           domain={searchResult.domain}
           linkDomain={"domain/" + searchResult.domain}
         />
-      </Box>
-      <Box ml={[0, 5]} width="250px">
-        <VerificationStatus didConfig />
       </Box>
     </StyledWrap>
   );
