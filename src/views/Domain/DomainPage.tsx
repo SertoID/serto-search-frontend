@@ -47,7 +47,7 @@ export const DomainPage: React.FunctionComponent = () => {
                       </Box>
                       {data.didDocEntries.map((didDocEntry: any, i: number) => {
                         return (
-                          <DomainDidDetails didDocEntry={didDocEntry} />
+                          <DomainDidDetails didDocEntry={didDocEntry} key={didDocEntry.id}/>
                         );
                       })}
                     </Box>
