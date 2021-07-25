@@ -4,7 +4,7 @@ import { Box, Button, Flex, Icon, Link } from "rimble-ui";
 import { colors, useToggle, SertoSearchLogo } from "serto-ui";
 import { Viewport } from "../";
 import { Banner } from "./Banner";
-import { CombinedSearch } from "../../views/CombinedSearch/NftSearch";
+import { CombinedSearch } from "../../views/CombinedSearch/CombinedSearch";
 
 export interface NavLinkProps {
   href: string;
@@ -87,11 +87,13 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
               </Link>
               <NavLink href={routes.HOW_IT_WORKS}>How it works</NavLink>
             </Flex>
-            <Flex flexGrow="1" justifyContent="center" maxWidth="600px" mr={5}>
+            <Flex flexGrow="1" justifyContent="space-between">
               {props.searchBar && <CombinedSearch />}
-              <Button as="a" href={routes.PRE_REGISTRATION}>
-                Add My Organization
-              </Button>
+              <Flex ml={5}>
+                <Button as="a" href={routes.PRE_REGISTRATION}>
+                  Add My Organization
+                </Button>
+              </Flex>
             </Flex>
           </Flex>
         </Viewport>
