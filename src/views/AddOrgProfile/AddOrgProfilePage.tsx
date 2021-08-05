@@ -13,7 +13,7 @@ import { agent } from "../../services/VeramoService";
 const JWTTextArea = styled.textarea`
   resize: none;
   font-size: 18px;
-`
+`;
 
 export const AddOrgProfilePage: React.FunctionComponent = () => {
   const history = useHistory();
@@ -28,7 +28,7 @@ export const AddOrgProfilePage: React.FunctionComponent = () => {
     setError("");
     setIsValidating(true);
     try {
-      const res = await agent.handleMessage({raw: jwt});
+      const res = await agent.handleMessage({ raw: jwt });
       const jwtDomain = res.credentials && res.credentials[0].credentialSubject.domain;
       await Phonebook.processVc(jwt);
       setIsValidating(false);
@@ -65,7 +65,7 @@ export const AddOrgProfilePage: React.FunctionComponent = () => {
               Learn more.
             </Link>
           </Text>
-          <Flex mb={3 }>
+          <Flex mb={3}>
             {domain ? <GreenCircleCheck /> : <OutlineOne />}
             <Flex flexDirection="column">
               <Text fontSize={1} fontWeight={3} mb={1}>

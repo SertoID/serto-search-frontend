@@ -20,7 +20,7 @@ export const SearchPage: React.FunctionComponent = () => {
       <Viewport>
         {data?.length > 0 ? (
           <Box bg={baseColors.white} borderRadius={1} py={3}>
-            <Box borderBottom={2} pb={1} pt={5} px={5}>
+            <Box borderBottom={4} pb={1} pt={5} px={5}>
               <Text color={colors.lightSilver} fontSize={2} fontWeight={3}>
                 {filter === "" ? (
                   <>

@@ -52,7 +52,8 @@ export const RegisterPage: React.FunctionComponent = () => {
             Add Your Organization to Serto Search
           </H3>
           <Text color={colors.silver} fontSize={1} fontWeight={4} mb={3}>
-            To add your organization, first add your organization's domain. Then, submit your organization profile verifiable credential (VC). If you already added your domain, you can skip this step.{" "}
+            To add your organization, first add your organization's domain. Then, submit your organization profile
+            verifiable credential (VC). If you already added your domain, you can skip this step.{" "}
             <Link to={routes.HOW_IT_WORKS} style={{ color: colors.primary.base, textDecoration: "none" }}>
               Learn more.
             </Link>
