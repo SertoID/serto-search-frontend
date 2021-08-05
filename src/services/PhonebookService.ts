@@ -6,7 +6,7 @@ export class PhonebookService {
   public async registerDomain(domain: string): Promise<any> {
     return this.request("/v1/register", "POST", { domain });
   }
-  
+
   public async processVc(raw: string): Promise<any> {
     return this.request("/v1/process-vc", "POST", { raw });
   }

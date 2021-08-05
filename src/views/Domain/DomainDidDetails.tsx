@@ -1,7 +1,8 @@
 import React from "react";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@rimble/icons";
 import { Box, Flex, Text, Pill } from "rimble-ui";
-import { colors, useToggle, CopyableTruncatableText, CopyToClipboard, HighlightedJson, DidMethodIcon } from "serto-ui";
+import { colors, useToggle, CopyToClipboard, DidView, H5, HighlightedJson } from "serto-ui";
+import { LearnMoreLink } from "../../components";
 
 export interface DidDocEntryTypes {
   baselineEndpoint: string;
@@ -23,42 +24,33 @@ export const DomainDidDetails: React.FunctionComponent<DomainDidDetailsProps> = 
   const services = parsedDidDoc.service;
   const numEndpoints = services?.length || 0;
 
-
   return (
-    <Box border={1} borderColor={colors.nearWhite}>
-      <Flex flexDirection="column" alignItems="left">
-        <Box width={["90%", "auto"]} bg={colors.nearWhite} p={3}>
-          <Flex flexDirection="row" alignItems="center">
-            <DidMethodIcon did={didDocEntry.did} size="32px"/>
-            <CopyableTruncatableText fontSize={2} fontWeight={3} text={didDocEntry.did} />
-          </Flex>
-        </Box>
-        <Flex p={3}>
-          <Text color={colors.primary.base} fontWeight={3}>Endpoints ({numEndpoints})</Text>
+    <Box border={1} borderColor={colors.nearWhite} borderRadius={1} boxShadow={1} mb={5}>
+      <Box bg={colors.nearWhite} p={3} overflow="scroll">
+        <DidView copy={true} did={didDocEntry.did} dontTruncate={true} size="large" />
+      </Box>
+      <Box px={3} py={4}>
+        <H5 color={colors.primary.base} mb={2} mt={0}>
+          Endpoints ({numEndpoints})
+        </H5>
+        <Flex>
           {services?.map((service: any) => {
-            return <Pill>{service.type}</Pill>
+            return <Pill mr={3}>{service.type}</Pill>;
           })}
         </Flex>
-        <Box onClick={toggleIsOpen} style={{ cursor: "pointer" }}>
-          {isOpen ? 
-            <Flex p={2} justifyContent="start">
-              <KeyboardArrowDown color={colors.primary.base} />
-              <Text color={colors.primary.base} fontWeight={3}>Trust Anchor Details for DID (DID Document)</Text>
-            </Flex> 
-            : 
-            <Flex p={2} justifyContent="center">
-              <KeyboardArrowUp color={colors.primary.base} />
-              <Text color={colors.primary.base} fontWeight={3}>See Trust Anchor Details (DID Document)</Text>
-            </Flex>
-          }
-        </Box>
-      </Flex>
+      </Box>
       {isOpen && (
-        <Box mt={3}>
-          <Text color={colors.silver} fontWeight={4} pl={3}>
-            DID Document
+        <Box borderTop={2} mt={1} px={3} py={5}>
+          <H5 color={colors.primary.base} mb={2} mt={0}>
+            Trust Anchor Details for DID
+          </H5>
+          <Text color={colors.silver} fontSize={1} mb={3}>
+            This DID Document contains this entity’s cryptographic keys used to sign credentials.{" "}
+            <LearnMoreLink as="a" href="https://www.w3.org/TR/did-core/#dfn-did-documents" target="_blank">
+              Learn More
+            </LearnMoreLink>
           </Text>
-          <Box position="relative" p={3}>
+          <Box position="relative">
             <Box position="absolute" right={4} top={4} zIndex={1}>
               <CopyToClipboard text={didDocEntry.didDoc} textButton />
             </Box>
@@ -66,6 +58,31 @@ export const DomainDidDetails: React.FunctionComponent<DomainDidDetailsProps> = 
           </Box>
         </Box>
       )}
+      <Flex
+        alignItems="center"
+        borderTop={2}
+        justifyContent="center"
+        px={2}
+        py={3}
+        onClick={toggleIsOpen}
+        style={{ cursor: "pointer" }}
+      >
+        {isOpen ? (
+          <>
+            <KeyboardArrowUp color={colors.primary.base} mr={2} />
+            <Text color={colors.primary.base} fontWeight={3}>
+              Close
+            </Text>
+          </>
+        ) : (
+          <>
+            <KeyboardArrowDown color={colors.primary.base} mr={2} />
+            <Text color={colors.primary.base} fontWeight={3}>
+              See Trust Anchor Details
+            </Text>
+          </>
+        )}
+      </Flex>
     </Box>
   );
 };

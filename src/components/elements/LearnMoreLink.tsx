@@ -3,8 +3,12 @@ import { Text } from "rimble-ui";
 import styled from "styled-components";
 
 export const LearnMoreLink = styled(Text)`
-  &:focus, &:hover, &:visited, &:link, &:active {
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
     text-decoration: none;
-    color: ${colors.primary.base}
+    color: ${colors.primary.base};
   }
 `;

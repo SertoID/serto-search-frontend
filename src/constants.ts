@@ -7,7 +7,7 @@ export enum routes {
   SEARCH = "/search",
   NFT_SERACH = "/nft-search",
   VC_VALIDATOR = "/vc-validator",
-  ADD_ORG_PROFILE = "/add-org-profile/:domain?"
+  ADD_ORG_PROFILE = "/add-org-profile/:domain?",
 }
 
 export const links = {
