@@ -1552,13 +1552,13 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
-"@rimble/icons@ConsenSysMesh/rimble-icons":
-  version "1.2.0"
-  resolved "https://codeload.github.com/ConsenSysMesh/rimble-icons/tar.gz/faa8c0842e1c42f46b9e355cb65084fdf0ec1074"
-
 "@rimble/icons@^1.0.2", "@rimble/icons@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@rimble/icons/-/icons-1.2.0.tgz#86dd1d770b894ae29dcb62ebfda34b0054546b68"
+
+"@rimble/icons@github:ConsenSysMesh/rimble-icons":
+  version "1.2.0"
+  resolved "https://codeload.github.com/ConsenSysMesh/rimble-icons/tar.gz/faa8c0842e1c42f46b9e355cb65084fdf0ec1074"
 
 "@rollup/plugin-node-resolve@^7.1.1":
   version "7.1.3"
@@ -9809,10 +9809,10 @@ serialize-javascript@^5.0.1:
   dependencies:
     randombytes "^2.1.0"
 
-serto-ui@^0.3.25:
-  version "0.3.25"
-  resolved "https://registry.yarnpkg.com/serto-ui/-/serto-ui-0.3.25.tgz#dca15166ac38d6c2289d05147bd59e1e09206585"
-  integrity sha512-olTK9G1Mvj7CI+uXl0YhLm3LirJp3BLmijif/cSihixouMhGiYOxe/XARo7RtoX+1ARjNsPEUAEJjWTC/n3QGg==
+serto-ui@^0.3.28:
+  version "0.3.28"
+  resolved "https://registry.yarnpkg.com/serto-ui/-/serto-ui-0.3.28.tgz#82024a360630ec095e963901d221b33da7b1b122"
+  integrity sha512-UXwRmOcQRRja3YA2iwYAhim9PJIUphkskscQdhHx3oqvFCoU0Zi4w+5LTGcD5MJ1vLqTjZMi3dYEeszOsNHOEQ==
   dependencies:
     "@rimble/icons" ConsenSysMesh/rimble-icons
     "@sindresorhus/slugify" "^1.1.0"
@@ -9824,7 +9824,7 @@ serto-ui@^0.3.25:
     swr "^0.2.2"
     typescript "^4.1.3"
     use-debounce "^3.4.3"
-    vc-schema-tools "^0.2.3"
+    vc-schema-tools "^0.2.4"
 
 serve-index@^1.9.1:
   version "1.9.1"
@@ -11000,10 +11000,10 @@ vc-schema-tools@^0.2.1:
     deepdash-es "^5.3.5"
     typescript "^4.1.3"
 
-vc-schema-tools@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/vc-schema-tools/-/vc-schema-tools-0.2.3.tgz#b75ef226fcd8eeeb21d8f04f0b60938064b3d5af"
-  integrity sha512-6NgLCsWxJTE2Veo1WEYvACbglDCKyjcl8N95gK5Z8P3qu2/TgA/hIJUw7ZRIhngXFz9z3J+LOsqhWZ9K2zcT6A==
+vc-schema-tools@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/vc-schema-tools/-/vc-schema-tools-0.2.4.tgz#60de8d61df6bc460ad617c6335bed93c13d8fbb4"
+  integrity sha512-kbjyc/P5TPFfWHc/J3elzOQA9p8VkS7gIE0D70M4zgPjAnmJ3WIdpQEMBKAxO9ysa/KkEgSM7szwqzIVh/eZzA==
   dependencies:
     ajv "^6.12.3"
     cross-fetch "^3.1.4"

@@ -25,7 +25,7 @@ export const SearchResult: React.FunctionComponent<SearchResultProps> = (props) 
       <Box width="100%">
         <DidByDomain
           didDocs={searchResult.didDocs}
-          didCopy={false}
+          didCopy
           domain={searchResult.domain}
           linkDomain={"domain/" + searchResult.domain}
         />
