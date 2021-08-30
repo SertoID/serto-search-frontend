@@ -17,9 +17,7 @@ export const SearchPage: React.FunctionComponent = () => {
     revalidateOnFocus: false,
   });
 
-  console.log("data: ", data);
   const { searchResults, count, resultsPerPage } = data || {};
-  console.log("searchResults: ", searchResults);
   const numPages = Math.ceil(count / resultsPerPage);
 
   // remember 1-indexed vs 0-indexed for page
@@ -30,12 +28,9 @@ export const SearchPage: React.FunctionComponent = () => {
   const lowestPageLink = Math.max(1, (page+1) - 4);
   const highestPageLink = Math.min(numPages || 0, (page+1) + 4);
 
-  console.log("lowestPageLink: ", lowestPageLink);
-  console.log("highestPageLink: ", highestPageLink);
 
   const pageList = _.range(lowestPageLink, highestPageLink + 1);
 
-  console.log("pageList: ", pageList);
 
   return (
     <Global banner searchBar>
@@ -68,9 +63,9 @@ export const SearchPage: React.FunctionComponent = () => {
               {
                 pageList.map((pagelinkNum:number) => {
                   if (pagelinkNum === page + 1) {
-                    return <Button disabled={true}>{pagelinkNum}</Button>
+                    return <Button disabled={true} key={"page" + pagelinkNum}>{pagelinkNum}</Button>
                   } else {
-                    return (<Button.Text as ="a" href={"/search?filter=" + filter + "&page=" + pagelinkNum}>{pagelinkNum}</Button.Text>)
+                    return (<Button.Text as ="a" href={"/search?filter=" + filter + "&page=" + pagelinkNum} key={"page" + pagelinkNum}>{pagelinkNum}</Button.Text>)
                   }
                 })
               }
