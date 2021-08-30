@@ -11,8 +11,9 @@ export class PhonebookService {
     return this.request("/v1/process-vc", "POST", { raw });
   }
 
-  public async getEntries(domain?: string): Promise<any> {
-    return this.request("/v1/search", "POST", { domain });
+  public async getEntries(vars: any): Promise<any> {
+    const { filter, page } = vars;
+    return this.request("/v1/search", "POST", { domain: filter, page });
   }
 
   public async getDomainListing(domain: string): Promise<any> {

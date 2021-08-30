@@ -2,23 +2,45 @@ import React from "react";
 import useSWR from "swr";
 import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
-import { Box, Flash, Flex, Loader, Text } from "rimble-ui";
+import { Box, Button, Flash, Flex, Loader, Text } from "rimble-ui";
 import { baseColors, colors } from "serto-ui";
 import { ErrorMsg, Global, Viewport } from "../../components";
 import { SearchResult, SearchResultTypes } from "./SearchResult";
+var _ = require('underscore');
 
 export const SearchPage: React.FunctionComponent = () => {
   const Phonebook = React.useContext<PhonebookService>(PhonebookContext);
   const urlParams = new URLSearchParams(window.location.search);
   const filter = urlParams.get("filter") || "";
-  const { data, error, isValidating } = useSWR(["/v1/search", filter], () => Phonebook.getEntries(filter), {
+  const page = urlParams.get("page") ? (parseInt(urlParams.get("page")!) - 1) : 0; // user sees 1-indexed pagenums, but we send 0-indexed pagenums to search
+  const { data, error, isValidating } = useSWR(["/v1/search", filter, page], () => Phonebook.getEntries({ filter, page }), {
     revalidateOnFocus: false,
   });
+
+  console.log("data: ", data);
+  const { searchResults, count, resultsPerPage } = data || {};
+  console.log("searchResults: ", searchResults);
+  const numPages = Math.ceil(count / resultsPerPage);
+
+  // remember 1-indexed vs 0-indexed for page
+  const hasPrevious = page > 0;
+  const previousLink = "/search?filter=" + filter + "&page=" + (page);
+  const hasNext = (page + 1) < numPages;
+  const nextLink = "/search?filter=" + filter + "&page=" + (page + 2);
+  const lowestPageLink = Math.max(1, (page+1) - 4);
+  const highestPageLink = Math.min(numPages || 0, (page+1) + 4);
+
+  console.log("lowestPageLink: ", lowestPageLink);
+  console.log("highestPageLink: ", highestPageLink);
+
+  const pageList = _.range(lowestPageLink, highestPageLink + 1);
+
+  console.log("pageList: ", pageList);
 
   return (
     <Global banner searchBar>
       <Viewport>
-        {data?.length > 0 ? (
+        {searchResults?.length > 0 ? (
           <Box bg={baseColors.white} borderRadius={1} py={3}>
             <Box borderBottom={2} pb={1} pt={5} px={5}>
               <Text color={colors.lightSilver} fontSize={2} fontWeight={3}>
@@ -37,9 +59,24 @@ export const SearchPage: React.FunctionComponent = () => {
                 )}
               </Text>
             </Box>
-            {data.map((result: SearchResultTypes, i: number) => {
+            {searchResults.map((result: SearchResultTypes, i: number) => {
               return <SearchResult searchResult={result} key={i} />;
             })}
+            <Flex flexDirection="row" justifyContent="space-around">
+              <Flex flexDirection="row" alignItems="center" >
+              {hasPrevious ? <Button.Text as="a" href={previousLink}>{"< Previous"}</Button.Text> : <Text>{" < Previous"}</Text>}
+              {
+                pageList.map((pagelinkNum:number) => {
+                  if (pagelinkNum === page) {
+                    return <Text>{pagelinkNum}</Text>
+                  } else {
+                    return (<Button.Text as ="a" href={"/search?filter=" + filter + "&page=" + pagelinkNum}>{pagelinkNum}</Button.Text>)
+                  }
+                })
+              }
+              {hasNext ? <Button.Text as="a" href={nextLink}>{"Next >"}</Button.Text> : <Text>{"Next >"}</Text>}
+              </Flex>
+            </Flex>
           </Box>
         ) : isValidating ? (
           <Flex minHeight={8} alignItems="center" justifyContent="center">

@@ -7,7 +7,7 @@ export const Search: React.FunctionComponent = () => {
 
   return (
     <TabbedSearchBox
-      onSearch={(searchVal) => history.push(routes.SEARCH + "?filter=" + searchVal)}
+      onSearch={(searchVal) => history.push(routes.SEARCH + "?filter=" + searchVal + "&page=1")}
       placeholderText="Search an organization or DID"
     />
   );
