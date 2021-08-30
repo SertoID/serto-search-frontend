@@ -7,7 +7,7 @@ export const CombinedSearch: React.FunctionComponent = () => {
   const history = useHistory();
   return (
     <CombinedSearchBar
-      onSearch={(search) => history.push(routes.SEARCH + "?filter=" + search)}
+      onSearch={(search) => history.push(routes.SEARCH + "?filter=" + search + "&page=1")}
       onNftVerify={(contract, tokenId) =>
         history.push(routes.NFT_SERACH + "?contract=" + contract + "&tokenId=" + tokenId)
       }
