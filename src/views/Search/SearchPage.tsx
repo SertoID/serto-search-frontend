@@ -62,19 +62,19 @@ export const SearchPage: React.FunctionComponent = () => {
             {searchResults.map((result: SearchResultTypes, i: number) => {
               return <SearchResult searchResult={result} key={i} />;
             })}
-            <Flex flexDirection="row" justifyContent="space-around">
+            <Flex flexDirection="row" justifyContent="space-around" pt={2}>
               <Flex flexDirection="row" alignItems="center" >
-              {hasPrevious ? <Button.Text as="a" href={previousLink}>{"< Previous"}</Button.Text> : <Text>{" < Previous"}</Text>}
+              {hasPrevious ? <Button.Text as="a" href={previousLink}>{"< Previous"}</Button.Text> : <Button.Text disabled={true}>{" < Previous"}</Button.Text>}
               {
                 pageList.map((pagelinkNum:number) => {
-                  if (pagelinkNum === page) {
-                    return <Text>{pagelinkNum}</Text>
+                  if (pagelinkNum === page + 1) {
+                    return <Button disabled={true}>{pagelinkNum}</Button>
                   } else {
                     return (<Button.Text as ="a" href={"/search?filter=" + filter + "&page=" + pagelinkNum}>{pagelinkNum}</Button.Text>)
                   }
                 })
               }
-              {hasNext ? <Button.Text as="a" href={nextLink}>{"Next >"}</Button.Text> : <Text>{"Next >"}</Text>}
+              {hasNext ? <Button.Text as="a" href={nextLink}>{"Next >"}</Button.Text> : <Button.Text disabled={true}>{"Next >"}</Button.Text>}
               </Flex>
             </Flex>
           </Box>
