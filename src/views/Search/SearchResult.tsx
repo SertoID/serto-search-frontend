@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Box } from "rimble-ui";
+import { Box, Flex } from "rimble-ui";
 import { DidByDomain } from "serto-ui";
 
 const StyledWrap = styled(Box)`
