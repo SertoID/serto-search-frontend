@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box } from "rimble-ui";
+import { Box, Flex } from "rimble-ui";
 import { useWindowSize } from "serto-ui";
 import { Nav } from "./Nav";
 import { Footer } from "./Footer";
@@ -17,8 +17,10 @@ export const Global: React.FunctionComponent<GlobalProps> = (props) => {
   return (
     <Box pt={props.banner ? "132px" : "72px"} position="relative" height="100vh" width="100%">
       <Nav {...props} mobile={mobile} />
-      {props.children}
-      <Footer />
+      <Flex flexDirection="column" justifyContent="space-between" height="100%">
+        {props.children}
+        <Footer/>
+      </Flex>
     </Box>
   );
 };

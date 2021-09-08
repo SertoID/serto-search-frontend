@@ -30,7 +30,7 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
     return (
       <Box position="fixed" top="0" width="100%" zIndex="10">
         {props.banner && <Banner />}
-        <Box bg={colors.primary.border} boxShadow={1}>
+        <Box bg={colors.primary.border} boxShadow={4}>
           <Viewport>
             <Box position="relative">
               <Flex alignItems="center" height="72px" justifyContent="space-between">
@@ -78,7 +78,7 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
   return (
     <Box position="fixed" top="0" width="100%" zIndex="10">
       {props.banner && <Banner />}
-      <Box bg={colors.primary.border} boxShadow={1}>
+      <Box bg={colors.primary.border} boxShadow={4}>
         <Viewport>
           <Flex alignItems="center" height="72px" justifyContent="space-between">
             <Flex alignItems="center">
@@ -87,11 +87,11 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
               </Link>
               <NavLink href={routes.HOW_IT_WORKS}>How it works</NavLink>
             </Flex>
-            <Flex flexGrow="1" justifyContent="space-between">
-              {props.searchBar && <CombinedSearch />}
+            <Flex flexGrow="1" justifyContent="space-between" alignItems="center" height="48px">
+              {props.searchBar ? <CombinedSearch /> : <Flex />}
               <Flex ml={5}>
-                <Button as="a" href={routes.PRE_REGISTRATION}>
-                  Add My Organization
+                <Button as="a" href={routes.PRE_REGISTRATION} size="medium">
+                  Add Organization
                 </Button>
               </Flex>
             </Flex>

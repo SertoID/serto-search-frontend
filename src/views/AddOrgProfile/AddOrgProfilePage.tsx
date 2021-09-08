@@ -93,7 +93,7 @@ export const AddOrgProfilePage: React.FunctionComponent = () => {
               />
               {error && (
                 <Flash mt={3} variant="danger">
-                  {error}
+                  {"Sorry, that JWT token isn't right. Please check the JWT token of your Verifiable Credential (VC) and try again."}
                 </Flash>
               )}
               <Button disabled={disabled} onClick={addOrgProfile} mt={3} width="100%">

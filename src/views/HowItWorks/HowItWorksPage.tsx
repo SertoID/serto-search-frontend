@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Box, Flex, Text } from "rimble-ui";
+import { Box, Flex, Text, Link } from "rimble-ui";
 import { baseColors, colors, CredentialCheckFilled, H1, H4 } from "serto-ui";
 import { Global, Viewport } from "../../components";
 
@@ -68,8 +68,9 @@ export const HowItWorksPage: React.FunctionComponent = () => {
             <Box maxWidth="670px">
               <HowItWorksItem number="1" title="Create a decentralized identifier or DID">
                 <Text mb={3}>
-                  DIDs are public addresses that allow others to identify you. Currently, an IT manager or developer can
-                  create a DID to represent an entity by following these steps.
+                DIDs are like your public addresses that allow others to identify you. An IT Manager can create a 
+                DID to represent an entity using Serto Agent, a low-code tool. A free version is available on <Link href="https://aws.amazon.com/marketplace/pp/prodview-x55rqwei63kuw">AWS Marketplace</Link>. 
+                Learn more about <Link href="https://docs.serto.id/docs/serto-agent/aws-deploy">launching a Serto Agent in AWS here</Link>.
                 </Text>
                 <Text>
                   Soon, Serto Agent, a low-code tool, will make this process easier. It is currently in private beta.
@@ -77,13 +78,15 @@ export const HowItWorksPage: React.FunctionComponent = () => {
               </HowItWorksItem>
               <HowItWorksItem number="2" title="Generate a DID Configuration">
                 <Text>
-                  A DID Configuration is a file that contains a cryptographically signed verifiable credential (VC)
-                  linking your site domain to your DID. To generate one, you can use the well-known DID configuration
-                  Veramo plugin.
+                A DID Configuration is a file that contains a cryptographically signed Verfiable Credential (VC) 
+                linking your site domain to your DID. Using Serto Agent, you can easily generate one after you create a DID.
                 </Text>
               </HowItWorksItem>
               <HowItWorksItem number="3" title="Store the DID Configuration file in your website">
-                <Text>Upload the file to the company website and host it under the well-known URI.</Text>
+                <Text>
+                  Upload the file to the company website and host it under the well-known URI. 
+                  The location of this file may be: https://yourwebsite.com/.well-known/did-configuration.json
+                </Text>
               </HowItWorksItem>
               <HowItWorksItem last title="Validated public addresses">
                 <Text>

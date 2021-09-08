@@ -8,8 +8,8 @@ import { routes } from "../../constants";
 
 const tabs: Tab[] = [
   { tabName: "search", title: "Domains & DIDs", content: <Search /> },
-  { tabName: "vc", title: "Validate VC", content: <VcValidator /> },
-  { tabName: "nft", title: "NFT Lookup", content: <NftSearch /> },
+  { tabName: "vc", title: "Credential Verification", content: <VcValidator /> },
+  { tabName: "nft", title: "NFT Authorship", content: <NftSearch /> },
 ];
 
 export const HomePage: React.FunctionComponent = () => {
@@ -19,10 +19,10 @@ export const HomePage: React.FunctionComponent = () => {
         <Viewport>
           <Box maxWidth="750px" mx="auto" py={[5, 7]} width="100%">
             <H2 color={baseColors.white} lineHeight="solid" mb={1} mt={0}>
-              Search Engine for Decentralized Identities (DIDs)
+              Search Engine for Decentralized Identities
             </H2>
             <Text color={baseColors.white} fontSize={[1, "16px"]} fontWeight={3} mb={[2, 5]} mt={0}>
-              Use Serto Search to verify credential issuers’ identity, and discover their public keys and endpoints.
+              Use Serto Search to verify issuers’ identity (DIDs), credentials (VCs) or NFT authorship.
             </Text>
             <Box mb={5}>
               <TabbedSearch tabs={tabs} activeTab="search" />
@@ -33,7 +33,7 @@ export const HomePage: React.FunctionComponent = () => {
       <Viewport mb={7} mt={1}>
         <Box maxWidth="750px" mx="auto" mt={6}>
           <H3 mb={3} mt={0}>
-            A Tool To Discover DIDs
+            A Tool To Discover Decentralized Identifiers (DIDs)
           </H3>
           <Text mb={3}>
             This service uses innovative decentralized identity technology to create digital trust. Our goal is to
