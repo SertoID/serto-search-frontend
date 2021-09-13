@@ -19,7 +19,7 @@ export const Global: React.FunctionComponent<GlobalProps> = (props) => {
       <Nav {...props} mobile={mobile} />
       <Flex flexDirection="column" justifyContent="space-between" height="100%">
         {props.children}
-        <Footer/>
+        <Footer />
       </Flex>
     </Box>
   );
