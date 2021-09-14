@@ -62,7 +62,6 @@ export const VcValidatorPage: React.FunctionComponent = () => {
           let didResults = await Phonebook.getDidListings([issuer, (res.credentials[0].id as any)?.id]);
           didResults = didResults.filter((didListing: any) => didListing.did != null);
           setDidResults(didResults);
-          console.log(didResults);
           setVcValidated(true);
         } else {
           setVcValidated(false);
