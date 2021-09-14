@@ -6,7 +6,7 @@ import { Warning } from "@rimble/icons";
 import { Loader, Flash, Flex, Table, Text, Box } from "rimble-ui";
 import { baseColors, colors, Credential, DidTruncate, SertoVerifiedCheckmark } from "serto-ui";
 import { Global, ValidateTDLeft, ValidateTDRight, ValidateTR, Viewport } from "../../components";
-import { VcValidatorError } from "./VcValidatorError";
+import { links } from "../../constants";
 import { agent } from "../../services/VeramoService";
 import { VerifiableCredential } from "@veramo/core";
 import { validateVc } from "vc-schema-tools";
@@ -92,7 +92,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
         {domains.map((domain: string, i: number) => {
           return (
             /* eslint-disable-next-line */
-            <Text.span fontSize="30px" fontWeight={4} key={domain}>
+            <Text.span fontSize={["24px", "30px"]} fontWeight={4} key={domain}>
               <Link to={"domain/" + domain} style={{ color: colors.primary.base, textDecoration: "none" }}>
                 {domain}
               </Link>
@@ -118,14 +118,11 @@ export const VcValidatorPage: React.FunctionComponent = () => {
     );
   }
 
-  console.log(vcMessage);
-  console.log(schemaName);
-
   return (
     <Global banner vcBar>
       <Viewport>
         {vc && (
-          <Box borderBottom={4} mb={5} pb={3} pt={5} px={5}>
+          <Box borderBottom={4} mb={[0, 3]} pb={3} pt={5} px={[0, 5]}>
             <Text color={colors.lightSilver} fontSize={2} fontWeight={3} style={{ wordBreak: "break-word" }}>
               Showing result for {/* eslint-disable-next-line */}
               <Text.span color={colors.midGray} fontSize={1} fontWeight={3}>
@@ -135,13 +132,37 @@ export const VcValidatorPage: React.FunctionComponent = () => {
           </Box>
         )}
         {loading && (
-          <Flex alignItems="center" justifyContent="center" minHeight="300px" p={5}>
+          <Flex alignItems="center" justifyContent="center" minHeight="300px" p={[0, 3]}>
             <Loader color={colors.primary.base} size={5} />
           </Flex>
         )}
-        {((!loading && !vcValidated) || (!loading && !vcMessage)) && <VcValidatorError />}
+        {((!loading && !vcValidated) || (!loading && !vcMessage)) && (
+          <Flex alignItems="center" flexDirection="column" px={[0, 5]} py={[3, 5]}>
+            <Flex maxWidth="600px">
+              <Box width="75px" mr={3}>
+                <Warning color={colors.warning.base} size="75px" />
+              </Box>
+              <Box flexGrow="1">
+                <Text fontSize="30px" lineHeight="title" mb={5}>
+                  We are unable to verify this credential.
+                </Text>
+                <Text fontWeight={4} mb={5}>
+                  An error has occured when we try to verify this credential. Please contact the issuer for more
+                  information.
+                </Text>
+                <Text fontSize={1}>
+                  Do you believe this credential should have been verified? Please ensure you're entering the token
+                  string of the VC. If you believe your VC is valid, please let us know at{" "}
+                  <Link to={`mailto:${links.SUPPORT_EMAIL}`} style={{ textDecoration: "none" }}>
+                    support@serto.id
+                  </Link>
+                </Text>
+              </Box>
+            </Flex>
+          </Flex>
+        )}
         {!loading && vcMessage && (
-          <Flex justifyContent="center" mt={3} p={5}>
+          <Flex justifyContent="center" px={[0, 5]} py={[3, 5]}>
             <Flex flexDirection="column" maxWidth="480px">
               {expired && (
                 <Flash variant="warning" mb={5}>
@@ -153,17 +174,17 @@ export const VcValidatorPage: React.FunctionComponent = () => {
                   </Flex>
                 </Flash>
               )}
-              <Box mb={5} position="relative">
-                <Box left="-108px" position="absolute" top="0">
-                  {shouldHaveBlueCheck && <SertoVerifiedCheckmark />}
-                  {shouldHaveYellowCheck && <SertoVerifiedCheckmark color={colors.warning.base} />}
+              <Box mb={[3, 5]} mt={["108px", 0]} position="relative">
+                <Box left={["calc(50% - 34px)", "-108px"]} position="absolute" top={["-108px", 0]}>
+                  {shouldHaveBlueCheck && <SertoVerifiedCheckmark size="80px" />}
+                  {shouldHaveYellowCheck && <SertoVerifiedCheckmark color={colors.warning.base} size="80px" />}
                 </Box>
                 <Box flexGrow="1">
                   {domains && domains.length > 0 ? (
-                    <Text fontSize="30px" fontWeight={4} lineHeight="title">
+                    <Text fontSize={["24px", "30px"]} fontWeight={4} lineHeight="title">
                       {domainHeaderLinks} issued this{" "}
                       {schemaName /* eslint-disable-next-line */ && (
-                        <Text.span fontSize="30px" fontWeight={4}>
+                        <Text.span fontSize={["24px", "30px"]} fontWeight={4}>
                           {schemaName}
                         </Text.span>
                       )}{" "}
@@ -174,10 +195,10 @@ export const VcValidatorPage: React.FunctionComponent = () => {
                   )}
                 </Box>
               </Box>
-              <Box mb={5} width="100%">
-                <Credential vc={vcMessage as VC} />
+              <Box mb={[3, 5]} width="100%">
+                <Credential isOpen={true} vc={vcMessage as VC} />
               </Box>
-              <Box mb={5} width="100%">
+              <Box mb={[3, 5]} width="100%">
                 <Table border={0} boxShadow={0} width="100%" style={{ tableLayout: "fixed" }}>
                   <tbody>
                     <ValidateTR>
