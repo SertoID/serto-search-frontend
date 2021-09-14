@@ -136,9 +136,9 @@ export const VcValidatorPage: React.FunctionComponent = () => {
           </Flex>
         )}
         {((!loading && !vcValidated) || (!loading && !vcMessage)) && (
-          <Flex alignItems="center" flexDirection="column" px={[0, 5]} py={[3, 5]}>
-            <Flex maxWidth="600px">
-              <Box width="75px" mr={3}>
+          <Flex justifyContent="center" px={[0, 5]} py={[3, 5]} mb={6}>
+            <Box maxWidth="480px" mt={["108px", 0]} position="relative">
+              <Box left={["calc(50% - 34px)", "-108px"]} position="absolute" top={["-108px", 0]} width="75px">
                 <Warning color={colors.warning.base} size="75px" />
               </Box>
               <Box flexGrow="1">
@@ -157,10 +157,10 @@ export const VcValidatorPage: React.FunctionComponent = () => {
                   </Link>
                 </Text>
               </Box>
-            </Flex>
+            </Box>
           </Flex>
         )}
-        {!loading && vcMessage && (
+        {!loading && vcMessage && vcValidated && (
           <Flex justifyContent="center" px={[0, 5]} py={[3, 5]}>
             <Flex flexDirection="column" maxWidth="480px">
               {expired && (
@@ -179,7 +179,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
                   {shouldHaveYellowCheck && <SertoVerifiedCheckmark color={colors.warning.base} size="80px" />}
                 </Box>
                 <Box flexGrow="1">
-                  {domains && domains.length > 0 ? (
+                  {domains && domains.length > 0 && (
                     <Text fontSize={["24px", "30px"]} fontWeight={4} lineHeight="title">
                       {domainHeaderLinks} issued this{" "}
                       {schemaName /* eslint-disable-next-line */ && (
@@ -189,8 +189,6 @@ export const VcValidatorPage: React.FunctionComponent = () => {
                       )}{" "}
                       credential.
                     </Text>
-                  ) : (
-                    <Text>We were unable to find any domains linked to the issuer of this Verifiable Credential</Text>
                   )}
                 </Box>
               </Box>
