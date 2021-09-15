@@ -39,7 +39,7 @@ export const NftSearchPage: React.FunctionComponent = () => {
               {data.didListing && data.didListing.domains && data.didListing.domains.length > 0 ? (
                 <Flex flexDirection="column" alignItems="center">
                   <SertoVerifiedCheckmark />
-                  <Text textAlign="center">
+                  <Text mt={3} textAlign="center">
                     We've verified that the entity owning the domain {data.didListing.domains[0]} created the NFT:{" "}
                     {data.ethNftDetails.name}
                   </Text>

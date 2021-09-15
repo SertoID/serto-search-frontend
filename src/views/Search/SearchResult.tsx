@@ -25,7 +25,7 @@ export const SearchResult: React.FunctionComponent<SearchResultProps> = (props) 
   const { searchResult } = props;
 
   return (
-    <OuterWrap as="a" href={"domain/" + searchResult.domain} >
+    <OuterWrap as="a" href={"domain/" + searchResult.domain}>
       <StyledWrap p={[3, 5]}>
         <Box width="100%">
           <DidByDomain

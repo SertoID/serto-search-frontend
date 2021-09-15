@@ -15,6 +15,7 @@ export const links = {
   FEEDBACK: "https://forms.gle/Kgw6bUGASZCp1GG26",
   PRIVACY: "https://consensys.net/privacy-policy/",
   SERTO: "https://serto.id",
+  SUPPORT_EMAIL: "support@serto.id",
   TERMS: "https://consensys.net/terms-of-use/",
   TWITTER: "https://twitter.com/serto_id",
 };

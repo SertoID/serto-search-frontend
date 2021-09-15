@@ -35,8 +35,10 @@ export const DomainHeader: React.FunctionComponent<DomainHeaderProps> = (props) 
         bg={colors.primary.background}
       >
         <Flex alignItems="center">
-          <SertoVerifiedCheckmark />
-          <Flex flexDirection="column">
+          <Box width="55px">
+            <SertoVerifiedCheckmark />
+          </Box>
+          <Flex flexDirection="column" flexGrow="1" ml={4}>
             <Text fontSize={3}>
               We've verified that the entity {domain} controls the DIDs or public addresses below
             </Text>
