@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Flex, Text, Pill } from "rimble-ui";
 import { baseColors, colors, DomainImage, fonts, H4, SertoVerifiedCheckmark } from "serto-ui";
 import { LearnMoreLink } from "../../components";
+import { routes } from "../../constants";
 
 export interface DomainHeaderProps {
   domain: string;
@@ -45,7 +46,7 @@ export const DomainHeader: React.FunctionComponent<DomainHeaderProps> = (props) 
             <Text fontSize={1}>
               This entity has cryptographically linked their domain to their DIDs. When you interact with their public
               addresses, you can trust their provenance.{" "}
-              <LearnMoreLink as="a" href="#TODO" target="_blank">
+              <LearnMoreLink as="a" href={routes.HOW_IT_WORKS} target="_blank">
                 Learn more.
               </LearnMoreLink>
             </Text>
