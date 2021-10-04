@@ -1,7 +1,7 @@
 import { config } from "../config";
 
 export class PhonebookService {
-  public url = config.API_URL;
+  public url = config.SEARCH_API_URL;
 
   public async registerDomain(domain: string): Promise<any> {
     return this.request("/v1/register", "POST", { domain });
