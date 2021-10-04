@@ -8,7 +8,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prettier": "prettier --config .prettierrc.yaml --write --list-different './**/*.{ts,tsx,json,md}'",
-    "lint": "eslint src/**/*.ts src/**/*.tsx"
+    "lint": "eslint src/**/*.ts src/**/*.tsx",
+    "dev-upgrade-serto-ui": "yarn unlink serto-ui && yarn upgrade --latest serto-ui && yarn link serto-ui"
   },
   "dependencies": {
     "@rimble/icons": "^1.2.0",
@@ -26,7 +27,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "rimble-ui": "^0.14.0",
-    "serto-ui": "^0.3.37",
+    "serto-ui": "^0.3.41",
     "styled-components": "^5.2.1",
     "swr": "^0.4.0",
     "typescript": "^4.1.3",
