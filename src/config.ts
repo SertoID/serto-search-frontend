@@ -1,11 +1,11 @@
-import { config as sertoUiConfig, SertoUiConfig, mergeServerConfig } from "serto-ui";
+import { DEV_ENV, config as sertoUiConfig, SertoUiConfig, mergeServerConfig } from "serto-ui";
 
 const domain = window.location.origin;
-let apiUrl = "http://localhost:8000";
-if (domain.includes("beta")) {
-  apiUrl = "https://beta.api.search.serto.id";
-} else if (domain.includes("staging")) {
+let apiUrl = "https://beta.api.search.serto.id";
+if (domain.includes("staging")) {
   apiUrl = "http://staging.api.search.serto.id";
+} else if (sertoUiConfig.ENVIRONMENT === DEV_ENV || domain.includes("localhost")) {
+  apiUrl = "http://localhost:8000";
 }
 
 const defaultConfig: SertoUiConfig = {
