@@ -58,7 +58,7 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
                   </Box>
                   <Box borderBottom={1} mb={3} pb={3} width="100%">
                     <Button as="a" href={routes.PRE_REGISTRATION} width="100%">
-                      Add My Organization
+                      Get listed
                     </Button>
                   </Box>
                   {props.searchBar && (
@@ -91,7 +91,7 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
               {props.searchBar ? <CombinedSearch /> : <Flex />}
               <Flex ml={5}>
                 <Button as="a" href={routes.PRE_REGISTRATION} size="medium">
-                  Add Organization
+                  Get listed
                 </Button>
               </Flex>
             </Flex>
