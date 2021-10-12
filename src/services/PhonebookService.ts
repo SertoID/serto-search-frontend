@@ -7,6 +7,10 @@ export class PhonebookService {
     return this.request("/v1/register", "POST", { domain });
   }
 
+  public async registerSocial(url: string): Promise<any> {
+    return this.request("/v1/add-social-media-linkage", "POST", { url });
+  }
+
   public async processVc(raw: string): Promise<any> {
     return this.request("/v1/process-vc", "POST", { raw });
   }
