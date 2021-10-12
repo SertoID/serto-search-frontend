@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { mutate } from "swr";
 import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
-import { Box, Button, Field, Flash, Form, Input, Loader, Link } from "rimble-ui";
+import { Box, Button, Flash, Input, Loader, Text } from "rimble-ui";
 import { domainRegex } from "../../utils/helpers";
 import { baseColors, OutlineOne } from "serto-ui";
 import { ErrorMsg } from "../../components";
@@ -51,31 +51,32 @@ export const RegisterDomainPage: React.FunctionComponent = () => {
       {preRegister ? (
         <RegisterDomainHowTo onClick={() => setPreRegister(false)} />
       ) : (
-        <Box maxWidth="450px" pl={5} position="relative">
+        <Box maxWidth="450px" mb={5} pl={5} position="relative">
           <Box left="0" position="absolute" top="0">
             <OutlineOne />
           </Box>
-          <Form maxWidth="450px" onSubmit={addDomain}>
-            <Field width="100%" label="Domain Name">
-              <Input
-                type="url"
-                placeholder="example.com"
-                onChange={(event: any) => onChange(event.target.value)}
-                onKeyDown={(event: any) => onKeyDown(event)}
-                required
-                width="100%"
-              />
-            </Field>
+          <Box maxWidth="450px">
+            <Text fontSize={1} fontWeight={3} mb={1}>
+              Domain Name
+            </Text>
+            <Input
+              placeholder="example.com"
+              onChange={(event: any) => onChange(event.target.value)}
+              onKeyDown={(event: any) => onKeyDown(event)}
+              width="100%"
+            />
             {error && (
               <Flash mt={3} variant="danger">
                 {error}
               </Flash>
             )}
-            <Button disabled={disabled} mt={3} mb={3} type="submit" width="100%">
+            <Button disabled={disabled} onClick={addDomain} mb={3} mt={3} width="100%">
               {isValidating ? <Loader color={baseColors.white} /> : <>Next</>}
             </Button>
-            <Link href={"/add-org-profile"}>Already listed your domain? Skip this step</Link>
-          </Form>
+            <Button.Text as="a" href={"/add-org-profile"} width="100%">
+              Already listed your domain? Skip this step
+            </Button.Text>
+          </Box>
         </Box>
       )}
     </RegisterGlobal>

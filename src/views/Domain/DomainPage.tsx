@@ -24,9 +24,9 @@ export const DomainPage: React.FunctionComponent = () => {
   return (
     <Global banner searchBar>
       <Viewport>
-        {data?.domain ? (
+        {data?.linkedId ? (
           <Box>
-            <DomainHeader domain={data.domain} orgName={data.name} />
+            <DomainHeader domain={data.linkedId} orgName={data.name} />
             <Tabs
               activeTabName={tabName || "identifiers"}
               tabs={[
@@ -66,7 +66,7 @@ export const DomainPage: React.FunctionComponent = () => {
                         <Flex alignItems="center">
                           <IndentedArrow />
                           <IcoWeb />
-                          <Text pl={1}>{data.domain}</Text>
+                          <Text pl={1}>{data.linkedId}</Text>
                         </Flex>
                         <Flex alignItems="center" pl={3}>
                           <IndentedArrow />
