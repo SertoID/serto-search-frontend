@@ -9,7 +9,7 @@ import { DidDetails } from "./DidDetails";
 import { ListingHeader } from "./ListingHeader";
 import { ErrorMsg, Global, Viewport } from "../../components";
 
-export const DomainPage: React.FunctionComponent = () => {
+export const SocialPage: React.FunctionComponent = () => {
   const Phonebook = useContext<PhonebookService>(PhonebookContext);
   const { domain } = useParams<{ domain: string }>();
   const { data, error, isValidating } = useSWR(
@@ -20,8 +20,6 @@ export const DomainPage: React.FunctionComponent = () => {
     },
   );
 
-  console.log(data);
-
   return (
     <Global banner searchBar>
       <Viewport>
@@ -31,7 +29,7 @@ export const DomainPage: React.FunctionComponent = () => {
               didConfigEntry={data.didConfigEntry}
               domain={data.domain}
               orgName={data.name}
-              platform="domain"
+              platform="social"
             />
             <Box px={[3, 5]}>
               <H3>Decentralized Identifiers (DIDs)</H3>
