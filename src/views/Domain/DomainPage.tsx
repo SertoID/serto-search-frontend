@@ -25,18 +25,18 @@ export const DomainPage: React.FunctionComponent = () => {
   return (
     <Global banner searchBar>
       <Viewport>
-        {data?.domain ? (
+        {data?.linkedId ? (
           <Box mb={[3, 5]}>
             <ListingHeader
               didConfigEntry={data.didConfigEntry}
-              domain={data.domain}
+              domain={data.linkedId}
               orgName={data.name}
               platform="domain"
             />
             <Box px={[3, 5]}>
               <H3>Decentralized Identifiers (DIDs)</H3>
               {data.didDocEntries.map((didDocEntry: any, i: number) => {
-                return <DidDetails didDocEntry={didDocEntry} domain={data.domain} key={didDocEntry.id} />;
+                return <DidDetails didDocEntry={didDocEntry} domain={data.linkedId} key={didDocEntry.id} />;
               })}
             </Box>
           </Box>

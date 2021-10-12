@@ -13,7 +13,7 @@ const OuterWrap = styled(Flex)`
 `;
 
 export interface SearchResultTypes {
-  domain: string;
+  linkedId: string;
   didDocs: any[];
 }
 
@@ -25,14 +25,14 @@ export const SearchResult: React.FunctionComponent<SearchResultProps> = (props) 
   const { searchResult } = props;
 
   return (
-    <OuterWrap as="a" href={"domain/" + searchResult.domain}>
+    <OuterWrap as="a" href={"domain/" + searchResult.linkedId}>
       <StyledWrap p={[3, 5]}>
         <Box width="100%">
           <DidByDomain
             didDocs={searchResult.didDocs}
             didCopy
-            domain={searchResult.domain}
-            linkDomain={"domain/" + searchResult.domain}
+            domain={searchResult.linkedId}
+            linkDomain={"domain/" + searchResult.linkedId}
           />
         </Box>
       </StyledWrap>
