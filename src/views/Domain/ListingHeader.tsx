@@ -32,12 +32,7 @@ export const ListingHeader: React.FunctionComponent<ListingHeaderProps> = (props
         {orgName && <Text ml="45px">{orgName}</Text>}
         {description && <Text ml="45px">{description}</Text>}
       </Box>
-      <Box
-        bg={colors.primary.background}
-        border={3}
-        borderRadius={1}
-        padding={4}
-      >
+      <Box bg={colors.primary.background} border={3} borderRadius={1} padding={4}>
         <Flex alignItems="center">
           <Box width="55px">
             <SertoVerifiedCheckmark />
