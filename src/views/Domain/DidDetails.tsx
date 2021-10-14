@@ -1,5 +1,5 @@
-import { Box, Flex, Pill, Text } from "rimble-ui";
-import { colors, DidView, H5 } from "serto-ui";
+import { Box, Flex, Text } from "rimble-ui";
+import { colors, DidView, H5, PillWithImg, SocialPills } from "serto-ui";
 import { TrustAnchorDidDoc } from "./TrustAnchorDidDoc";
 
 export interface DidDocEntryTypes {
@@ -37,18 +37,14 @@ export const DidDetails: React.FunctionComponent<DidDetailsProps> = (props) => {
           External accounts linked to this DID
         </Text>
         <Flex>
-          {didDocEntry.socialMediaLinkages?.map((social: any, i: number) => {
-            return (
-              <Pill key={i} mr={3}>
-                {social}
-              </Pill>
-            );
+          {didDocEntry.socialMediaLinkages?.map((platform: any, i: number) => {
+            return <SocialPills key={i} mr={3} platform={platform} />;
           })}
         </Flex>
       </Box>
       {/*<Box px={3} py={4}>
         <H5 color={colors.primary.base} mb={2} mt={0}>
-          Credentials ({numEndpoints})
+          Credentials
         </H5>
         <Text color={colors.silver} fontSize={0} mb={3}>
           Credentials issued to this DID. Verifiable Credentials (VCs) are digital documents that use cryptographic
@@ -61,11 +57,7 @@ export const DidDetails: React.FunctionComponent<DidDetailsProps> = (props) => {
         </H5>
         <Flex>
           {services?.map((service: any, i: number) => {
-            return (
-              <Pill key={i} mr={3}>
-                {service.type}
-              </Pill>
-            );
+            return <PillWithImg key={i} mr={3} text={service.type} />;
           })}
         </Flex>
       </Box>
