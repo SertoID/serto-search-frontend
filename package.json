@@ -27,7 +27,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "rimble-ui": "^0.14.0",
-    "serto-ui": "^0.3.42",
+    "serto-ui": "^0.3.43",
     "styled-components": "^5.2.1",
     "swr": "^0.4.0",
     "typescript": "^4.1.3",

@@ -22,7 +22,7 @@ export const HomePage: React.FunctionComponent = () => {
               Search Engine for Decentralized Identities
             </H2>
             <Text color={baseColors.white} fontSize={[1, "16px"]} fontWeight={3} mb={[2, 5]} mt={0}>
-              Use Serto Search to verify issuers’ identity (DIDs), credentials (VCs) or NFT authorship.
+              Use Serto Search to verify issuers’ identity (DIDs), credentials (VCs), or NFT authorship.
             </Text>
             <Box mb={5}>
               <TabbedSearch tabs={tabs} activeTab="search" />
