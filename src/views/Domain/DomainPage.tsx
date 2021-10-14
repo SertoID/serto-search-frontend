@@ -20,8 +20,6 @@ export const DomainPage: React.FunctionComponent = () => {
     },
   );
 
-  console.log(data);
-
   return (
     <Global banner searchBar>
       <Viewport>
@@ -36,7 +34,14 @@ export const DomainPage: React.FunctionComponent = () => {
             <Box px={[3, 5]}>
               <H3>Decentralized Identifiers (DIDs)</H3>
               {data.didDocEntries.map((didDocEntry: any, i: number) => {
-                return <DidDetails didDocEntry={didDocEntry} domain={data.linkedId} key={didDocEntry.id} />;
+                return (
+                  <DidDetails
+                    didDocEntry={didDocEntry}
+                    domain={data.linkedId}
+                    linkedIds={data.socialMediaLinkages}
+                    key={didDocEntry.id}
+                  />
+                );
               })}
             </Box>
           </Box>

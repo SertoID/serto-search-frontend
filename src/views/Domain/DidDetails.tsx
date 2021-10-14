@@ -8,20 +8,19 @@ export interface DidDocEntryTypes {
   deletedAt: string;
   did: any;
   didDoc: string;
-  socialMediaLinkages: string[];
 }
 
 export interface DidDetailsProps {
   didDocEntry: DidDocEntryTypes;
   domain: string;
+  linkedIds: any;
 }
 
 export const DidDetails: React.FunctionComponent<DidDetailsProps> = (props) => {
-  const { didDocEntry, domain } = props;
+  const { didDocEntry, domain, linkedIds } = props;
   const parsedDidDoc = JSON.parse(didDocEntry.didDoc);
   const services = parsedDidDoc.service;
   const numEndpoints = services?.length || 0;
-  const numSocialLinkages = didDocEntry.socialMediaLinkages?.length || 0;
 
   return (
     <Box border={1} borderColor={colors.nearWhite} borderRadius={1} boxShadow={1} mb={5}>
@@ -31,14 +30,14 @@ export const DidDetails: React.FunctionComponent<DidDetailsProps> = (props) => {
       </Flex>
       <Box px={3} py={4}>
         <H5 color={colors.primary.base} mb={2} mt={0}>
-          Linked IDs ({numSocialLinkages})
+          Linked IDs
         </H5>
         <Text color={colors.silver} fontSize={0} mb={3}>
           External accounts linked to this DID
         </Text>
         <Flex>
-          {didDocEntry.socialMediaLinkages?.map((platform: any, i: number) => {
-            return <SocialPills key={i} mr={3} platform={platform} />;
+          {linkedIds.map((linkedId: any, i: number) => {
+            return <SocialPills key={i} mr={3} platform={linkedId.platform} />;
           })}
         </Flex>
       </Box>
