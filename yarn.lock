@@ -7121,6 +7121,16 @@ lines-and-columns@^1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
 
+linkify-react@^3.0.1:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/linkify-react/-/linkify-react-3.0.3.tgz#97d420694cb173e46f75fb2b7de6f3887059ad4f"
+  integrity sha512-CdERZyocGB+2sHYKMKltAWy5TyelgocnMI7SU5vdT0ojtZd1u8sRuntXrxjA3tvgTirtLm2nD7gDdJFaVXvDAw==
+
+linkifyjs@^3.0.1:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/linkifyjs/-/linkifyjs-3.0.3.tgz#51ea2160b4c60c2c87c27757a1e9eacd422c6076"
+  integrity sha512-ba5opS5wRHSbDC8VaiDdN14nPGm6LqyRsIPQZGG4qXV4scFdrPneT/uoZOaq9QAPBf6W9I9D/6tNSzWH//815Q==
+
 load-json-file@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-2.0.0.tgz#7947e42149af80d696cbf797bcaabcfe1fe29ca8"
@@ -9818,14 +9828,16 @@ serialize-javascript@^5.0.1:
   dependencies:
     randombytes "^2.1.0"
 
-serto-ui@^0.3.41:
-  version "0.3.41"
-  resolved "https://registry.yarnpkg.com/serto-ui/-/serto-ui-0.3.41.tgz#2c767a41c29161ca96befe4a1706dbd07ac89c3b"
-  integrity sha512-IGJS70c3KY8tT+lRDG923wMk66Jv5enkcpz6vmWahu9bnWmgVhztiOIKtqSs8VERa4OmrgGhy0tsxe9HO2o6Mg==
+serto-ui@^0.3.43:
+  version "0.3.43"
+  resolved "https://registry.yarnpkg.com/serto-ui/-/serto-ui-0.3.43.tgz#3f96010968d4fe2e7d22896c6795109acea389b5"
+  integrity sha512-8QYNEpa+Cp49HZiAeWgRB7uAebYE/6CV5hTa+9dhM6L5WiX8Hu5PwH2KqIL0a8D1Dtjjc0//ssP7yCllXaAkUw==
   dependencies:
     "@rimble/icons" ConsenSysMesh/rimble-icons
     "@sindresorhus/slugify" "^1.1.0"
     deepdash "^5.3.9"
+    linkify-react "^3.0.1"
+    linkifyjs "^3.0.1"
     prismjs "^1.23.0"
     qrcode.react "^1.0.1"
     react-scripts "4.0.1"
@@ -9834,7 +9846,7 @@ serto-ui@^0.3.41:
     swr "^0.2.2"
     typescript "^4.1.3"
     use-debounce "^3.4.3"
-    vc-schema-tools "^0.2.4"
+    vc-schema-tools "^0.2.5"
 
 serve-index@^1.9.1:
   version "1.9.1"
@@ -11015,10 +11027,10 @@ vc-schema-tools@^0.2.1:
     deepdash-es "^5.3.5"
     typescript "^4.1.3"
 
-vc-schema-tools@^0.2.4:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/vc-schema-tools/-/vc-schema-tools-0.2.4.tgz#60de8d61df6bc460ad617c6335bed93c13d8fbb4"
-  integrity sha512-kbjyc/P5TPFfWHc/J3elzOQA9p8VkS7gIE0D70M4zgPjAnmJ3WIdpQEMBKAxO9ysa/KkEgSM7szwqzIVh/eZzA==
+vc-schema-tools@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/vc-schema-tools/-/vc-schema-tools-0.2.5.tgz#549cb843eedd5316a181edd0dba9ce8a261e626e"
+  integrity sha512-EgffYGtCO13usY867+5gmuPgOqx5VoYFmH92KVCLDzQhq14CAHnGqYB8GUSDY732NMM1//eEdVxRhIM8Y2B4uA==
   dependencies:
     ajv "^6.12.3"
     cross-fetch "^3.1.4"

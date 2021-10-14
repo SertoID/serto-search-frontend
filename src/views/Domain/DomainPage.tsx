@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import { useContext } from "react";
 import useSWR from "swr";
 import { useParams } from "react-router-dom";
 import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
-import { Box, Flash, Flex, Loader, Text } from "rimble-ui";
-import { colors, CopyToClipboard, Fingerprint, IcoWeb, IndentedArrow, Verified, HighlightedJson, Tabs } from "serto-ui";
-import { DomainDidDetails } from "./DomainDidDetails";
-import { DomainHeader } from "./DomainHeader";
-import { ErrorMsg, Global, LearnMoreLink, Viewport } from "../../components";
+import { Box, Flash, Flex, Loader } from "rimble-ui";
+import { colors, H3 } from "serto-ui";
+import { DidDetails } from "./DidDetails";
+import { ListingHeader } from "./ListingHeader";
+import { ErrorMsg, Global, Viewport } from "../../components";
 
 export const DomainPage: React.FunctionComponent = () => {
-  const Phonebook = React.useContext<PhonebookService>(PhonebookContext);
+  const Phonebook = useContext<PhonebookService>(PhonebookContext);
   const { domain } = useParams<{ domain: string }>();
-  const [tabName, setTabName] = useState("dids");
   const { data, error, isValidating } = useSWR(
     ["/v1/domain-listing", domain],
     () => Phonebook.getDomainListing(domain || ""),
@@ -25,78 +24,26 @@ export const DomainPage: React.FunctionComponent = () => {
     <Global banner searchBar>
       <Viewport>
         {data?.linkedId ? (
-          <Box>
-            <DomainHeader domain={data.linkedId} orgName={data.name} />
-            <Tabs
-              activeTabName={tabName || "identifiers"}
-              tabs={[
-                {
-                  tabName: "dids",
-                  title: "Public Addresses (DIDs)",
-                  content: (
-                    <Box p={[3, 5]}>
-                      <Text color={colors.silver} fontSize={1} mb={4}>
-                        A DID or decentralized identifiers is a unique way for an entity to identify themselves. They
-                        are simply your public addresses that can be verified by others.{" "}
-                        <LearnMoreLink
-                          as="a"
-                          href="https://www.w3.org/TR/did-core/#dfn-decentralized-identifiers"
-                          color={colors.primary.base}
-                          target="_blank"
-                        >
-                          Learn more about DIDs
-                        </LearnMoreLink>
-                      </Text>
-                      {data.didDocEntries.map((didDocEntry: any, i: number) => {
-                        return <DomainDidDetails didDocEntry={didDocEntry} key={didDocEntry.id} />;
-                      })}
-                    </Box>
-                  ),
-                },
-                {
-                  tabName: "didConfig",
-                  title: "Trust Anchor for Domain Linkage",
-                  content: (
-                    <Box p={[3, 5]}>
-                      <Box mb={5}>
-                        <Flex alignItems="center">
-                          <Fingerprint />
-                          <Text pl={1}>DID Configuration file is hosted on</Text>
-                        </Flex>
-                        <Flex alignItems="center">
-                          <IndentedArrow />
-                          <IcoWeb />
-                          <Text pl={1}>{data.linkedId}</Text>
-                        </Flex>
-                        <Flex alignItems="center" pl={3}>
-                          <IndentedArrow />
-                          <Verified />
-                          <Text pl={1}>This domain linkage is valid</Text>
-                        </Flex>
-                      </Box>
-                      <Text color={colors.silver} fontSize={1} mb={4}>
-                        This DID Configuration cryptographically links the entity's DIDs to their domain. This file is
-                        hosted on their webiste to prove that they control their domain.{" "}
-                        <LearnMoreLink
-                          as="a"
-                          href="https://identity.foundation/specs/did-configuration/"
-                          target="_blank"
-                        >
-                          Learn More
-                        </LearnMoreLink>
-                      </Text>
-                      <Box position="relative">
-                        <Box position="absolute" right={4} top={3} zIndex={1}>
-                          <CopyToClipboard text={data.didConfigEntry.didConfig} textButton />
-                        </Box>
-                        <HighlightedJson json={data.didConfigEntry.didConfig} />
-                      </Box>
-                    </Box>
-                  ),
-                },
-              ]}
-              onTabClicked={(tabName) => setTabName(tabName)}
+          <Box mb={[3, 5]}>
+            <ListingHeader
+              didConfigEntry={data.didConfigEntry}
+              domain={data.linkedId}
+              orgName={data.name}
+              platform="domain"
             />
+            <Box px={[3, 5]}>
+              <H3>Decentralized Identifiers (DIDs)</H3>
+              {data.didDocEntries.map((didDocEntry: any, i: number) => {
+                return (
+                  <DidDetails
+                    didDocEntry={didDocEntry}
+                    domain={data.linkedId}
+                    linkedIds={data.socialMediaLinkages}
+                    key={didDocEntry.id}
+                  />
+                );
+              })}
+            </Box>
           </Box>
         ) : isValidating ? (
           <Flex minHeight={8} alignItems="center" justifyContent="center">

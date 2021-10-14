@@ -30,7 +30,7 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
     return (
       <Box position="fixed" top="0" width="100%" zIndex="10">
         {props.banner && <Banner />}
-        <Box bg={colors.primary.border} boxShadow={4}>
+        <Box bg={colors.primary.border} boxShadow={1}>
           <Viewport>
             <Box position="relative">
               <Flex alignItems="center" height="72px" justifyContent="space-between">
@@ -78,7 +78,7 @@ export const Nav: React.FunctionComponent<NavProps> = (props) => {
   return (
     <Box position="fixed" top="0" width="100%" zIndex="10">
       {props.banner && <Banner />}
-      <Box bg={colors.primary.border} boxShadow={4}>
+      <Box bg={colors.primary.border} boxShadow={1}>
         <Viewport>
           <Flex alignItems="center" height="72px" justifyContent="space-between">
             <Flex alignItems="center">
