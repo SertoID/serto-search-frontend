@@ -1,10 +1,10 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine. 
+# Use the latest 2.1 version of CircleCI pipeline process engine.
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
 orbs:
   # The Node.js orb contains a set of prepackaged CircleCI configuration you can utilize
-  # Orbs reduce the amount of configuration required for common tasks. 
+  # Orbs reduce the amount of configuration required for common tasks.
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/node
   node: circleci/node@4.1
   aws-ecr: circleci/aws-ecr@6.15.2
@@ -48,6 +48,23 @@ jobs:
             - Dockerfile
             - nginx.conf
             - start.sh
+            - .releaserc
+  releasenotes:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ./
+      - restore_cache:
+          name: Restore yarn cache
+          key: node-modules-{{ checksum "yarn.lock" }}
+      - run:
+          name: Generate changelog and tag version
+          command: yarn semantic-release
+      - save_cache:
+          name: Save yarn cache
+          key: node-modules-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
 
   push-image:
     <<: *defaults
@@ -57,9 +74,9 @@ jobs:
       - run:
           name: Prepare directory
           command: |
-           TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
-           echo "TAG is $TAG"
-           echo "export TAG=$TAG" >> $BASH_ENV
+            TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
+            echo "TAG is $TAG"
+            echo "export TAG=$TAG" >> $BASH_ENV
       # These envvars are set in CircleCI
       - aws-ecr/build-and-push-image:
           setup-remote-docker: true
@@ -71,25 +88,25 @@ jobs:
           checkout: false
           repo: serto-search-frontend
           tag: "$TAG,$TAG-$CIRCLE_SHA1"
-  
+
   eb-deploy:
     docker:
-      - image: 'cimg/base:stable'
+      - image: "cimg/base:stable"
     parameters:
       app-dir:
         default: .
         type: string
       description:
-        default: ''
+        default: ""
         type: string
       environment-name:
-        default: ''
+        default: ""
         type: string
       image:
-        default: 'cimg/base:stable'
+        default: "cimg/base:stable"
         type: string
       label:
-        default: ''
+        default: ""
         type: string
       platform-version:
         default: docker
@@ -101,11 +118,11 @@ jobs:
       - run:
           name: Prepare directory
           command: |
-           ls -al .
-           TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
-           echo "TAG is $TAG"
-           echo "export TAG=$TAG" >> $BASH_ENV
-           sed -i='' "s/<TAG>/$TAG-$CIRCLE_SHA1/" ./devops/deploy/docker-compose.yaml
+            ls -al .
+            TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
+            echo "TAG is $TAG"
+            echo "export TAG=$TAG" >> $BASH_ENV
+            sed -i='' "s/<TAG>/$TAG-$CIRCLE_SHA1/" ./devops/deploy/docker-compose.yaml
       - run:
           command: >
             eb init <<parameters.environment-name>> -r $AWS_DEFAULT_REGION -p 
@@ -117,7 +134,6 @@ jobs:
           name: EB Deploy
           working_directory: <<parameters.app-dir>>
 
-
 workflows:
   # Below is the definition of your workflow.
   # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
@@ -126,11 +142,21 @@ workflows:
   build-deploy:
     jobs:
       - build
+      - releasenotes:
+          context:
+            - semantic-release
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - production
+                - main
       - push-image:
           filters:
             branches:
               only:
-              - main
+                - main
           requires:
             - build
       - eb-deploy:
