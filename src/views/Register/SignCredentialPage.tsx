@@ -21,6 +21,7 @@ export const SignCredentialPage: React.FunctionComponent = () => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const [isValidating, setIsValidating] = useState<boolean>(false);
   const [preRegister, setPreRegister] = useState<boolean>(true);
+  const [vc, setVc] = useState<any>({});
 
   async function signCredential() {
     setError("");
@@ -38,7 +39,7 @@ export const SignCredentialPage: React.FunctionComponent = () => {
     const from = accounts[0];
     const did = "did:ethr:" + from;
 
-    const message = {
+    let message = {
       "@context": [
         "https://www.w3.org/2018/credentials/v1",
         "https://beta.api.schemas.serto.id/v1/public/social-media-linkage-credential/1.0/ld-context.json"
@@ -47,18 +48,18 @@ export const SignCredentialPage: React.FunctionComponent = () => {
         "VerifiableCredential",
         "SocialMediaProfileLinkage"
       ],
-      "id": "notsure",
       "issuer": did,
-      "issuanceDate":"2010-01-01T19:23:24Z",
+      "issuanceDate": "2010-01-01T19:23:24Z",
       "credentialSubject": {
         "socialMediaProfileUrl": "https://twitter.com/" + profile,
+        "id": did
       },
       "credentialSchema": {
         "id": "https://beta.api.schemas.serto.id/v1/public/social-media-linkage-credential/1.0/json-schema.json",
         "type": "JsonSchemaValidator2018"
       },
       "proof": {
-        "verificationMethod": did + "#controller", //TODO: get from DID Document
+        "verificationMethod": did + "#controller",
         "created":"2021-07-09T19:47:41Z",
         "proofPurpose":"assertionMethod",
         "type":"EthereumEip712Signature2021"
@@ -77,82 +78,92 @@ export const SignCredentialPage: React.FunctionComponent = () => {
         { name: "version", type: "string" },
         { name: "chainId", type: "uint256" },
       ],
-      VerifiableCredential:[
+      VerifiableCredential: [
+
+        { 
+          name: "@context", 
+          type: "string[]"
+        },
+        { 
+          name: "type", 
+          type: "string[]"
+        },
+        
         {
-           name:"@context",
-           type:"string[]"
+          name:"issuer",
+          type:"string"
         },
         {
-           name:"type",
-           type:"string[]"
+          name:"issuanceDate",
+          type:"string"
+        },        
+        { 
+          name: "credentialSubject", 
+          type: "CredentialSubject"
+        },
+        { 
+          name: "credentialSchema", 
+          type: "CredentialSchema"
+        },
+        { 
+          name: "proof", 
+          type: "Proof"
+        }
+      ],
+      CredentialSchema: [
+        {
+           name: "id",
+           type: "string"
         },
         {
-           name:"id",
-           type:"string"
-        },
-        {
-           name:"issuer",
-           type:"string"
-        },
-        {
-           name:"issuanceDate",
-           type:"string"
-        },
-        {
-           name:"credentialSubject",
-           type:"CredentialSubject"
-        },
-        {
-           name:"credentialSchema",
-           type:"CredentialSchema"
-        },
-        {
-          proof:"proof",
-          type:"Proof"
+           name: "type",
+           type: "string"
         }
      ],
-     CredentialSchema:[
-        {
-           name:"id",
-           type:"string"
+      CredentialSubject: [
+        { 
+          name: "socialMediaProfileUrl", 
+          type: "string"
         },
-        {
-           name:"type",
-           type:"string"
+        { 
+          name: "id", 
+          type: "string"
         }
-     ],
-     CredentialSubject: {
-        name: "socialMediaProfileUrl", 
-        type: "string"
-      },
-     Proof:[
-        {
-          name:"verificationMethod",
-          type:"string"
-        },
-        {
-          name:"created",
-          type:"string"
-        },
-        {
-          name:"proofPurpose",
-          type:"string"
-        },
-        {
-          name:"type",
-          type:"string"
-        }
-     ]
+      ],
+      Proof:[
+         {
+           name: "verificationMethod",
+           type: "string"
+         },
+         {
+           name: "created",
+           type: "string"
+         },
+         {
+           name: "proofPurpose",
+           type: "string"
+         },
+         {
+           name: "type",
+           type: "string"
+         }
+      ]
     }
+
 
     const msgParams = JSON.stringify({ types, domain, primaryType: "VerifiableCredential", message });
     console.log("msgParams: ", msgParams);
 
     /* @ts-ignore: Something */
-    web3?.currentProvider?.sendAsync({method: "eth_signTypedData_v4", params: [from, msgParams], from}, (err, result) =>  {
-      console.log("res: ", result);
+    web3?.currentProvider?.sendAsync({method: "eth_signTypedData_v4", params: [from, msgParams], from}, (err, res) =>  {
+      console.log("res: ", res);
 
+      /* @ts-ignore: Something */
+      message.proof.proofValue = res.result;
 
+      console.log("message: ", message);
+
+      setVc(message);
 
       setIsValidating(false);
     });
@@ -170,6 +181,8 @@ export const SignCredentialPage: React.FunctionComponent = () => {
       signCredential();
     }
   }
+
+  const vcString = JSON.stringify(vc);
 
   return (
     <RegisterGlobal>
@@ -195,6 +208,7 @@ export const SignCredentialPage: React.FunctionComponent = () => {
           <Button disabled={disabled} onClick={signCredential} mb={3} mt={3} width="100%">
             {isValidating ? <Loader color={baseColors.white} /> : <>Sign Credential</>}
           </Button>
+          {vcString}
         </Box>
       </Box>
     </RegisterGlobal>
