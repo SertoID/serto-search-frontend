@@ -16,6 +16,7 @@ import { NftSearchPage } from "./views/NftSearch/NftSearchPage";
 import { HowItWorksPage } from "./views/HowItWorks/HowItWorksPage";
 import { VcValidatorPage } from "./views/VcValidator/VcValidatorPage";
 import { AddOrgProfilePage } from "./views/AddOrgProfile/AddOrgProfilePage";
+import { SignCredentialPage } from "./views/Register/SignCredentialPage";
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -46,6 +47,7 @@ export const App = () => {
               <Route path={routes.PRE_REGISTRATION} component={PreRegistrationPage} />
               <Route path={routes.REGISTER_DOMAIN} component={RegisterDomainPage} />
               <Route path={routes.REGISTER_SOCIAL} component={RegisterSocialPage} />
+              <Route path={routes.SIGN_CREDENTIAL} component={SignCredentialPage} />
               <Route path={routes.ADD_ORG_PROFILE} component={AddOrgProfilePage} />
               <Route path={routes.SEARCH} component={SearchPage} />
               <Route path={routes.VC_VALIDATOR} component={VcValidatorPage} />
