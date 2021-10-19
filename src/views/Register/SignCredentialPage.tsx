@@ -12,15 +12,9 @@ import { RegisterSocialHowTo } from "./RegisterHowTo";
 import Web3 from "web3";
 
 export const SignCredentialPage: React.FunctionComponent = () => {
-  console.log("Sign Credential Page");
-  const history = useHistory();
-  const Phonebook = useContext<PhonebookService>(PhonebookContext);
   const [profile, setProfile] = useState<string>("serto_id");
-  const [platform, setPlatform] = useState<string>("Twitter");
   const [error, setError] = useState<any | undefined>();
-  const [disabled, setDisabled] = useState<boolean>(false);
   const [isValidating, setIsValidating] = useState<boolean>(false);
-  const [preRegister, setPreRegister] = useState<boolean>(true);
   const [vc, setVc] = useState<any>({});
 
   async function signCredential() {
@@ -29,12 +23,9 @@ export const SignCredentialPage: React.FunctionComponent = () => {
 
     let web3 = new Web3(Web3.givenProvider);
 
-    //await window.ethereum.enable();
-
     await web3.eth.requestAccounts();
 
     const accounts = await web3.eth.getAccounts();
-    console.log("accounts: ", accounts);
 
     const from = accounts[0];
     const did = "did:ethr:" + from;
@@ -205,7 +196,7 @@ export const SignCredentialPage: React.FunctionComponent = () => {
               {error}
             </Flash>
           )}
-          <Button disabled={disabled} onClick={signCredential} mb={3} mt={3} width="100%">
+          <Button disabled={false} onClick={signCredential} mb={3} mt={3} width="100%">
             {isValidating ? <Loader color={baseColors.white} /> : <>Sign Credential</>}
           </Button>
           {vcString}
