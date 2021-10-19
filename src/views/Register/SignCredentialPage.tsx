@@ -39,65 +39,121 @@ export const SignCredentialPage: React.FunctionComponent = () => {
     const did = "did:ethr:" + from;
 
     const message = {
-      "vc": {
-        "credentialSubject": {
-          "socialMediaProfileUrl": "https://twitter.com/" + profile,
-        },
-        "@context": [
-          "https://www.w3.org/2018/credentials/v1",
-          "https://beta.api.schemas.serto.id/v1/public/social-media-linkage-credential/1.0/ld-context.json"
-        ],
-        "type": [
-          "VerifiableCredential",
-          "SocialMediaProfileLinkage"
-        ]
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://beta.api.schemas.serto.id/v1/public/social-media-linkage-credential/1.0/ld-context.json"
+      ],
+      "type": [
+        "VerifiableCredential",
+        "SocialMediaProfileLinkage"
+      ],
+      "id": "notsure",
+      "issuer": did,
+      "issuanceDate":"2010-01-01T19:23:24Z",
+      "credentialSubject": {
+        "socialMediaProfileUrl": "https://twitter.com/" + profile,
       },
       "credentialSchema": {
         "id": "https://beta.api.schemas.serto.id/v1/public/social-media-linkage-credential/1.0/json-schema.json",
         "type": "JsonSchemaValidator2018"
       },
-      "sub": did,
-      "nbf": Math.floor(Date.now() / 1000),
-      "iss": did
+      "proof": {
+        "verificationMethod": did + "#controller", //TODO: get from DID Document
+        "created":"2021-07-09T19:47:41Z",
+        "proofPurpose":"assertionMethod",
+        "type":"EthereumEip712Signature2021"
+      }
     }
 
     const domain = {
       chainId: 1,
       name: "Linkage",
-      verifyingContract: "0x0",
-      version: 1
+      version: "1"
     }
 
     const types = {
       EIP712Domain: [
-        { name: 'name', type: 'string' },
-        { name: 'version', type: 'string' },
-        { name: 'chainId', type: 'uint256' },
-        { name: 'verifyingContract', type: 'address' }
+        { name: "name", type: "string" },
+        { name: "version", type: "string" },
+        { name: "chainId", type: "uint256" },
       ],
-      VC: [
-        { name: "credentialSubject", type: "CredentialSubject"},
-        { name: "@context", type: "string[]"},
-        { name: "type", type: "string[]"},
-      ],
-      CredentialSubject: [
-        { name: "socialMediaProfileUrl", type: "string"}
-      ],
-      Linkage: [
-        { name: "sub", type: "string"},
-        { name: "iss", type: "string"},
-        { name: "nbf", type: "uint"},
-        { name: "vc", type: "VC"},
-        { name: "credentialSchema", type: "string[]"}
-      ]
+      VerifiableCredential:[
+        {
+           name:"@context",
+           type:"string[]"
+        },
+        {
+           name:"type",
+           type:"string[]"
+        },
+        {
+           name:"id",
+           type:"string"
+        },
+        {
+           name:"issuer",
+           type:"string"
+        },
+        {
+           name:"issuanceDate",
+           type:"string"
+        },
+        {
+           name:"credentialSubject",
+           type:"CredentialSubject"
+        },
+        {
+           name:"credentialSchema",
+           type:"CredentialSchema"
+        },
+        {
+          proof:"proof",
+          type:"Proof"
+        }
+     ],
+     CredentialSchema:[
+        {
+           name:"id",
+           type:"string"
+        },
+        {
+           name:"type",
+           type:"string"
+        }
+     ],
+     CredentialSubject: {
+        name: "socialMediaProfileUrl", 
+        type: "string"
+      },
+     Proof:[
+        {
+          name:"verificationMethod",
+          type:"string"
+        },
+        {
+          name:"created",
+          type:"string"
+        },
+        {
+          name:"proofPurpose",
+          type:"string"
+        },
+        {
+          name:"type",
+          type:"string"
+        }
+     ]
     }
 
-    const msgParams = JSON.stringify({ domain, message, primaryType: "Linkage", types });
+    const msgParams = JSON.stringify({ types, domain, primaryType: "VerifiableCredential", message });
     console.log("msgParams: ", msgParams);
 
     /* @ts-ignore: Something */
     web3?.currentProvider?.sendAsync({method: "eth_signTypedData_v4", params: [from, msgParams], from}, (err, result) =>  {
       console.log("res: ", result);
+
+
+
       setIsValidating(false);
     });
 
