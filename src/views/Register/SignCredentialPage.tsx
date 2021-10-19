@@ -1,14 +1,7 @@
-import { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { mutate } from "swr";
-import { PhonebookContext } from "../../context/PhonebookProvider";
-import { PhonebookService } from "../../services/PhonebookService";
+import { useState } from "react";
 import { Box, Button, Flash, Input, Loader, Text } from "rimble-ui";
-import { urlRegex } from "../../utils/helpers";
 import { baseColors, colors } from "serto-ui";
-import { ErrorMsg } from "../../components";
 import { RegisterGlobal } from "./RegisterGlobal";
-import { RegisterSocialHowTo } from "./RegisterHowTo";
 import Web3 from "web3";
 
 export const SignCredentialPage: React.FunctionComponent = () => {
