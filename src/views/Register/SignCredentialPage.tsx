@@ -3,6 +3,8 @@ import { Box, Button, Flash, Input, Loader, Text } from "rimble-ui";
 import { baseColors, colors } from "serto-ui";
 import { RegisterGlobal } from "./RegisterGlobal";
 import Web3 from "web3";
+import { canonicalize } from "json-canonicalize";
+import sigUtil from "eth-sig-util";
 
 export const SignCredentialPage: React.FunctionComponent = () => {
   const [profile, setProfile] = useState<string>("serto_id");
@@ -22,6 +24,7 @@ export const SignCredentialPage: React.FunctionComponent = () => {
 
     const from = accounts[0];
     const did = "did:ethr:" + from;
+    const date = (new Date()).toISOString();
 
     let message = {
       "@context": [
@@ -33,7 +36,7 @@ export const SignCredentialPage: React.FunctionComponent = () => {
         "SocialMediaProfileLinkage"
       ],
       "issuer": did,
-      "issuanceDate": "2010-01-01T19:23:24Z",
+      "issuanceDate": date,
       "credentialSubject": {
         "socialMediaProfileUrl": "https://twitter.com/" + profile,
         "id": did
@@ -44,7 +47,7 @@ export const SignCredentialPage: React.FunctionComponent = () => {
       },
       "proof": {
         "verificationMethod": did + "#controller",
-        "created":"2021-07-09T19:47:41Z",
+        "created": date,
         "proofPurpose":"assertionMethod",
         "type":"EthereumEip712Signature2021"
       }
@@ -134,20 +137,25 @@ export const SignCredentialPage: React.FunctionComponent = () => {
       ]
     }
 
-
-    const msgParams = JSON.stringify({ types, domain, primaryType: "VerifiableCredential", message });
-    console.log("msgParams: ", msgParams);
+    const obj = { types, domain, primaryType: "VerifiableCredential", message };
+    const canonicalizedObj = canonicalize(obj);
+    console.log("canonicalizedObj: ", canonicalizedObj);
 
     /* @ts-ignore: Something */
-    web3?.currentProvider?.sendAsync({method: "eth_signTypedData_v4", params: [from, msgParams], from}, (err, res) =>  {
+    web3?.currentProvider?.sendAsync({method: "eth_signTypedData_v4", params: [from, canonicalizedObj], from}, (err, res) =>  {
       console.log("res: ", res);
 
-      /* @ts-ignore: Something */
-      message.proof.proofValue = res.result;
+      const newObj = JSON.parse(canonicalizedObj);
+      newObj.message.proof.proofValue = res.result;
 
-      console.log("message: ", message);
+      setVc(newObj);
 
-      setVc(message);
+      const recoveredObj = JSON.parse(JSON.stringify(newObj));
+      delete recoveredObj.message.proof.proofValue;
+
+      const recovered = sigUtil.recoverTypedSignature_v4({ data: recoveredObj, sig: res.result });
+      console.log("recovered: ", recovered);
+
 
       setIsValidating(false);
     });
