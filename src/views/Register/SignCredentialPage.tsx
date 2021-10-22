@@ -145,15 +145,36 @@ export const SignCredentialPage: React.FunctionComponent = () => {
     web3?.currentProvider?.sendAsync({method: "eth_signTypedData_v4", params: [from, canonicalizedObj], from}, (err, res) =>  {
       console.log("res: ", res);
 
-      const newObj = JSON.parse(canonicalizedObj);
-      newObj.message.proof.proofValue = res.result;
+      const newObj = JSON.parse(JSON.stringify(message));
+
+      newObj.proof.proofValue = res.result;
+
+      newObj.proof.eip712Domain = {
+        domain,
+        messageSchema: types,
+        primaryType: "VerifiableCredential"
+      };
 
       setVc(newObj);
 
       const recoveredObj = JSON.parse(JSON.stringify(newObj));
-      delete recoveredObj.message.proof.proofValue;
+      console.log("recoverdObj1: ", recoveredObj);
+      delete recoveredObj.proof.proofValue;
 
-      const recovered = sigUtil.recoverTypedSignature_v4({ data: recoveredObj, sig: res.result });
+      const extractedObj = {
+        message: recoveredObj,
+        domain: recoveredObj.proof.eip712Domain.domain,
+        types: recoveredObj.proof.eip712Domain.messageSchema,
+        primaryType: recoveredObj.proof.eip712Domain.primaryType,
+      }
+
+      delete extractedObj.message.proof.eip712Domain.domain;
+      delete extractedObj.message.proof.eip712Domain.messageSchema;
+      delete extractedObj.message.proof.eip712Domain.primaryType;
+
+      console.log("extractedObj: ", extractedObj);
+
+      const recovered = sigUtil.recoverTypedSignature_v4({ data: extractedObj, sig: res.result });
       console.log("recovered: ", recovered);
 
 
