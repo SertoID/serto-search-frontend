@@ -63,7 +63,7 @@ export const App = () => {
                 <Route path={routes.HOW_IT_WORKS} component={HowItWorksPage} />
               </Switch>
             </SertoUiWrapper>
-            <SertoUiWrapper renderContext={RENDER_CONTEXT.EMBED}>
+            <SertoUiWrapper renderContext={RENDER_CONTEXT.VC_EMBED}>
               <Switch>
                 <Route path={routes.VC_EMBED} component={VcEmbed} />
               </Switch>

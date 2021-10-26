@@ -24,40 +24,37 @@ export const SignCredentialPage: React.FunctionComponent = () => {
 
     const from = accounts[0];
     const did = "did:ethr:" + from;
-    const date = (new Date()).toISOString();
+    const date = new Date().toISOString();
 
     let message = {
       "@context": [
         "https://www.w3.org/2018/credentials/v1",
-        "https://beta.api.schemas.serto.id/v1/public/social-media-linkage-credential/1.0/ld-context.json"
+        "https://beta.api.schemas.serto.id/v1/public/social-media-linkage-credential/1.0/ld-context.json",
       ],
-      "type": [
-        "VerifiableCredential",
-        "SocialMediaProfileLinkage"
-      ],
-      "issuer": did,
-      "issuanceDate": date,
-      "credentialSubject": {
-        "socialMediaProfileUrl": "https://twitter.com/" + profile,
-        "id": did
+      type: ["VerifiableCredential", "SocialMediaProfileLinkage"],
+      issuer: did,
+      issuanceDate: date,
+      credentialSubject: {
+        socialMediaProfileUrl: "https://twitter.com/" + profile,
+        id: did,
       },
-      "credentialSchema": {
-        "id": "https://beta.api.schemas.serto.id/v1/public/social-media-linkage-credential/1.0/json-schema.json",
-        "type": "JsonSchemaValidator2018"
+      credentialSchema: {
+        id: "https://beta.api.schemas.serto.id/v1/public/social-media-linkage-credential/1.0/json-schema.json",
+        type: "JsonSchemaValidator2018",
       },
-      "proof": {
-        "verificationMethod": did + "#controller",
-        "created": date,
-        "proofPurpose":"assertionMethod",
-        "type":"EthereumEip712Signature2021"
-      }
-    }
+      proof: {
+        verificationMethod: did + "#controller",
+        created: date,
+        proofPurpose: "assertionMethod",
+        type: "EthereumEip712Signature2021",
+      },
+    };
 
     const domain = {
       chainId: 1,
       name: "Linkage",
-      version: "1"
-    }
+      version: "1",
+    };
 
     const types = {
       EIP712Domain: [
@@ -66,122 +63,121 @@ export const SignCredentialPage: React.FunctionComponent = () => {
         { name: "chainId", type: "uint256" },
       ],
       VerifiableCredential: [
+        {
+          name: "@context",
+          type: "string[]",
+        },
+        {
+          name: "type",
+          type: "string[]",
+        },
 
-        { 
-          name: "@context", 
-          type: "string[]"
-        },
-        { 
-          name: "type", 
-          type: "string[]"
-        },
-        
         {
-          name:"issuer",
-          type:"string"
+          name: "issuer",
+          type: "string",
         },
         {
-          name:"issuanceDate",
-          type:"string"
-        },        
-        { 
-          name: "credentialSubject", 
-          type: "CredentialSubject"
+          name: "issuanceDate",
+          type: "string",
         },
-        { 
-          name: "credentialSchema", 
-          type: "CredentialSchema"
+        {
+          name: "credentialSubject",
+          type: "CredentialSubject",
         },
-        { 
-          name: "proof", 
-          type: "Proof"
-        }
+        {
+          name: "credentialSchema",
+          type: "CredentialSchema",
+        },
+        {
+          name: "proof",
+          type: "Proof",
+        },
       ],
       CredentialSchema: [
         {
-           name: "id",
-           type: "string"
+          name: "id",
+          type: "string",
         },
         {
-           name: "type",
-           type: "string"
-        }
-     ],
-      CredentialSubject: [
-        { 
-          name: "socialMediaProfileUrl", 
-          type: "string"
+          name: "type",
+          type: "string",
         },
-        { 
-          name: "id", 
-          type: "string"
-        }
       ],
-      Proof:[
-         {
-           name: "verificationMethod",
-           type: "string"
-         },
-         {
-           name: "created",
-           type: "string"
-         },
-         {
-           name: "proofPurpose",
-           type: "string"
-         },
-         {
-           name: "type",
-           type: "string"
-         }
-      ]
-    }
+      CredentialSubject: [
+        {
+          name: "socialMediaProfileUrl",
+          type: "string",
+        },
+        {
+          name: "id",
+          type: "string",
+        },
+      ],
+      Proof: [
+        {
+          name: "verificationMethod",
+          type: "string",
+        },
+        {
+          name: "created",
+          type: "string",
+        },
+        {
+          name: "proofPurpose",
+          type: "string",
+        },
+        {
+          name: "type",
+          type: "string",
+        },
+      ],
+    };
 
     const obj = { types, domain, primaryType: "VerifiableCredential", message };
     const canonicalizedObj = canonicalize(obj);
     console.log("canonicalizedObj: ", canonicalizedObj);
 
     /* @ts-ignore: Something */
-    web3?.currentProvider?.sendAsync({method: "eth_signTypedData_v4", params: [from, canonicalizedObj], from}, (err, res) =>  {
-      console.log("res: ", res);
+    web3?.currentProvider?.sendAsync(
+      { method: "eth_signTypedData_v4", params: [from, canonicalizedObj], from },
+      (err: any, res: any) => {
+        console.log("res: ", res);
 
-      const newObj = JSON.parse(JSON.stringify(message));
+        const newObj = JSON.parse(JSON.stringify(message));
 
-      newObj.proof.proofValue = res.result;
+        newObj.proof.proofValue = res.result;
 
-      newObj.proof.eip712Domain = {
-        domain,
-        messageSchema: types,
-        primaryType: "VerifiableCredential"
-      };
+        newObj.proof.eip712Domain = {
+          domain,
+          messageSchema: types,
+          primaryType: "VerifiableCredential",
+        };
 
-      setVc(newObj);
+        setVc(newObj);
 
-      const recoveredObj = JSON.parse(JSON.stringify(newObj));
-      console.log("recoverdObj1: ", recoveredObj);
-      delete recoveredObj.proof.proofValue;
+        const recoveredObj = JSON.parse(JSON.stringify(newObj));
+        console.log("recoverdObj1: ", recoveredObj);
+        delete recoveredObj.proof.proofValue;
 
-      const extractedObj = {
-        message: recoveredObj,
-        domain: recoveredObj.proof.eip712Domain.domain,
-        types: recoveredObj.proof.eip712Domain.messageSchema,
-        primaryType: recoveredObj.proof.eip712Domain.primaryType,
-      }
+        const extractedObj = {
+          message: recoveredObj,
+          domain: recoveredObj.proof.eip712Domain.domain,
+          types: recoveredObj.proof.eip712Domain.messageSchema,
+          primaryType: recoveredObj.proof.eip712Domain.primaryType,
+        };
 
-      delete extractedObj.message.proof.eip712Domain.domain;
-      delete extractedObj.message.proof.eip712Domain.messageSchema;
-      delete extractedObj.message.proof.eip712Domain.primaryType;
+        delete extractedObj.message.proof.eip712Domain.domain;
+        delete extractedObj.message.proof.eip712Domain.messageSchema;
+        delete extractedObj.message.proof.eip712Domain.primaryType;
 
-      console.log("extractedObj: ", extractedObj);
+        console.log("extractedObj: ", extractedObj);
 
-      const recovered = sigUtil.recoverTypedSignature_v4({ data: extractedObj, sig: res.result });
-      console.log("recovered: ", recovered);
+        const recovered = sigUtil.recoverTypedSignature_v4({ data: extractedObj, sig: res.result });
+        console.log("recovered: ", recovered);
 
-
-      setIsValidating(false);
-    });
-
-    
+        setIsValidating(false);
+      },
+    );
   }
 
   function onChange(value: string) {
