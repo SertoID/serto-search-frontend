@@ -5,6 +5,7 @@ export enum routes {
   PRE_REGISTRATION = "/pre-registration",
   REGISTER_DOMAIN = "/register-domain",
   REGISTER_SOCIAL = "/register-social",
+  SIGN_CREDENTIAL = "/sign-credential",
   SEARCH = "/search",
   NFT_SERACH = "/nft-search",
   VC_EMBED = "/vc-embed",
