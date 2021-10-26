@@ -10,7 +10,7 @@ if (domain.includes("staging")) {
 
 const defaultConfig: SertoUiConfig = {
   ...sertoUiConfig,
-  SEARCH_API_URL: apiUrl,
+  SEARCH_API_URL: "http://staging.api.search.serto.id",
 };
 
 export const config = mergeServerConfig(defaultConfig);
