@@ -37,7 +37,7 @@ export const DidDetails: React.FunctionComponent<DidDetailsProps> = (props) => {
         </Text>
         <Flex>
           {linkedIds.map((linkedId: any, i: number) => {
-            return <SocialPills key={i} mr={3} platform={linkedId.platform} />;
+            return <SocialPills key={i} linkedId={linkedId} />;
           })}
         </Flex>
       </Box>

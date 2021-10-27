@@ -23,7 +23,7 @@ export const NftSearchPage: React.FunctionComponent = () => {
     name: data?.ethNftDetails?.name,
     details: data?.ethNftDetails?.details,
     imgUrl: data?.ethNftDetails?.imgUrl,
-    domains: data?.didListing?.domains,
+    domains: data?.didListing?.linkedIds,
   };
 
   return (
@@ -36,11 +36,11 @@ export const NftSearchPage: React.FunctionComponent = () => {
         ) : data ? (
           <Flex flexDirection="column" alignItems="center" my={3}>
             <Box maxWidth="500px">
-              {data.didListing && data.didListing.domains && data.didListing.domains.length > 0 ? (
+              {data.didListing && data.didListing.linkedIds && data.didListing.linkedIds.length > 0 ? (
                 <Flex flexDirection="column" alignItems="center">
                   <SertoVerifiedCheckmark />
                   <Text mt={3} textAlign="center">
-                    We've verified that the entity owning the domain {data.didListing.domains[0]} created the NFT:{" "}
+                    We've verified that the entity owning the domain {data.didListing.linkedIds[0]} created the NFT:{" "}
                     {data.ethNftDetails.name}
                   </Text>
                 </Flex>
