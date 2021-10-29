@@ -1,5 +1,6 @@
 import { Box, Flex, Link, Text } from "rimble-ui";
 import { colors, SocialIcons, H2, SertoVerifiedCheckmark } from "serto-ui";
+import { SocialMediaLinkages } from "../../types";
 import { getSocialUrl } from "../../utils/helpers";
 import { LearnMoreLink } from "../../components";
 import { routes } from "../../constants";
@@ -8,11 +9,16 @@ import { TrustAnchorSocialLinkage } from "./TrustAnchorSocialLinkage";
 export interface SocialHeaderProps {
   handle: string;
   platform: string;
+  socialMediaLinkages: SocialMediaLinkages[];
 }
 
 export const SocialHeader: React.FunctionComponent<SocialHeaderProps> = (props) => {
-  const { handle, platform } = props;
+  const { handle, platform, socialMediaLinkages } = props;
   const socialUrl = getSocialUrl(platform, handle);
+  const socialMediaLinkage = socialMediaLinkages.find(
+    (obj: any) => obj.platform === platform && obj.linkedId === handle,
+  );
+
   return (
     <Box my={5}>
       <Box mb={4}>
@@ -22,7 +28,9 @@ export const SocialHeader: React.FunctionComponent<SocialHeaderProps> = (props) 
             <H2 my={0} mx="12px">
               {handle}
             </H2>
-            <TrustAnchorSocialLinkage handle={handle} />
+            {socialMediaLinkage && (
+              <TrustAnchorSocialLinkage handle={handle} platform={platform} socialMediaLinkage={socialMediaLinkage} />
+            )}
           </>
         </Flex>
         <Link href={`https://${socialUrl}`} ml="45px" target="_blank">
@@ -39,7 +47,7 @@ export const SocialHeader: React.FunctionComponent<SocialHeaderProps> = (props) 
               We’ve verified that the owner of this <b>{handle}</b> controls the <b>DIDs</b> below.
             </Text>
             <Text fontSize={1}>
-              This entity has cryptographically linked their social network profile to their DIDs.
+              This entity has cryptographically linked their social network profile to their DIDs.{" "}
               <LearnMoreLink as="a" href={routes.HOW_IT_WORKS} target="_blank">
                 Learn more.
               </LearnMoreLink>
