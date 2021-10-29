@@ -7,6 +7,7 @@ export enum routes {
   REGISTER_SOCIAL = "/register-social",
   SIGN_CREDENTIAL = "/sign-credential",
   SEARCH = "/search",
+  SOCIAL_PAGE = "/social/:platform/:handle",
   NFT_SERACH = "/nft-search",
   VC_VALIDATOR = "/vc-validator",
   ADD_ORG_PROFILE = "/add-org-profile/:domain?",

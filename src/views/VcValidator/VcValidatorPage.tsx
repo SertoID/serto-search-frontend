@@ -30,7 +30,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
   useEffect(() => {
     return void (async function validate() {
       try {
-        setJwtRegexFailed(!(jwtRegex.test(vc)));
+        setJwtRegexFailed(!jwtRegex.test(vc));
         if (!jwtRegexFailed) {
           const res = await agent.handleMessage({ raw: vc });
           if (res.isValid() && res.credentials && res.credentials.length === 1) {
@@ -142,7 +142,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
             <Loader color={colors.primary.base} size={5} />
           </Flex>
         )}
-        {((!loading && jwtRegexFailed)) && (
+        {!loading && jwtRegexFailed && (
           <Flex justifyContent="center" px={[0, 5]} py={[3, 5]} mb={6}>
             <Box maxWidth="480px" mt={["108px", 0]} position="relative">
               <Box left={["calc(50% - 34px)", "-108px"]} position="absolute" top={["-108px", 0]} width="75px">

@@ -24,6 +24,10 @@ export class PhonebookService {
     return this.request("/v1/domain-listing", "POST", { domain });
   }
 
+  public async getSocialListing(platform: string, handle: string): Promise<any> {
+    return this.request("/v1/social-listing", "POST", { platform, handle });
+  }
+
   public async getDidListings(dids: string[]): Promise<any> {
     return this.request("/v1/did-listings", "POST", { dids });
   }

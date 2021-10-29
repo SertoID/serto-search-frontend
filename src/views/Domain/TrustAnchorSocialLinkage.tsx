@@ -3,8 +3,7 @@ import { Box, Button, Flex, Text } from "rimble-ui";
 import { baseColors, colors, H5, ModalWithX, Verified } from "serto-ui";
 
 export interface TrustAnchorDidDocProps {
-  domain: string;
-  didConfigEntry: any;
+  handle: string;
 }
 
 export const TrustAnchorSocialLinkage: React.FunctionComponent<TrustAnchorDidDocProps> = (props) => {
@@ -31,7 +30,7 @@ export const TrustAnchorSocialLinkage: React.FunctionComponent<TrustAnchorDidDoc
           <Flex alignItems="center" borderBottom={1} mb={4} pb={4}>
             <Verified size="24px" />
             <Text ml={2}>
-              We’ve verified that the owner of <b>{props.domain}</b> controls the DIDs below.
+              We’ve verified that the owner of <b>{props.handle}</b> controls the DIDs below.
             </Text>
           </Flex>
           <H5 mb={1} mt={0}>

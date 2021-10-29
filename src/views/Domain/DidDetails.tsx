@@ -24,9 +24,13 @@ export const DidDetails: React.FunctionComponent<DidDetailsProps> = (props) => {
 
   return (
     <Box border={1} borderColor={colors.nearWhite} borderRadius={1} boxShadow={1} mb={5}>
-      <Flex bg={colors.nearWhite} justifyContent="space-between" p={3} overflow="scroll">
-        <DidView copy={true} did={didDocEntry.did} dontTruncate={true} size="large" />
-        <TrustAnchorDidDoc didDocEntry={didDocEntry} domain={domain} />
+      <Flex alignItems="center" bg={colors.nearWhite} justifyContent="space-between" p={3}>
+        <Box width="calc(100% - 115px)">
+          <DidView copy={true} did={didDocEntry.did} dontTruncate={true} size="large" />
+        </Box>
+        <Box width="115px">
+          <TrustAnchorDidDoc didDocEntry={didDocEntry} domain={domain} />
+        </Box>
       </Flex>
       <Box px={3} py={4}>
         <H5 color={colors.primary.base} mb={2} mt={0}>
