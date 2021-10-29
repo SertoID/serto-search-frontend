@@ -4,7 +4,7 @@ import { PhonebookContext } from "../../context/PhonebookProvider";
 import { PhonebookService } from "../../services/PhonebookService";
 import { Warning } from "@rimble/icons";
 import { Loader, Flash, Flex, Table, Text, Box } from "rimble-ui";
-import { baseColors, colors, Credential, DidTruncate, SertoVerifiedCheckmark } from "serto-ui";
+import { baseColors, colors, Credential, DidTruncate, SertoUiContext, SertoVerifiedCheckmark } from "serto-ui";
 import { Global, ValidateTDLeft, ValidateTDRight, ValidateTR, Viewport } from "../../components";
 import { links } from "../../constants";
 import { agent } from "../../services/VeramoService";
@@ -15,6 +15,7 @@ import { jwtRegex } from "../../utils/helpers";
 
 export const VcValidatorPage: React.FunctionComponent = () => {
   const Phonebook = useContext<PhonebookService>(PhonebookContext);
+  const { renderContext } = useContext(SertoUiContext);
   const urlParams = new URLSearchParams(window.location.search);
   const vc = urlParams.get("vc") || "";
   const [vcValidated, setVcValidated] = useState<boolean>(false);
@@ -218,7 +219,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
                 </Box>
               </Box>
               <Box mb={[3, 5]} width="100%">
-                <Credential isOpen={true} vc={vcMessage as VC} />
+                <Credential isOpen={true} renderContext={renderContext} vc={vcMessage as VC} />
               </Box>
               <Box mb={[3, 5]} width="100%">
                 <Table border={0} boxShadow={0} width="100%" style={{ tableLayout: "fixed" }}>
