@@ -1744,13 +1744,13 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
-"@rimble/icons@ConsenSysMesh/rimble-icons":
-  version "1.2.0"
-  resolved "https://codeload.github.com/ConsenSysMesh/rimble-icons/tar.gz/faa8c0842e1c42f46b9e355cb65084fdf0ec1074"
-
 "@rimble/icons@^1.0.2", "@rimble/icons@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@rimble/icons/-/icons-1.2.0.tgz#86dd1d770b894ae29dcb62ebfda34b0054546b68"
+
+"@rimble/icons@github:ConsenSysMesh/rimble-icons":
+  version "1.2.0"
+  resolved "https://codeload.github.com/ConsenSysMesh/rimble-icons/tar.gz/faa8c0842e1c42f46b9e355cb65084fdf0ec1074"
 
 "@rollup/plugin-node-resolve@^7.1.1":
   version "7.1.3"
@@ -10791,10 +10791,10 @@ serialize-javascript@^5.0.1:
   dependencies:
     randombytes "^2.1.0"
 
-serto-ui@^0.3.44:
-  version "0.3.44"
-  resolved "https://registry.yarnpkg.com/serto-ui/-/serto-ui-0.3.44.tgz#fdc772d16eb8aa5ce31c63924b869ba74742a7b7"
-  integrity sha512-9SfQwrt9U7JeNe8MrDC7Ir9K6ZYtQ+JpyKM1vP2QQfmNCmziXXWUKF6fho6rXsVGu9eRZWyPO40Sy2lxfZYsJg==
+serto-ui@^0.3.45:
+  version "0.3.45"
+  resolved "https://registry.yarnpkg.com/serto-ui/-/serto-ui-0.3.45.tgz#f4c94d2a2eca57f0305a3f86938723088c576cce"
+  integrity sha512-d/ty6+pt/7lPcU/b+oILTs80Wolwt7B8ON25nc2nyfOf6+/Al3s8QjpUyG0v48CUQqkvhIr9VGTCvgyRf7WGhw==
   dependencies:
     "@rimble/icons" ConsenSysMesh/rimble-icons
     "@sindresorhus/slugify" "^1.1.0"
