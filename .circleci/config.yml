@@ -49,6 +49,7 @@ jobs:
             - nginx.conf
             - start.sh
             - .releaserc
+            - searchuichangelog.md
   releasenotes:
     <<: *defaults
     steps:
@@ -151,7 +152,6 @@ workflows:
             branches:
               only:
                 - production
-                - main
       - push-image:
           filters:
             branches:
