@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { jwtRegex } from "../../utils/helpers";
 
 export const VcValidatorPage: React.FunctionComponent = () => {
-  console.log("what??")
+  console.log("what??");
   const Phonebook = useContext<PhonebookService>(PhonebookContext);
   const { renderContext } = useContext(SertoUiContext);
   const urlParams = new URLSearchParams(window.location.search);
@@ -28,13 +28,13 @@ export const VcValidatorPage: React.FunctionComponent = () => {
   const [issuer, setIssuer] = useState<string>("");
   const [schemaName, setSchemaName] = useState<string>("");
   const [jwtRegexFailed, setJwtRegexFailed] = useState<boolean>(false);
-  console.log("page1")
+  console.log("page1");
   useEffect(() => {
     return void (async function validate() {
       try {
         let vcToPass = vc;
         if (!jwtRegex.test(vc)) {
-          vcToPass = JSON.stringify(vc)
+          vcToPass = encodeURIComponent(JSON.stringify(vc));
         }
         const res = await agent.handleMessage({ raw: vcToPass });
         if (res.isValid() && res.credentials && res.credentials.length === 1) {

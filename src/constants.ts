@@ -5,7 +5,6 @@ export enum routes {
   PRE_REGISTRATION = "/pre-registration",
   REGISTER_DOMAIN = "/register-domain",
   REGISTER_SOCIAL = "/register-social",
-  SIGN_CREDENTIAL = "/sign-credential",
   SEARCH = "/search",
   SOCIAL_PAGE = "/social/:platform/:handle",
   NFT_SERACH = "/nft-search",
@@ -33,5 +32,5 @@ export enum SocialMediaPlatform {
   YOUTUBE = "Youtube", // https://www.youtube.com/user/(\w+)       https://youtu.be/<post id>   !!!! profile not in the URL !!!!
   DISCORD = "Discord", // https://discord.com/api/v9/guilds/363985050578190336/preview return a json with details look VC URL in the description field
   MEDIUM = "Medium", // https://(\w+).medium.com/(.+)
-  DOMAIN = "Domain"
+  DOMAIN = "Domain",
 }
