@@ -6,7 +6,7 @@ export const RegisterGlobal: React.FunctionComponent = (props) => {
   return (
     <Global banner searchBar>
       <Viewport>
-        <Box>
+        <Box pl={"136px"} pr={"132px"}>
           <H2>Get listed on Serto Search</H2>
           {props.children}
         </Box>

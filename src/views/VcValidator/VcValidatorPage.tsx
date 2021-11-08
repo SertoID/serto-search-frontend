@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { jwtRegex } from "../../utils/helpers";
 
 export const VcValidatorPage: React.FunctionComponent = () => {
+  console.log("what??")
   const Phonebook = useContext<PhonebookService>(PhonebookContext);
   const { renderContext } = useContext(SertoUiContext);
   const urlParams = new URLSearchParams(window.location.search);
@@ -27,50 +28,49 @@ export const VcValidatorPage: React.FunctionComponent = () => {
   const [issuer, setIssuer] = useState<string>("");
   const [schemaName, setSchemaName] = useState<string>("");
   const [jwtRegexFailed, setJwtRegexFailed] = useState<boolean>(false);
-
+  console.log("page1")
   useEffect(() => {
     return void (async function validate() {
       try {
-        setJwtRegexFailed(!jwtRegex.test(vc));
-        if (!jwtRegexFailed) {
-          const res = await agent.handleMessage({ raw: vc });
-          if (res.isValid() && res.credentials && res.credentials.length === 1) {
-            setVcMessage(res.credentials![0]);
-            setSchemaName(
-              res.credentials![0]?.type?.length > 0
-                ? res.credentials![0]?.type[res.credentials![0]?.type.length - 1]
-                : "",
-            );
-            const vcToValidate = res.credentials![0];
-            const { valid, warnings, errors } = await validateVc(JSON.stringify(vcToValidate));
-            if (valid) {
-              setSchemaVerified(true);
-            }
-            if (warnings.length > 0) {
-              warnings.forEach((warning) => {
-                console.warn("Schema Warning: ", warning);
-              });
-            }
-            if (errors.length > 0) {
-              errors.forEach((error) => {
-                console.warn("Schema Error: ", error);
-              });
-            }
-            const { expirationDate } = vcToValidate;
-            if (expirationDate) {
-              const expiration = new Date(expirationDate);
-              if (expiration < new Date(Date.now())) {
-                setVcExpired(true);
-              }
-            }
-            setIssuer(typeof vcToValidate.issuer === "string" ? vcToValidate.issuer : (vcToValidate.issuer as any).id);
-            let didResults = await Phonebook.getDidListings([issuer, (res.credentials[0].id as any)?.id]);
-            didResults = didResults.filter((didListing: any) => didListing.did != null);
-            setDidResults(didResults);
-            setVcValidated(true);
-          } else {
-            setVcValidated(false);
+        let vcToPass = vc;
+        if (!jwtRegex.test(vc)) {
+          vcToPass = JSON.stringify(vc)
+        }
+        const res = await agent.handleMessage({ raw: vcToPass });
+        if (res.isValid() && res.credentials && res.credentials.length === 1) {
+          setVcMessage(res.credentials![0]);
+          setSchemaName(
+            res.credentials![0]?.type?.length > 0
+              ? res.credentials![0]?.type[res.credentials![0]?.type.length - 1]
+              : "",
+          );
+          const vcToValidate = res.credentials![0];
+          const { valid, warnings, errors } = await validateVc(JSON.stringify(vcToValidate));
+          if (valid) {
+            setSchemaVerified(true);
           }
+          if (warnings.length > 0) {
+            warnings.forEach((warning) => {
+              console.warn("Schema Warning: ", warning);
+            });
+          }
+          if (errors.length > 0) {
+            errors.forEach((error) => {
+              console.warn("Schema Error: ", error);
+            });
+          }
+          const { expirationDate } = vcToValidate;
+          if (expirationDate) {
+            const expiration = new Date(expirationDate);
+            if (expiration < new Date(Date.now())) {
+              setVcExpired(true);
+            }
+          }
+          setIssuer(typeof vcToValidate.issuer === "string" ? vcToValidate.issuer : (vcToValidate.issuer as any).id);
+          let didResults = await Phonebook.getDidListings([issuer, (res.credentials[0].id as any)?.id]);
+          didResults = didResults.filter((didListing: any) => didListing.did != null);
+          setDidResults(didResults);
+          setVcValidated(true);
         } else {
           setVcValidated(false);
         }

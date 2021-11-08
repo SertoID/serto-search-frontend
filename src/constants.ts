@@ -23,3 +23,15 @@ export const links = {
   TERMS: "https://consensys.net/terms-of-use/",
   TWITTER: "https://twitter.com/serto_id",
 };
+
+export enum SocialMediaPlatform {
+  TWITTER = "Twitter", // https://twitter.com/(\w+)                https://twitter.com/<profile>/status/<post-id>
+  LINKEDIN = "LinkedIn", // https://www.linkedin.com/in/(\w+)/     https://www.linkedin.com/company/sertoidentity    https://www.linkedin.com/posts/<profile>_<post-slug>-activity-<post id>-cpz1/
+  FACEBOOK = "Facebook", // https://web.facebook.com/(\w+)/          https://<subdomain>.facebook.com/<profile>/posts/<post-id>
+  TIKTOK = "TikTok", // https://www.tiktok.com/@(\w+)            https://www.tiktok.com/@<profile>/video/<post-id>
+  INSTAGRAM = "Instagram", // https://www.instagram.com/(\w+)/         https://www.instagram.com/p/<post id>/   !!!! profile not in the URL !!!!
+  YOUTUBE = "Youtube", // https://www.youtube.com/user/(\w+)       https://youtu.be/<post id>   !!!! profile not in the URL !!!!
+  DISCORD = "Discord", // https://discord.com/api/v9/guilds/363985050578190336/preview return a json with details look VC URL in the description field
+  MEDIUM = "Medium", // https://(\w+).medium.com/(.+)
+  DOMAIN = "Domain"
+}
