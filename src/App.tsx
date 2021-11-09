@@ -12,6 +12,7 @@ import { PreRegistrationPage } from "./views/Register/PreRegistrationPage";
 import { RegisterDomainPage } from "./views/Register/RegisterDomainPage";
 import { RegisterSocialPage } from "./views/Register/RegisterSocialPage";
 import { DomainPage } from "./views/Domain/DomainPage";
+import { SocialPage } from "./views/Domain/SocialPage";
 import { SearchPage } from "./views/Search/SearchPage";
 import { NftSearchPage } from "./views/NftSearch/NftSearchPage";
 import { HowItWorksPage } from "./views/HowItWorks/HowItWorksPage";
@@ -52,6 +53,7 @@ export const App = () => {
               <Switch>
                 <Route exact path={routes.HOMEPAGE} component={HomePage} />
                 <Route path={routes.DOMAIN_PAGE} component={DomainPage} />
+                <Route path={routes.SOCIAL_PAGE} component={SocialPage} />
                 <Route path={routes.PRE_REGISTRATION} component={PreRegistrationPage} />
                 <Route path={routes.REGISTER_DOMAIN} component={RegisterDomainPage} />
                 <Route path={routes.REGISTER_SOCIAL} component={RegisterSocialPage} />

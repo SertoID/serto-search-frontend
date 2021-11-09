@@ -6,15 +6,17 @@ import { PhonebookService } from "../../services/PhonebookService";
 import { Box, Flash, Flex, Loader } from "rimble-ui";
 import { colors, H3 } from "serto-ui";
 import { DidDetails } from "./DidDetails";
-import { DomainHeader } from "./DomainHeader";
+import { SocialHeader } from "./SocialHeader";
 import { ErrorMsg, Global, Viewport } from "../../components";
+import { getFormattedPlatform } from "../../utils/helpers";
 
-export const DomainPage: React.FunctionComponent = () => {
+export const SocialPage: React.FunctionComponent = () => {
   const Phonebook = useContext<PhonebookService>(PhonebookContext);
-  const { domain } = useParams<{ domain: string }>();
+  const { platform, handle } = useParams<{ platform: string; handle: string }>();
+  let formattedPlatform = getFormattedPlatform(platform);
   const { data, error, isValidating } = useSWR(
-    ["/v1/domain-listing", domain],
-    () => Phonebook.getDomainListing(domain || ""),
+    ["/v1/social-listing", platform, handle],
+    () => Phonebook.getSocialListing(formattedPlatform, handle),
     {
       revalidateOnFocus: false,
     },
@@ -25,11 +27,10 @@ export const DomainPage: React.FunctionComponent = () => {
       <Viewport>
         {data?.linkedId ? (
           <Box mb={[3, 5]}>
-            <DomainHeader
-              didConfigEntry={data.didConfigEntry}
-              domain={data.linkedId}
-              orgName={data.name}
-              platform="domain"
+            <SocialHeader
+              handle={data.linkedId}
+              platform={data.platform}
+              socialMediaLinkages={data.socialMediaLinkages}
             />
             <Box px={[3, 5]}>
               <H3>Decentralized Identifiers (DIDs)</H3>
