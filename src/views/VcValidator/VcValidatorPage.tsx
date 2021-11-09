@@ -34,7 +34,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
       try {
         let vcToPass = vc;
         if (!jwtRegex.test(vc)) {
-          vcToPass = encodeURIComponent(JSON.stringify(vc));
+          vcToPass = encodeURIComponent(vc);
         }
         const res = await agent.handleMessage({ raw: vcToPass });
         if (res.isValid() && res.credentials && res.credentials.length === 1) {

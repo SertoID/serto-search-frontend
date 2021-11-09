@@ -17,6 +17,8 @@ import {
   ReverseOutlineFour,
   ReverseOutlineFive,
   DidTruncate,
+  GreenCircleCheck,
+  H4,
 } from "serto-ui";
 import { RegisterGlobal } from "./RegisterGlobal";
 import Web3 from "web3";
@@ -51,6 +53,8 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
   const [profileUrl, setProfileUrl] = useState<string>("");
   const [checkboxChecked, setCheckboxChecked] = useState<boolean>(false);
   const [postUrl, setPostUrl] = useState<string>("");
+  const [linkedId, setLinkedId] = useState<string>("");
+  const [did, setDid] = useState<string>("");
   const web3 = new Web3(Web3.givenProvider);
 
   /* @ts-ignore: Something */
@@ -189,9 +193,10 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
     const canonicalizedObj = canonicalize(obj);
     console.log("canonicalizedObj: ", canonicalizedObj);
 
-    /* @ts-ignore: Something */
+    /* @ts-ignore: Ignore TS issue */
     web3?.currentProvider?.sendAsync(
       { method: "eth_signTypedData_v4", params: [from, canonicalizedObj], from },
+      /* @ts-ignore: Ignore TS issue */
       (err, res) => {
         console.log("res: ", res);
 
@@ -215,10 +220,14 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
     setError("");
     setIsValidating(true);
     try {
-      await Phonebook.registerSocial(postUrl);
+      const res = await Phonebook.registerSocial(postUrl);
+      console.log("res: ", res);
       setIsValidating(false);
       mutate("/add-social-media-linkage");
-      history.push("/");
+      setStep(5);
+      setLinkedId(res.linkedId);
+      setPlatform(res.platform);
+      setDid(res.did);
     } catch (error: any) {
       console.error(error);
       setError(error);
@@ -268,70 +277,84 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       <Text mb={"40px"}>
         Use verifiable credentials to link your Ethereum address to your public accounts and domains
       </Text>
-      <Flex
-        flexDirection="row"
-        justifyContent="space-between"
-        p={"14px"}
-        pl={"25px"}
-        pr={"22px"}
-        mt={2}
-        mb={2}
-        bg={colors.nearWhite}
-      >
-        <Flex alignItems="center">
-          <ReverseOutlineOne color={stepColors[0]} />
-          <StepText color={stepColors[0]}>Connect Wallet</StepText>
-        </Flex>
-        <Flex alignItems="center">
-          <ReverseOutlineTwo color={stepColors[1]} />
-          <StepText color={stepColors[1]}>Choose Identifier</StepText>
-        </Flex>
-        <Flex alignItems="center">
-          <ReverseOutlineThree color={stepColors[2]} />
-          <StepText color={stepColors[2]}>Sign Linkage Credential</StepText>
-        </Flex>
-        <Flex alignItems="center">
-          <ReverseOutlineFour color={stepColors[3]} />
-          <StepText color={stepColors[3]}>Publish or Host Proof</StepText>
-        </Flex>
-        <Flex alignItems="center">
-          <ReverseOutlineFive color={stepColors[4]} />
-          <StepText color={stepColors[4]}>Submit Proof</StepText>
-        </Flex>
-      </Flex>
-      <Flex flexDirection="row" alignItems="center" justifyContent="space-between">
-        <Flex>
-          {step === 0 && <ReverseOutlineOne />}
-          {step === 1 && <ReverseOutlineTwo />}
-          {step === 2 && <ReverseOutlineThree />}
-          {step === 3 && <ReverseOutlineFour />}
-          {step === 4 && <ReverseOutlineFive />}
-          <StepDescription>
-            {step === 0 && "Connect wallet and select the Ethereum address you want to link"}
-            {step === 1 && "Choose identifier type you want to link to your Ethereum address"}
-            {step === 2 && "Enter your account’s profile URL, and sign credential"}
-            {step === 3 && "Publish your new credential to your account"}
-            {step === 4 && "Submit proof by entering social media post URL containing your published credential"}
-          </StepDescription>
-        </Flex>
-        <Flex>
-          <Refresh />
-          <Text
-            onClick={async () => {
-              try {
-                setError("");
-                /* @ts-ignore: Something */
-              } catch (error) {
-                console.log("error: ", error);
-                setError("Error disconnecting wallet. Please refresh page and try again.");
-              }
-            }}
+      {step < 5 && (
+        <>
+          <Flex
+            flexDirection="row"
+            justifyContent="space-between"
+            p={"14px"}
+            pl={"25px"}
+            pr={"22px"}
+            mt={2}
+            mb={2}
+            bg={colors.nearWhite}
           >
-            Start Over
-          </Text>
+            <Flex alignItems="center">
+              <ReverseOutlineOne color={stepColors[0]} />
+              <StepText color={stepColors[0]}>Connect Wallet</StepText>
+            </Flex>
+            <Flex alignItems="center">
+              <ReverseOutlineTwo color={stepColors[1]} />
+              <StepText color={stepColors[1]}>Choose Identifier</StepText>
+            </Flex>
+            <Flex alignItems="center">
+              <ReverseOutlineThree color={stepColors[2]} />
+              <StepText color={stepColors[2]}>Sign Linkage Credential</StepText>
+            </Flex>
+            <Flex alignItems="center">
+              <ReverseOutlineFour color={stepColors[3]} />
+              <StepText color={stepColors[3]}>Publish or Host Proof</StepText>
+            </Flex>
+            <Flex alignItems="center">
+              <ReverseOutlineFive color={stepColors[4]} />
+              <StepText color={stepColors[4]}>Submit Proof</StepText>
+            </Flex>
+          </Flex>
+          <Flex flexDirection="row" alignItems="center" justifyContent="space-between">
+            <Flex>
+              {step === 0 && <ReverseOutlineOne />}
+              {step === 1 && <ReverseOutlineTwo />}
+              {step === 2 && <ReverseOutlineThree />}
+              {step === 3 && <ReverseOutlineFour />}
+              {step === 4 && <ReverseOutlineFive />}
+              <StepDescription>
+                {step === 0 && "Connect wallet and select the Ethereum address you want to link"}
+                {step === 1 && "Choose identifier type you want to link to your Ethereum address"}
+                {step === 2 && "Enter your account’s profile URL, and sign credential"}
+                {step === 3 && "Publish your new credential to your account"}
+                {step === 4 && "Submit proof by entering social media post URL containing your published credential"}
+              </StepDescription>
+            </Flex>
+            <Flex onClick={async () => {
+                  try {
+                    setError("");
+                    setStep(1);
+                    setPlatform("");
+                    setProfileUrl("");
+                    setPostUrl("");
+                    setVc({});
+                    /* @ts-ignore: Something */
+                  } catch (error) {
+                    console.log("error: ", error);
+                    setError("Error disconnecting wallet. Please refresh page and try again.");
+                  }
+                }}>
+              <Refresh />
+              <Text>
+                Start Over
+              </Text>
+            </Flex>
+          </Flex>
+        </>
+      )}
+      {step === 5 && (
+        <Flex flexDirection="column" alignItems="center" p={2}>
+          <GreenCircleCheck size={"45px"} />
+          <H4>Success! Your account has been listed!</H4>
+          <H6>Your {platform} account has been linked to {did}</H6>
         </Flex>
-      </Flex>
-      {step < 3 && (
+      )}
+      {step !== 3 && (
         <Flex flexDirection="row">
           <Box
             mr={1}
@@ -381,8 +404,8 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
             ml={1}
             width="50%"
             border="1px solid"
-            borderColor={!ethAddress ? colors.lightGray : baseColors.blurple}
-            bg={!ethAddress ? colors.whites[0] : colors.primary.border}
+            borderColor={(step === 0 || step >= 3) ? colors.lightGray : baseColors.blurple}
+            bg={(step === 0 || step >= 3) ? colors.whites[0] : colors.primary.border}
             borderRadius={2}
             p={3}
           >
@@ -406,12 +429,11 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
                 width="100%"
               />
             )}
-            {step === 3 && (
+            {step > 3 && (
               <Input
+                disabled={true}
                 placeholder={"e.g. " + platformPrefix + "<profile>"}
-                onChange={(event: any) => {
-                  setProfileUrl(event.target.value);
-                }}
+                value={profileUrl}
                 width="100%"
               />
             )}
@@ -504,6 +526,13 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
         </Button>
       )}
       {step < 4 && <Button.Text onClick={() => setStep(4)}>Skip. I've already posted my credential.</Button.Text>}
+      {step === 5 && (
+        <Flex flexDirection="column" alignItems="center" p={2}>
+          <Button onClick={() => {
+            history.push(`/social/${platform}/${linkedId}`)
+          }}>View listing on Serto Search</Button>
+        </Flex>
+      )}
     </RegisterGlobal>
   );
 };

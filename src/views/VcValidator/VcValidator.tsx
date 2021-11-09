@@ -7,7 +7,7 @@ export const VcValidator: React.FunctionComponent = () => {
 
   return (
     <TabbedSearchBox
-      onSearch={(searchVal) => history.push(routes.VC_VALIDATOR + "?vc=" + searchVal)}
+      onSearch={(searchVal) => history.push(routes.VC_VALIDATOR + "?vc=" + encodeURIComponent(searchVal))}
       placeholderText="Validate a VC"
     />
   );
