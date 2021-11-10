@@ -16,7 +16,6 @@ import {
   ReverseOutlineThree,
   ReverseOutlineFour,
   ReverseOutlineFive,
-  DidTruncate,
   GreenCircleCheck,
   H4,
 } from "serto-ui";
@@ -25,7 +24,6 @@ import Web3 from "web3";
 import { canonicalize } from "json-canonicalize";
 import { SocialMediaPlatform } from "../../constants";
 import styled from "styled-components";
-import { ErrorMsg } from "../../components";
 
 const StepText = styled(Text)`
   font-family: ${fonts.sansSerif};
@@ -39,6 +37,10 @@ const StepDescription = styled(Text)`
   font-size: 16px;
   font-weight: 600;
   line-height: 22.12px;
+`;
+
+const VcText = styled(Text)`
+ word-break: break-all;
 `;
 
 export const RegisterSocialPage: React.FunctionComponent = () => {
@@ -198,20 +200,25 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       { method: "eth_signTypedData_v4", params: [from, canonicalizedObj], from },
       /* @ts-ignore: Ignore TS issue */
       (err, res) => {
-        console.log("res: ", res);
+        if (err) {
+          setIsValidating(false);
+        } else {
+          console.log("res: ", res);
 
-        const newObj = JSON.parse(JSON.stringify(message));
+          const newObj = JSON.parse(JSON.stringify(message));
 
-        newObj.proof.proofValue = res.result;
+          newObj.proof.proofValue = res.result;
 
-        newObj.proof.eip712Domain = {
-          domain,
-          messageSchema: types,
-          primaryType: "VerifiableCredential",
-        };
+          newObj.proof.eip712Domain = {
+            domain,
+            messageSchema: types,
+            primaryType: "VerifiableCredential",
+          };
 
-        setVc(newObj);
-        setIsValidating(false);
+          setVc(newObj);
+          setIsValidating(false);
+          setStep(step + 1);
+        }
       },
     );
   }
@@ -290,34 +297,39 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
             bg={colors.nearWhite}
           >
             <Flex alignItems="center">
-              <ReverseOutlineOne color={stepColors[0]} />
-              <StepText color={stepColors[0]}>Connect Wallet</StepText>
+              {(step > 0) && (<GreenCircleCheck size={"15px"}/>)}
+              {(step === 0) && (<ReverseOutlineOne color={stepColors[0]}/>)}
+              <StepText color={stepColors[0]} ml={2}>Connect Wallet</StepText>
             </Flex>
             <Flex alignItems="center">
-              <ReverseOutlineTwo color={stepColors[1]} />
-              <StepText color={stepColors[1]}>Choose Identifier</StepText>
+              {(step > 1) && (<GreenCircleCheck size={"15px"}/>)}
+              {(step <= 1) && (<ReverseOutlineTwo color={stepColors[1]} />)}
+              <StepText color={stepColors[1]} ml={2}>Choose Identifier</StepText>
             </Flex>
             <Flex alignItems="center">
-              <ReverseOutlineThree color={stepColors[2]} />
-              <StepText color={stepColors[2]}>Sign Linkage Credential</StepText>
+              {(step > 2) && (<GreenCircleCheck size={"15px"}/>)}
+              {(step <= 2) && (<ReverseOutlineThree color={stepColors[2]} />)}
+              <StepText color={stepColors[2]} ml={2}>Sign Linkage Credential</StepText>
             </Flex>
             <Flex alignItems="center">
-              <ReverseOutlineFour color={stepColors[3]} />
-              <StepText color={stepColors[3]}>Publish or Host Proof</StepText>
+              {(step > 3) && (<GreenCircleCheck size={"15px"}/>)}
+              {(step <= 3) && (<ReverseOutlineFour color={stepColors[3]} />)}
+              <StepText color={stepColors[3]} ml={2}>Publish or Host Proof</StepText>
             </Flex>
             <Flex alignItems="center">
-              <ReverseOutlineFive color={stepColors[4]} />
-              <StepText color={stepColors[4]}>Submit Proof</StepText>
+              {(step > 4) && (<GreenCircleCheck size={"15px"}/>)}
+              {(step <= 4) && (<ReverseOutlineFive color={stepColors[4]} />)}
+              <StepText color={stepColors[4]} ml={2}>Submit Proof</StepText>
             </Flex>
           </Flex>
-          <Flex flexDirection="row" alignItems="center" justifyContent="space-between">
+          <Flex flexDirection="row" alignItems="center" justifyContent="space-between" mb={4} mt={4}>
             <Flex>
               {step === 0 && <ReverseOutlineOne />}
               {step === 1 && <ReverseOutlineTwo />}
               {step === 2 && <ReverseOutlineThree />}
               {step === 3 && <ReverseOutlineFour />}
               {step === 4 && <ReverseOutlineFive />}
-              <StepDescription>
+              <StepDescription ml={2}>
                 {step === 0 && "Connect wallet and select the Ethereum address you want to link"}
                 {step === 1 && "Choose identifier type you want to link to your Ethereum address"}
                 {step === 2 && "Enter your account’s profile URL, and sign credential"}
@@ -325,7 +337,10 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
                 {step === 4 && "Submit proof by entering social media post URL containing your published credential"}
               </StepDescription>
             </Flex>
-            <Flex onClick={async () => {
+            {step > 1 && (
+              <Flex 
+                color={baseColors.blurple}
+                onClick={async () => {
                   try {
                     setError("");
                     setStep(1);
@@ -333,17 +348,18 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
                     setProfileUrl("");
                     setPostUrl("");
                     setVc({});
-                    /* @ts-ignore: Something */
                   } catch (error) {
                     console.log("error: ", error);
                     setError("Error disconnecting wallet. Please refresh page and try again.");
                   }
-                }}>
-              <Refresh />
-              <Text>
-                Start Over
-              </Text>
-            </Flex>
+                }
+              }>
+                <Refresh />
+                <Text fontWeight={3}>
+                  Start Over
+                </Text>
+              </Flex>
+            )}
           </Flex>
         </>
       )}
@@ -366,17 +382,18 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
             borderRadius={2}
             p={3}
           >
-            <H6 m={1}>Your Ethereum Address</H6>
+            <Flex flexDirection="column" justifyContent="space-around">
+            <H6 m={1} color={step > 0 ? colors.silver : colors.darkGray}>Your Ethereum Address</H6>
             {ethAddress ? (
               <Box border="1px solid" borderColor={colors.lightGray} borderRadius={1} bg={colors.nearWhite} p={2}>
                 <Flex flexDirection="row" justifyContent="space-between">
                   <Flex>
-                    <Eth />
+                    <Eth color={step > 0 ? colors.silver : colors.darkGray}/>
                     <Text ml={1}>
                       {ethAddress.substring(0, 6) + "..." + ethAddress.substring(ethAddress.length - 4)}
                     </Text>
                   </Flex>
-                  <AccountBalanceWallet />
+                  <AccountBalanceWallet color={step > 0 ? colors.silver : colors.darkGray}/>
                 </Flex>
               </Box>
             ) : (
@@ -399,6 +416,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
                 </Flex>
               </Button>
             )}
+            </Flex>
           </Box>
           <Box
             ml={1}
@@ -409,7 +427,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
             borderRadius={2}
             p={3}
           >
-            <H6 m={1}>Identifier Type</H6>
+            <H6 m={1} color={step < 1 ? colors.silver : colors.darkGray}>Public Identifier Type</H6>
 
             {step === 0 && <DropDown options={dropDownOptions} disabled={true} onChange={() => {}} />}
             {step === 1 && (
@@ -441,34 +459,37 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
         </Flex>
       )}
       {step === 3 && (
-        <Flex flexDirection="column" width="600px">
-          <Text>To prove that you control the account, publish a post of your credential from your account.</Text>
-          <Text>Copy and paste the pre-populated message at your convenience:</Text>
-          <Box border="1px solid" borderRadius={2} bg={colors.nearWhite} borderColor={colors.grey} p={3}>
-            <Text>
-              I’m linking this account to my Decentralized Identifier (DID) My credential 👉
-              https://search.serto.id/vc-validator?vc={encodeURIComponent(vcString)} #SertoID
-            </Text>
-          </Box>
-          <Flex flexDirection="row">
-            \
-            <Flex>
-              <Checkbox
-                value={checkboxChecked}
-                onClick={(event: any) => {
-                  setCheckboxChecked(event.target.checked);
+        <Flex flexDirection="column" width="800px">
+          <Flex flexDirection="column" ml={5}>
+            <Text fontSize={"14px"} lineHeight={"18px"} mb={4}>To prove that you control the account, publish a post of your credential from your account.
+            <br />
+            <br />
+            Copy and paste the pre-populated message at your convenience:</Text>
+            <Box border="1px solid" borderRadius={2} bg={colors.nearWhite} borderColor={colors.grey} p={3}>
+              <VcText>
+                I’m linking this account to my Decentralized Identifier (DID) My credential 👉
+                https://search.serto.id/vc-validator?vc={encodeURIComponent(vcString)} #SertoID
+              </VcText>
+            </Box>
+            <Flex flexDirection="row" justifyContent="space-between" mt={5}>
+              <Flex flexDirection="row" alignItems="center">
+                <Checkbox
+                  value={checkboxChecked}
+                  onClick={(event: any) => {
+                    setCheckboxChecked(event.target.checked);
+                  }}
+                />
+                <Text>Yes, I have published my credential</Text>
+              </Flex>
+              <Button
+                disabled={!checkboxChecked}
+                onClick={() => {
+                  setStep(4);
                 }}
-              />
-              <Text>Yes, I have published my credential</Text>
+              >
+                Continue
+              </Button>
             </Flex>
-            <Button
-              disabled={!checkboxChecked}
-              onClick={() => {
-                setStep(4);
-              }}
-            >
-              Continue
-            </Button>
           </Flex>
         </Flex>
       )}
@@ -494,36 +515,39 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       )}
       <Text>{error}</Text>
       {step === 1 && (
-        <Button
-          disabled={!platform!}
-          onClick={() => {
-            setStep(step + 1);
-          }}
-          mb={3}
-          mt={3}
-          width="100%"
-        >
-          {isValidating ? <Loader color={baseColors.white} /> : <>Continue</>}
-        </Button>
+        <Flex flexDirection="row" justifyContent="flex-end">
+          <Button
+            disabled={!platform!}
+            onClick={() => {
+              setStep(step + 1);
+            }}
+            mb={3}
+            mt={3}
+            width="294px"
+          >
+            {isValidating ? <Loader color={baseColors.white} /> : <>Continue</>}
+          </Button>
+        </Flex>
       )}
       {step === 2 && (
-        <Button
-          disabled={!profileUrl.startsWith(platformPrefix)}
-          onClick={async () => {
-            try {
-              await signCredential();
-              setStep(step + 1);
-            } catch (error) {
-              setError("Error signing Credential. Contact support@serto.id if issue persists.");
-              console.error(error);
-            }
-          }}
-          mb={3}
-          mt={3}
-          width="100%"
-        >
-          {isValidating ? <Loader color={baseColors.white} /> : <>Sign Credential</>}
-        </Button>
+        <Flex flexDirection="row" justifyContent="flex-end">
+          <Button
+            disabled={!profileUrl.startsWith(platformPrefix)}
+            onClick={async () => {
+              try {
+                await signCredential();
+              } catch (error) {
+                setError("Error signing Credential. Contact support@serto.id if issue persists.");
+                console.error(error);
+              }
+            }}
+            mb={3}
+            mt={3}
+            width="294px"
+          >
+            {isValidating ? <Loader color={baseColors.white} /> : <>Sign Linkage Credential</>}
+          </Button>
+        </Flex>
       )}
       {step < 4 && <Button.Text onClick={() => setStep(4)}>Skip. I've already posted my credential.</Button.Text>}
       {step === 5 && (

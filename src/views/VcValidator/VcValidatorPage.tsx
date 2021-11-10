@@ -27,7 +27,6 @@ export const VcValidatorPage: React.FunctionComponent = () => {
   const [expired, setVcExpired] = useState<boolean>(false);
   const [issuer, setIssuer] = useState<string>("");
   const [schemaName, setSchemaName] = useState<string>("");
-  const [jwtRegexFailed, setJwtRegexFailed] = useState<boolean>(false);
   console.log("page1");
   useEffect(() => {
     return void (async function validate() {
@@ -80,7 +79,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
       }
       setLoading(false);
     })();
-  }, [vc, Phonebook, issuer, jwtRegexFailed]);
+  }, [vc, Phonebook, issuer]);
 
   const shouldHaveBlueCheck = vcMessage && vcValidated && schemaVerified && !expired;
   const shouldHaveYellowCheck = vcMessage && vcValidated && (!schemaVerified || expired);
@@ -143,7 +142,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
             <Loader color={colors.primary.base} size={5} />
           </Flex>
         )}
-        {!loading && jwtRegexFailed && (
+        {!loading && (
           <Flex justifyContent="center" px={[0, 5]} py={[3, 5]} mb={6}>
             <Box maxWidth="480px" mt={["108px", 0]} position="relative">
               <Box left={["calc(50% - 34px)", "-108px"]} position="absolute" top={["-108px", 0]} width="75px">
@@ -161,7 +160,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
             </Box>
           </Flex>
         )}
-        {((!loading && !vcValidated && !jwtRegexFailed) || (!loading && !vcMessage && !jwtRegexFailed)) && (
+        {((!loading && !vcValidated) || (!loading && !vcMessage)) && (
           <Flex justifyContent="center" px={[0, 5]} py={[3, 5]} mb={6}>
             <Box maxWidth="480px" mt={["108px", 0]} position="relative">
               <Box left={["calc(50% - 34px)", "-108px"]} position="absolute" top={["-108px", 0]} width="75px">
