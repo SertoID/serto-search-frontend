@@ -25,6 +25,7 @@ import { canonicalize } from "json-canonicalize";
 import { SocialMediaPlatform } from "../../constants";
 import styled from "styled-components";
 import { domainRegex } from "../../utils/helpers";
+import { saveAs } from "file-saver";
 
 const StepText = styled(Text)`
   font-family: ${fonts.sansSerif};
@@ -37,6 +38,13 @@ const StepDescription = styled(Text)`
   font-family: ${fonts.sansSerifHeader};
   font-size: 16px;
   font-weight: 600;
+  line-height: 22.12px;
+`;
+
+const SubstepDescription = styled(Text)`
+  font-family: ${fonts.sansSerifHeader};
+  font-size: 16px;
+  font-weight: 400;
   line-height: 22.12px;
 `;
 
@@ -484,7 +492,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
                 {step === 0 && "Connect wallet and select the Ethereum address you want to link"}
                 {step === 1 && "Choose identifier type you want to link to your Ethereum address"}
                 {step === 2 && "Enter your account’s profile URL, and sign credential"}
-                {step === 3 && "Publish your new credential to your account"}
+                {step === 3 && (platform === "Domain" ? "Host the 'Domain Linkage' file on your organization's website" : "Publish your new credential to your account")}
                 {step === 4 && "Submit proof by entering social media post URL containing your published credential"}
               </StepDescription>
             </Flex>
@@ -618,15 +626,26 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       {step === 3 && platform === "Domain" ? (
         <Flex flexDirection="column" width="800px">
           <Flex flexDirection="column" ml={5}>
-            <Text fontSize={"14px"} lineHeight={"18px"} mb={4}>To prove that you control the account, publish this at {`${postUrl}/.well-known/did-configuration.json`}
-            <br />
-            <br />
-            Copy and paste the pre-populated message at your convenience:</Text>
-            <Box border="1px solid" borderRadius={2} bg={colors.nearWhite} borderColor={colors.grey} p={3}>
-              <VcText>
-                {`{"@context":"https://identity.foundation/.well-known/contexts/did-configuration-v0.0.jsonld","linked_dids":[${vcString}]}`}
-              </VcText>
-            </Box>
+            <Flex flexDirection="column" mb={2} mt={2}>
+              <Flex flexDirection="row" mb={2} mt={2}>
+                <StepDescription mr={3}>4.A</StepDescription>
+                <SubstepDescription>To host the file on your website's domain, first download the Domain Linkage file.</SubstepDescription>
+              </Flex>
+              <Flex ml={6} mb={2} mt={2}>
+                <Button onClick={() => {
+                  const blob = new Blob([`{"@context":"https://identity.foundation/.well-known/contexts/did-configuration-v0.0.jsonld","linked_dids":[${vcString}]}`], {type: "text/plain;charset=utf-8"});
+                  saveAs(blob, "did-configuration.json");
+                }}>Download Domain Linkage File</Button>
+              </Flex>
+            </Flex>
+            <Flex flexDirection="row">
+              <StepDescription>4.B</StepDescription>
+              <Flex flexDirection="column" ml={3}>
+                <SubstepDescription>Then, upload this file to the .well-known portion of your website. You will need access to your website source files. The resulting URL should look like: http://www.yourwebiste.com/.well-known/did-configuration.json</SubstepDescription>
+                <SubstepDescription as="a" href={"tktktktkt.com"} color={baseColors.consensysblue}>Learn more about .well-known</SubstepDescription>
+              </Flex>
+            </Flex>
+
             <Flex flexDirection="row" justifyContent="space-between" mt={5}>
               <Flex flexDirection="row" alignItems="center">
                 <Checkbox
@@ -635,7 +654,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
                     setCheckboxChecked(event.target.checked);
                   }}
                 />
-                <Text>Yes, I have published my credential at the well-known location</Text>
+                <Text>Yes, I have published my credential at the .well-known location</Text>
               </Flex>
               <Button
                 disabled={!checkboxChecked}
