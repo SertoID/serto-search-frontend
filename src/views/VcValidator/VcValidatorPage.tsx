@@ -14,7 +14,6 @@ import { Link } from "react-router-dom";
 import { jwtRegex } from "../../utils/helpers";
 
 export const VcValidatorPage: React.FunctionComponent = () => {
-  console.log("what??");
   const Phonebook = useContext<PhonebookService>(PhonebookContext);
   const { renderContext } = useContext(SertoUiContext);
   const urlParams = new URLSearchParams(window.location.search);
@@ -27,7 +26,6 @@ export const VcValidatorPage: React.FunctionComponent = () => {
   const [expired, setVcExpired] = useState<boolean>(false);
   const [issuer, setIssuer] = useState<string>("");
   const [schemaName, setSchemaName] = useState<string>("");
-  console.log("page1");
   useEffect(() => {
     return void (async function validate() {
       try {

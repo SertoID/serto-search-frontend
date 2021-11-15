@@ -84,7 +84,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
 
   const dropDownOptions = [
     { name: "SELECT", value: "" },
-    { name: "Domain", value: "Domain" },
+    { name: SocialMediaPlatform.DOMAIN, value: SocialMediaPlatform.DOMAIN },
     { name: SocialMediaPlatform.FACEBOOK, value: SocialMediaPlatform.FACEBOOK },
     { name: SocialMediaPlatform.INSTAGRAM, value: SocialMediaPlatform.INSTAGRAM },
     { name: SocialMediaPlatform.MEDIUM, value: SocialMediaPlatform.MEDIUM },
@@ -267,7 +267,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
 
   return (
     <RegisterGlobal>
-      <Text mb={"40px"}>
+      <Text mb={5}>
         Use verifiable credentials to link your Ethereum address to your public accounts and domains
       </Text>
       {step < 5 && (
@@ -275,9 +275,9 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
           <Flex
             flexDirection="row"
             justifyContent="space-between"
-            p={"14px"}
-            pl={"25px"}
-            pr={"22px"}
+            p={3}
+            pl={4}
+            pr={4}
             mt={2}
             mb={2}
             bg={colors.nearWhite}
@@ -318,9 +318,9 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
               <StepDescription ml={2}>
                 {step === 0 && "Connect wallet and select the Ethereum address you want to link"}
                 {step === 1 && "Choose identifier type you want to link to your Ethereum address"}
-                {step === 2 && "Enter your account’s profile URL, and sign credential"}
-                {step === 3 && (platform === "Domain" ? "Host the 'Domain Linkage' file on your organization's website" : "Publish your new credential to your account")}
-                {step === 4 && "Submit proof by entering social media post URL containing your published credential"}
+                {step === 2 && (platform === SocialMediaPlatform.DOMAIN ? "Enter the Domain name you want to link" : "Enter your account’s profile URL, and sign credential")}
+                {step === 3 && (platform === SocialMediaPlatform.DOMAIN ? "Host the 'Domain Linkage' file on your organization's website" : "Publish your new credential to your account")}
+                {step === 4 && (platform === SocialMediaPlatform.DOMAIN ? "Submit Domain to be added to Serto Search" : "Submit proof by entering social media post URL containing your published credential")}
               </StepDescription>
             </Flex>
             {step > 0 && (
@@ -367,7 +367,12 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
             borderRadius={2}
             p={3}
           >
-            <H6 m={1} color={step < 1 ? colors.silver : colors.darkGray}>Public Identifier Type</H6>
+            {step <= 1 && (
+              <H6 m={1} color={step === 0 ? colors.darkGray : colors.silver}>Public Identifier Type</H6>
+            )}
+            {step > 1 && (
+              <H6 m={1} color={step === 2 ? colors.darkGray : colors.silver}>Profile URL</H6>
+            )}
 
             {step === 0 && (
               <DropDown
@@ -385,7 +390,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
             {step === 1 && <DropDown options={dropDownOptions} defaultSelectedValue={platform} disabled={true} onChange={() => {}} />}
             {step === 2 && (
               <Input
-                placeholder={(platform === "Domain") ? "e.g. " + platformPrefix + "<profile>" : "e.g. mydomain.com"}
+                placeholder={(platform === SocialMediaPlatform.DOMAIN) ? "e.g. " + platformPrefix + "<profile>" : "e.g. mydomain.com"}
                 onChange={(event: any) => {
                   setProfileUrl(event.target.value);
                 }}
@@ -412,7 +417,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
             p={3}
           >
             <Flex flexDirection="column" justifyContent="space-around">
-            <H6 m={1} color={step > 0 ? colors.silver : colors.darkGray}>Your Ethereum Address</H6>
+            <H6 m={1} color={(step > 0 && !ethAddress) ? colors.darkGray : colors.silver}>Your Ethereum Address</H6>
             {ethAddress ? (
               <Box border="1px solid" borderColor={colors.lightGray} borderRadius={1} bg={colors.nearWhite} p={2}>
                 <Flex flexDirection="row" justifyContent="space-between">
@@ -450,7 +455,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
           </Box>
         </Flex>
       )}
-      {step === 3 && platform === "Domain" ? (
+      {step === 3 && platform === SocialMediaPlatform.DOMAIN ? (
         <Flex flexDirection="column" width="800px">
           <Flex flexDirection="column" ml={5}>
             <Flex flexDirection="column" mb={2} mt={2}>
@@ -533,7 +538,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
         <Box border="1px solid" borderRadius={2} borderColor={baseColors.blurple} p={2}>
           <H6>Social Media Post URL</H6>
           <Input
-            placeholder={platform === "Domain" ? "e.g. mydomain.com" : "e.g. https://www.twitter.status/id/14444444444444"}
+            placeholder={platform === SocialMediaPlatform.DOMAIN ? "e.g. mydomain.com" : "e.g. https://www.twitter.status/id/14444444444444"}
             value={postUrl}
             onChange={(event: any) => {
               setPostUrl(event.target.value);
@@ -543,7 +548,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
           <Button
             disabled={!postUrl}
             onClick={async () => {
-              if (platform === "Domain") {
+              if (platform === SocialMediaPlatform.DOMAIN) {
                 await submitDomain();
               } else {
                 await submitCredential();
@@ -573,10 +578,10 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       {step === 2 && (
         <Flex flexDirection="row" justifyContent="flex-end">
           <Button
-            disabled={(platform === "Domain") ? !domainRegex.test(profileUrl) : !profileUrl.startsWith(platformPrefix)}
+            disabled={(platform === SocialMediaPlatform.DOMAIN) ? !domainRegex.test(profileUrl) : !profileUrl.startsWith(platformPrefix)}
             onClick={async () => {
               try {
-                if (platform === "Domain") {
+                if (platform === SocialMediaPlatform.DOMAIN) {
                   await signDomainLinkageCredential();
                 } else {
                   await signSocialMediaLinkageCredential();
@@ -598,7 +603,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       {step === 5 && (
         <Flex flexDirection="column" alignItems="center" p={2}>
           <Button onClick={() => {
-            if (platform === "Domain") {
+            if (platform === SocialMediaPlatform.DOMAIN) {
               history.push(`/listing/${postUrl}`)  
             } else {
               history.push(`/social/${platform}/${linkedId}`)
