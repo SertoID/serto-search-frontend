@@ -26,51 +26,48 @@ export const VcValidatorPage: React.FunctionComponent = () => {
   const [expired, setVcExpired] = useState<boolean>(false);
   const [issuer, setIssuer] = useState<string>("");
   const [schemaName, setSchemaName] = useState<string>("");
-  const [jwtRegexFailed, setJwtRegexFailed] = useState<boolean>(false);
-
   useEffect(() => {
     return void (async function validate() {
       try {
-        setJwtRegexFailed(!jwtRegex.test(vc));
-        if (!jwtRegexFailed) {
-          const res = await agent.handleMessage({ raw: vc });
-          if (res.isValid() && res.credentials && res.credentials.length === 1) {
-            setVcMessage(res.credentials![0]);
-            setSchemaName(
-              res.credentials![0]?.type?.length > 0
-                ? res.credentials![0]?.type[res.credentials![0]?.type.length - 1]
-                : "",
-            );
-            const vcToValidate = res.credentials![0];
-            const { valid, warnings, errors } = await validateVc(JSON.stringify(vcToValidate));
-            if (valid) {
-              setSchemaVerified(true);
-            }
-            if (warnings.length > 0) {
-              warnings.forEach((warning) => {
-                console.warn("Schema Warning: ", warning);
-              });
-            }
-            if (errors.length > 0) {
-              errors.forEach((error) => {
-                console.warn("Schema Error: ", error);
-              });
-            }
-            const { expirationDate } = vcToValidate;
-            if (expirationDate) {
-              const expiration = new Date(expirationDate);
-              if (expiration < new Date(Date.now())) {
-                setVcExpired(true);
-              }
-            }
-            setIssuer(typeof vcToValidate.issuer === "string" ? vcToValidate.issuer : (vcToValidate.issuer as any).id);
-            let didResults = await Phonebook.getDidListings([issuer, (res.credentials[0].id as any)?.id]);
-            didResults = didResults.filter((didListing: any) => didListing.did != null);
-            setDidResults(didResults);
-            setVcValidated(true);
-          } else {
-            setVcValidated(false);
+        let vcToPass = vc;
+        if (!jwtRegex.test(vc)) {
+          vcToPass = encodeURIComponent(vc);
+        }
+        const res = await agent.handleMessage({ raw: vcToPass });
+        if (res.isValid() && res.credentials && res.credentials.length === 1) {
+          setVcMessage(res.credentials![0]);
+          setSchemaName(
+            res.credentials![0]?.type?.length > 0
+              ? res.credentials![0]?.type[res.credentials![0]?.type.length - 1]
+              : "",
+          );
+          const vcToValidate = res.credentials![0];
+          const { valid, warnings, errors } = await validateVc(JSON.stringify(vcToValidate));
+          if (valid) {
+            setSchemaVerified(true);
           }
+          if (warnings.length > 0) {
+            warnings.forEach((warning) => {
+              console.warn("Schema Warning: ", warning);
+            });
+          }
+          if (errors.length > 0) {
+            errors.forEach((error) => {
+              console.warn("Schema Error: ", error);
+            });
+          }
+          const { expirationDate } = vcToValidate;
+          if (expirationDate) {
+            const expiration = new Date(expirationDate);
+            if (expiration < new Date(Date.now())) {
+              setVcExpired(true);
+            }
+          }
+          setIssuer(typeof vcToValidate.issuer === "string" ? vcToValidate.issuer : (vcToValidate.issuer as any).id);
+          let didResults = await Phonebook.getDidListings([issuer, (res.credentials[0].id as any)?.id]);
+          didResults = didResults.filter((didListing: any) => didListing.did != null);
+          setDidResults(didResults);
+          setVcValidated(true);
         } else {
           setVcValidated(false);
         }
@@ -80,7 +77,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
       }
       setLoading(false);
     })();
-  }, [vc, Phonebook, issuer, jwtRegexFailed]);
+  }, [vc, Phonebook, issuer]);
 
   const shouldHaveBlueCheck = vcMessage && vcValidated && schemaVerified && !expired;
   const shouldHaveYellowCheck = vcMessage && vcValidated && (!schemaVerified || expired);
@@ -143,25 +140,7 @@ export const VcValidatorPage: React.FunctionComponent = () => {
             <Loader color={colors.primary.base} size={5} />
           </Flex>
         )}
-        {!loading && jwtRegexFailed && (
-          <Flex justifyContent="center" px={[0, 5]} py={[3, 5]} mb={6}>
-            <Box maxWidth="480px" mt={["108px", 0]} position="relative">
-              <Box left={["calc(50% - 34px)", "-108px"]} position="absolute" top={["-108px", 0]} width="75px">
-                <Warning color={colors.warning.base} size="75px" />
-              </Box>
-              <Box flexGrow="1">
-                <Text fontSize="30px" lineHeight="title" mb={5}>
-                  Credential is not a JWT.
-                </Text>
-                <Text fontWeight={4} mb={5}>
-                  The credential provided is not a JWT (JSON Web Token). At this time, we are only able to validate
-                  Credentials that are formatted as JWTs. Please contact the issuer for more information.
-                </Text>
-              </Box>
-            </Box>
-          </Flex>
-        )}
-        {((!loading && !vcValidated && !jwtRegexFailed) || (!loading && !vcMessage && !jwtRegexFailed)) && (
+        {((!loading && !vcValidated) || (!loading && !vcMessage)) && (
           <Flex justifyContent="center" px={[0, 5]} py={[3, 5]} mb={6}>
             <Box maxWidth="480px" mt={["108px", 0]} position="relative">
               <Box left={["calc(50% - 34px)", "-108px"]} position="absolute" top={["-108px", 0]} width="75px">

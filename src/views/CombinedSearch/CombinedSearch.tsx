@@ -11,7 +11,10 @@ export const CombinedSearch: React.FunctionComponent = () => {
       onNftVerify={(contract, tokenId) =>
         history.push(routes.NFT_SERACH + "?contract=" + contract + "&tokenId=" + tokenId)
       }
-      onVcVerify={(vc) => history.push(routes.VC_VALIDATOR + "?vc=" + vc)}
+      onVcVerify={(searchVal) => {
+        searchVal = searchVal.includes(":") ? encodeURIComponent(searchVal) : searchVal;
+        history.push(routes.VC_VALIDATOR + "?vc=" + searchVal)
+      }}
     />
   );
 };

@@ -4,3 +4,4 @@ declare module "*.png";
 declare module "*.svg";
 declare module "eth-sig-util";
 declare module "react-twitter-embed";
+declare module "file-saver";
