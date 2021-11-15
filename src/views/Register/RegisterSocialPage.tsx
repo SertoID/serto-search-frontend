@@ -7,6 +7,11 @@ import { Box, Flex, Checkbox, Button, Input, Loader, Text } from "rimble-ui";
 import { AccountBalanceWallet, Eth, Refresh } from "@rimble/icons";
 import {
   baseColors,
+  CircleOne,
+  CircleTwo,
+  CircleThree,
+  CircleFour,
+  CircleFive,
   colors,
   H6,
   DropDown,
@@ -26,6 +31,7 @@ import { SocialMediaPlatform } from "../../constants";
 import styled from "styled-components";
 import { domainRegex } from "../../utils/helpers";
 import { saveAs } from "file-saver";
+import { constructDomainLinkage, constructSocialMediaProfileLinkage, domainLinkageTypes, socialMediaProfileLinkageTypes } from "./constructCredentials";
 
 const StepText = styled(Text)`
   font-family: ${fonts.sansSerif};
@@ -93,29 +99,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
     const did = "did:ethr:" + ethAddress;
     const date = new Date().toISOString();
 
-    let message = {
-      "@context": [
-        "https://www.w3.org/2018/credentials/v1",
-        "https://beta.api.schemas.serto.id/v1/public/social-media-linkage-credential/1.0/ld-context.json",
-      ],
-      type: ["VerifiableCredential", "SocialMediaProfileLinkage"],
-      issuer: did,
-      issuanceDate: date,
-      credentialSubject: {
-        socialMediaProfileUrl: profileUrl,
-        id: did,
-      },
-      credentialSchema: {
-        id: "https://beta.api.schemas.serto.id/v1/public/social-media-linkage-credential/1.0/json-schema.json",
-        type: "JsonSchemaValidator2018",
-      },
-      proof: {
-        verificationMethod: did + "#controller",
-        created: date,
-        proofPurpose: "assertionMethod",
-        type: "EthereumEip712Signature2021",
-      },
-    };
+    let message = constructSocialMediaProfileLinkage(did, date, profileUrl);
 
     const domain = {
       chainId: 1,
@@ -123,82 +107,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       version: "1",
     };
 
-    const types = {
-      EIP712Domain: [
-        { name: "name", type: "string" },
-        { name: "version", type: "string" },
-        { name: "chainId", type: "uint256" },
-      ],
-      VerifiableCredential: [
-        {
-          name: "@context",
-          type: "string[]",
-        },
-        {
-          name: "type",
-          type: "string[]",
-        },
-
-        {
-          name: "issuer",
-          type: "string",
-        },
-        {
-          name: "issuanceDate",
-          type: "string",
-        },
-        {
-          name: "credentialSubject",
-          type: "CredentialSubject",
-        },
-        {
-          name: "credentialSchema",
-          type: "CredentialSchema",
-        },
-        {
-          name: "proof",
-          type: "Proof",
-        },
-      ],
-      CredentialSchema: [
-        {
-          name: "id",
-          type: "string",
-        },
-        {
-          name: "type",
-          type: "string",
-        },
-      ],
-      CredentialSubject: [
-        {
-          name: "socialMediaProfileUrl",
-          type: "string",
-        },
-        {
-          name: "id",
-          type: "string",
-        },
-      ],
-      Proof: [
-        {
-          name: "verificationMethod",
-          type: "string",
-        },
-        {
-          name: "created",
-          type: "string",
-        },
-        {
-          name: "proofPurpose",
-          type: "string",
-        },
-        {
-          name: "type",
-          type: "string",
-        },
-      ],
-    };
+    const types = socialMediaProfileLinkageTypes;
 
     const from = ethAddress;
     const obj = { types, domain, primaryType: "VerifiableCredential", message };
@@ -241,25 +150,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
     const did = "did:ethr:" + ethAddress;
     const date = new Date().toISOString();
 
-    let message = {
-      "@context": [
-        "https://www.w3.org/2018/credentials/v1",
-        "https://identity.foundation/.well-known/contexts/did-configuration-v0.2.jsonld",
-      ],
-      type: ["VerifiableCredential", "DomainLinkageCredential"],
-      issuer: did,
-      issuanceDate: date,
-      credentialSubject: {
-        origin: profileUrl,
-        id: did,
-      },
-      proof: {
-        verificationMethod: did + "#controller",
-        created: date,
-        proofPurpose: "assertionMethod",
-        type: "EthereumEip712Signature2021",
-      },
-    };
+    let message = constructDomainLinkage(did, date, profileUrl);
 
     const domain = {
       chainId: 1,
@@ -267,68 +158,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       version: "1",
     };
 
-    const types = {
-      EIP712Domain: [
-        { name: "name", type: "string" },
-        { name: "version", type: "string" },
-        { name: "chainId", type: "uint256" },
-      ],
-      VerifiableCredential: [
-        {
-          name: "@context",
-          type: "string[]",
-        },
-        {
-          name: "type",
-          type: "string[]",
-        },
-
-        {
-          name: "issuer",
-          type: "string",
-        },
-        {
-          name: "issuanceDate",
-          type: "string",
-        },
-        {
-          name: "credentialSubject",
-          type: "CredentialSubject",
-        },
-        {
-          name: "proof",
-          type: "Proof",
-        },
-      ],
-      CredentialSubject: [
-        {
-          name: "origin",
-          type: "string",
-        },
-        {
-          name: "id",
-          type: "string",
-        },
-      ],
-      Proof: [
-        {
-          name: "verificationMethod",
-          type: "string",
-        },
-        {
-          name: "created",
-          type: "string",
-        },
-        {
-          name: "proofPurpose",
-          type: "string",
-        },
-        {
-          name: "type",
-          type: "string",
-        },
-      ],
-    };
+    const types = domainLinkageTypes;
 
     const from = ethAddress;
     const obj = { types, domain, primaryType: "VerifiableCredential", message };
@@ -368,7 +198,6 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
     setIsValidating(true);
     try {
       const res = await Phonebook.registerSocial(postUrl);
-      console.log("res: ", res);
       setIsValidating(false);
       mutate("/add-social-media-linkage");
       setStep(5);
@@ -436,8 +265,6 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
     }
   }
 
-  console.log("step: ", step);
-
   return (
     <RegisterGlobal>
       <Text mb={"40px"}>
@@ -482,12 +309,12 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
             </Flex>
           </Flex>
           <Flex flexDirection="row" alignItems="center" justifyContent="space-between" mb={4} mt={4}>
-            <Flex>
-              {step === 0 && <ReverseOutlineOne />}
-              {step === 1 && <ReverseOutlineTwo />}
-              {step === 2 && <ReverseOutlineThree />}
-              {step === 3 && <ReverseOutlineFour />}
-              {step === 4 && <ReverseOutlineFive />}
+            <Flex flexDirection="row" alignItems="center" >
+              {step === 0 && <CircleOne />}
+              {step === 1 && <CircleTwo />}
+              {step === 2 && <CircleThree />}
+              {step === 3 && <CircleFour />}
+              {step === 4 && <CircleFive />}
               <StepDescription ml={2}>
                 {step === 0 && "Connect wallet and select the Ethereum address you want to link"}
                 {step === 1 && "Choose identifier type you want to link to your Ethereum address"}
@@ -535,8 +362,8 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
             ml={1}
             width="50%"
             border="1px solid"
-            borderColor={(step === 0 || step >= 3) ? baseColors.blurple : colors.lightGray}
-            bg={(step === 0 || step >= 3) ? colors.primary.border : colors.whites[0]}
+            borderColor={(step === 0 || step >= 2) ? baseColors.blurple : colors.lightGray}
+            bg={(step === 0 || step >= 2) ? colors.primary.border : colors.whites[0]}
             borderRadius={2}
             p={3}
           >
