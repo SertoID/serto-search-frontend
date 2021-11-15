@@ -24,6 +24,7 @@ import Web3 from "web3";
 import { canonicalize } from "json-canonicalize";
 import { SocialMediaPlatform } from "../../constants";
 import styled from "styled-components";
+import { domainRegex } from "../../utils/helpers";
 
 const StepText = styled(Text)`
   font-family: ${fonts.sansSerif};
@@ -69,6 +70,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
 
   const dropDownOptions = [
     { name: "SELECT", value: "" },
+    { name: "Domain", value: "Domain" },
     { name: SocialMediaPlatform.FACEBOOK, value: SocialMediaPlatform.FACEBOOK },
     { name: SocialMediaPlatform.INSTAGRAM, value: SocialMediaPlatform.INSTAGRAM },
     { name: SocialMediaPlatform.MEDIUM, value: SocialMediaPlatform.MEDIUM },
@@ -76,7 +78,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
     { name: SocialMediaPlatform.YOUTUBE, value: SocialMediaPlatform.YOUTUBE },
   ];
 
-  async function signCredential() {
+  async function signSocialMediaLinkageCredential() {
     setError("");
     setIsValidating(true);
 
@@ -223,6 +225,136 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
     );
   }
 
+  
+  async function signDomainLinkageCredential() {
+    setError("");
+    setIsValidating(true);
+
+    const did = "did:ethr:" + ethAddress;
+    const date = new Date().toISOString();
+
+    let message = {
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://identity.foundation/.well-known/contexts/did-configuration-v0.2.jsonld",
+      ],
+      type: ["VerifiableCredential", "DomainLinkageCredential"],
+      issuer: did,
+      issuanceDate: date,
+      credentialSubject: {
+        origin: profileUrl,
+        id: did,
+      },
+      proof: {
+        verificationMethod: did + "#controller",
+        created: date,
+        proofPurpose: "assertionMethod",
+        type: "EthereumEip712Signature2021",
+      },
+    };
+
+    const domain = {
+      chainId: 1,
+      name: "DomainLinkage",
+      version: "1",
+    };
+
+    const types = {
+      EIP712Domain: [
+        { name: "name", type: "string" },
+        { name: "version", type: "string" },
+        { name: "chainId", type: "uint256" },
+      ],
+      VerifiableCredential: [
+        {
+          name: "@context",
+          type: "string[]",
+        },
+        {
+          name: "type",
+          type: "string[]",
+        },
+
+        {
+          name: "issuer",
+          type: "string",
+        },
+        {
+          name: "issuanceDate",
+          type: "string",
+        },
+        {
+          name: "credentialSubject",
+          type: "CredentialSubject",
+        },
+        {
+          name: "proof",
+          type: "Proof",
+        },
+      ],
+      CredentialSubject: [
+        {
+          name: "origin",
+          type: "string",
+        },
+        {
+          name: "id",
+          type: "string",
+        },
+      ],
+      Proof: [
+        {
+          name: "verificationMethod",
+          type: "string",
+        },
+        {
+          name: "created",
+          type: "string",
+        },
+        {
+          name: "proofPurpose",
+          type: "string",
+        },
+        {
+          name: "type",
+          type: "string",
+        },
+      ],
+    };
+
+    const from = ethAddress;
+    const obj = { types, domain, primaryType: "VerifiableCredential", message };
+    const canonicalizedObj = canonicalize(obj);
+    console.log("canonicalizedObj: ", canonicalizedObj);
+
+    /* @ts-ignore: Ignore TS issue */
+    web3?.currentProvider?.sendAsync(
+      { method: "eth_signTypedData_v4", params: [from, canonicalizedObj], from },
+      /* @ts-ignore: Ignore TS issue */
+      (err, res) => {
+        if (err) {
+          setIsValidating(false);
+        } else {
+          console.log("res: ", res);
+
+          const newObj = JSON.parse(JSON.stringify(message));
+
+          newObj.proof.proofValue = res.result;
+
+          newObj.proof.eip712Domain = {
+            domain,
+            messageSchema: types,
+            primaryType: "VerifiableCredential",
+          };
+
+          setVc(newObj);
+          setIsValidating(false);
+          setStep(step + 1);
+        }
+      },
+    );
+  }
+
   async function submitCredential() {
     setError("");
     setIsValidating(true);
@@ -242,16 +374,33 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       return;
     }
   }
+  
+  async function submitDomain() {
+    setError("");
+    setIsValidating(true);
+    try {
+      await Phonebook.registerDomain(postUrl);
+      setIsValidating(false);
+      mutate("/register");
+      setStep(5);
+      setLinkedId(postUrl);
+    } catch (error: any) {
+      console.error(error);
+      setError(error);
+      setIsValidating(false);
+      return;
+    }
+  }
 
   const vcString = JSON.stringify(vc);
 
   let platformPrefix = "";
   switch (platform) {
     case SocialMediaPlatform.FACEBOOK:
-      platformPrefix = "https://.facebook.com/";
+      platformPrefix = "https://facebook.com/";
       break;
     case SocialMediaPlatform.INSTAGRAM:
-      platformPrefix = "https://www.instagram.com/";
+      platformPrefix = "https://instagram.com/";
       break;
     case SocialMediaPlatform.MEDIUM:
       platformPrefix = "https://medium.com/";
@@ -260,7 +409,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       platformPrefix = "https://twitter.com/";
       break;
     case SocialMediaPlatform.YOUTUBE:
-      platformPrefix = "https://www.youtube.com/channel/";
+      platformPrefix = "https://youtube.com/channel/";
       break;
   }
 
@@ -278,6 +427,8 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       stepColors[i] = colors.darkGray;
     }
   }
+
+  console.log("step: ", step);
 
   return (
     <RegisterGlobal>
@@ -337,13 +488,13 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
                 {step === 4 && "Submit proof by entering social media post URL containing your published credential"}
               </StepDescription>
             </Flex>
-            {step > 1 && (
+            {step > 0 && (
               <Flex 
                 color={baseColors.blurple}
                 onClick={async () => {
                   try {
                     setError("");
-                    setStep(1);
+                    setStep(0);
                     setPlatform("");
                     setProfileUrl("");
                     setPostUrl("");
@@ -373,12 +524,55 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       {step !== 3 && (
         <Flex flexDirection="row">
           <Box
+            ml={1}
+            width="50%"
+            border="1px solid"
+            borderColor={(step === 0 || step >= 3) ? baseColors.blurple : colors.lightGray}
+            bg={(step === 0 || step >= 3) ? colors.primary.border : colors.whites[0]}
+            borderRadius={2}
+            p={3}
+          >
+            <H6 m={1} color={step < 1 ? colors.silver : colors.darkGray}>Public Identifier Type</H6>
+
+            {step === 0 && (
+              <DropDown
+                options={dropDownOptions}
+                onChange={(value) => {
+                  setPlatform(value);
+                  if (value) {
+                    setStep(1);
+                  } else {
+                    setStep(0);
+                  }
+                }}
+              />
+            )}
+            {step === 1 && <DropDown options={dropDownOptions} defaultSelectedValue={platform} disabled={true} onChange={() => {}} />}
+            {step === 2 && (
+              <Input
+                placeholder={(platform === "Domain") ? "e.g. " + platformPrefix + "<profile>" : "e.g. mydomain.com"}
+                onChange={(event: any) => {
+                  setProfileUrl(event.target.value);
+                }}
+                width="100%"
+              />
+            )}
+            {step > 3 && (
+              <Input
+                disabled={true}
+                placeholder={"e.g. " + platformPrefix + "<profile>"}
+                value={profileUrl}
+                width="100%"
+              />
+            )}
+          </Box>
+          <Box
             mr={1}
             width="50%"
             height="156px"
             border="1px solid"
-            borderColor={ethAddress ? colors.lightGray : baseColors.blurple}
-            bg={ethAddress ? colors.whites[0] : colors.primary.border}
+            borderColor={(!ethAddress && step > 0) ? baseColors.blurple : colors.lightGray}
+            bg={(!ethAddress && step > 0) ? colors.primary.border : colors.whites[0]}
             borderRadius={2}
             p={3}
           >
@@ -398,6 +592,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
               </Box>
             ) : (
               <Button
+                disabled={step === 0}
                 onClick={async () => {
                   try {
                     setError("");
@@ -418,47 +613,42 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
             )}
             </Flex>
           </Box>
-          <Box
-            ml={1}
-            width="50%"
-            border="1px solid"
-            borderColor={(step === 0 || step >= 3) ? colors.lightGray : baseColors.blurple}
-            bg={(step === 0 || step >= 3) ? colors.whites[0] : colors.primary.border}
-            borderRadius={2}
-            p={3}
-          >
-            <H6 m={1} color={step < 1 ? colors.silver : colors.darkGray}>Public Identifier Type</H6>
-
-            {step === 0 && <DropDown options={dropDownOptions} disabled={true} onChange={() => {}} />}
-            {step === 1 && (
-              <DropDown
-                options={dropDownOptions}
-                onChange={(value) => {
-                  setPlatform(value);
-                }}
-              />
-            )}
-            {step === 2 && (
-              <Input
-                placeholder={"e.g. " + platformPrefix + "<profile>"}
-                onChange={(event: any) => {
-                  setProfileUrl(event.target.value);
-                }}
-                width="100%"
-              />
-            )}
-            {step > 3 && (
-              <Input
-                disabled={true}
-                placeholder={"e.g. " + platformPrefix + "<profile>"}
-                value={profileUrl}
-                width="100%"
-              />
-            )}
-          </Box>
         </Flex>
       )}
-      {step === 3 && (
+      {step === 3 && platform === "Domain" ? (
+        <Flex flexDirection="column" width="800px">
+          <Flex flexDirection="column" ml={5}>
+            <Text fontSize={"14px"} lineHeight={"18px"} mb={4}>To prove that you control the account, publish this at {`${postUrl}/.well-known/did-configuration.json`}
+            <br />
+            <br />
+            Copy and paste the pre-populated message at your convenience:</Text>
+            <Box border="1px solid" borderRadius={2} bg={colors.nearWhite} borderColor={colors.grey} p={3}>
+              <VcText>
+                {`{"@context":"https://identity.foundation/.well-known/contexts/did-configuration-v0.0.jsonld","linked_dids":[${vcString}]}`}
+              </VcText>
+            </Box>
+            <Flex flexDirection="row" justifyContent="space-between" mt={5}>
+              <Flex flexDirection="row" alignItems="center">
+                <Checkbox
+                  value={checkboxChecked}
+                  onClick={(event: any) => {
+                    setCheckboxChecked(event.target.checked);
+                  }}
+                />
+                <Text>Yes, I have published my credential at the well-known location</Text>
+              </Flex>
+              <Button
+                disabled={!checkboxChecked}
+                onClick={() => {
+                  setStep(4);
+                }}
+              >
+                Continue
+              </Button>
+            </Flex>
+          </Flex>
+        </Flex>
+      ): (step === 3) && (
         <Flex flexDirection="column" width="800px">
           <Flex flexDirection="column" ml={5}>
             <Text fontSize={"14px"} lineHeight={"18px"} mb={4}>To prove that you control the account, publish a post of your credential from your account.
@@ -497,7 +687,8 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
         <Box border="1px solid" borderRadius={2} borderColor={baseColors.blurple} p={2}>
           <H6>Social Media Post URL</H6>
           <Input
-            placeholder={"e.g. https://www.twitter.status/id/14444444444444"}
+            placeholder={platform === "Domain" ? "e.g. mydomain.com" : "e.g. https://www.twitter.status/id/14444444444444"}
+            value={postUrl}
             onChange={(event: any) => {
               setPostUrl(event.target.value);
             }}
@@ -506,7 +697,11 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
           <Button
             disabled={!postUrl}
             onClick={async () => {
-              await submitCredential();
+              if (platform === "Domain") {
+                await submitDomain();
+              } else {
+                await submitCredential();
+              }
             }}
           >
             {isValidating ? <Loader color={baseColors.white} /> : <>Continue</>}
@@ -517,7 +712,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       {step === 1 && (
         <Flex flexDirection="row" justifyContent="flex-end">
           <Button
-            disabled={!platform!}
+            disabled={!platform! || !ethAddress}
             onClick={() => {
               setStep(step + 1);
             }}
@@ -532,10 +727,14 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       {step === 2 && (
         <Flex flexDirection="row" justifyContent="flex-end">
           <Button
-            disabled={!profileUrl.startsWith(platformPrefix)}
+            disabled={(platform === "Domain") ? !domainRegex.test(profileUrl) : !profileUrl.startsWith(platformPrefix)}
             onClick={async () => {
               try {
-                await signCredential();
+                if (platform === "Domain") {
+                  await signDomainLinkageCredential();
+                } else {
+                  await signSocialMediaLinkageCredential();
+                }
               } catch (error) {
                 setError("Error signing Credential. Contact support@serto.id if issue persists.");
                 console.error(error);
@@ -549,11 +748,15 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
           </Button>
         </Flex>
       )}
-      {step < 4 && <Button.Text onClick={() => setStep(4)}>Skip. I've already posted my credential.</Button.Text>}
+      {(step > 0 && step < 4) && <Button.Text onClick={() => setStep(4)}>Skip. I've already posted my credential.</Button.Text>}
       {step === 5 && (
         <Flex flexDirection="column" alignItems="center" p={2}>
           <Button onClick={() => {
-            history.push(`/social/${platform}/${linkedId}`)
+            if (platform === "Domain") {
+              history.push(`/listing/${postUrl}`)  
+            } else {
+              history.push(`/social/${platform}/${linkedId}`)
+            }
           }}>View listing on Serto Search</Button>
         </Flex>
       )}

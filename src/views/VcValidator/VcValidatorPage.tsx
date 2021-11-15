@@ -142,24 +142,6 @@ export const VcValidatorPage: React.FunctionComponent = () => {
             <Loader color={colors.primary.base} size={5} />
           </Flex>
         )}
-        {!loading && (
-          <Flex justifyContent="center" px={[0, 5]} py={[3, 5]} mb={6}>
-            <Box maxWidth="480px" mt={["108px", 0]} position="relative">
-              <Box left={["calc(50% - 34px)", "-108px"]} position="absolute" top={["-108px", 0]} width="75px">
-                <Warning color={colors.warning.base} size="75px" />
-              </Box>
-              <Box flexGrow="1">
-                <Text fontSize="30px" lineHeight="title" mb={5}>
-                  Credential is not a JWT.
-                </Text>
-                <Text fontWeight={4} mb={5}>
-                  The credential provided is not a JWT (JSON Web Token). At this time, we are only able to validate
-                  Credentials that are formatted as JWTs. Please contact the issuer for more information.
-                </Text>
-              </Box>
-            </Box>
-          </Flex>
-        )}
         {((!loading && !vcValidated) || (!loading && !vcMessage)) && (
           <Flex justifyContent="center" px={[0, 5]} py={[3, 5]} mb={6}>
             <Box maxWidth="480px" mt={["108px", 0]} position="relative">
