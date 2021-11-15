@@ -2,7 +2,6 @@ export enum routes {
   DOMAIN_PAGE = "/domain/:domain",
   HOMEPAGE = "/",
   HOW_IT_WORKS = "/how-it-works",
-  PRE_REGISTRATION = "/pre-registration",
   REGISTER_DOMAIN = "/register-domain",
   REGISTER_SOCIAL = "/register-social",
   SEARCH = "/search",
