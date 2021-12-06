@@ -18,6 +18,7 @@ import { HowItWorksPage } from "./views/HowItWorks/HowItWorksPage";
 import { VcValidatorPage } from "./views/VcValidator/VcValidatorPage";
 import { AddOrgProfilePage } from "./views/AddOrgProfile/AddOrgProfilePage";
 import { VcEmbed } from "./views/Embed/VcEmbed";
+import { DiscordLinkagePage } from "./views/DiscordLinkage/DiscordLinkage";
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -55,6 +56,7 @@ export const App = () => {
                 <Route path={routes.REGISTER_DOMAIN} component={RegisterDomainPage} />
                 <Route path={routes.REGISTER_SOCIAL} component={RegisterSocialPage} />
                 <Route path={routes.ADD_ORG_PROFILE} component={AddOrgProfilePage} />
+                <Route path={routes.DISCORD_LINKAGE} component={DiscordLinkagePage} />
                 <Route path={routes.SEARCH} component={SearchPage} />
                 <Route path={routes.VC_VALIDATOR} component={VcValidatorPage} />
                 <Route path={routes.NFT_SERACH} component={NftSearchPage} />

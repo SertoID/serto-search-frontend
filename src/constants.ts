@@ -10,6 +10,7 @@ export enum routes {
   VC_EMBED = "/vc-embed",
   VC_VALIDATOR = "/vc-validator",
   ADD_ORG_PROFILE = "/add-org-profile/:domain?",
+  DISCORD_LINKAGE = "/discord/linkage",
 }
 
 export const links = {
