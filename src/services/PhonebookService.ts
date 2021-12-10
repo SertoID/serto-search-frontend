@@ -11,6 +11,10 @@ export class PhonebookService {
     return this.request("/v1/add-social-media-linkage", "POST", { url });
   }
 
+  public async registerDiscordProfile(vc: string): Promise<any> {
+    return this.request("/v1/add-discord-linkage", "POST", { vc });
+  }
+
   public async processVc(raw: string): Promise<any> {
     return this.request("/v1/process-vc", "POST", { raw });
   }

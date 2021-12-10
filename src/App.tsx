@@ -18,7 +18,7 @@ import { HowItWorksPage } from "./views/HowItWorks/HowItWorksPage";
 import { VcValidatorPage } from "./views/VcValidator/VcValidatorPage";
 import { AddOrgProfilePage } from "./views/AddOrgProfile/AddOrgProfilePage";
 import { VcEmbed } from "./views/Embed/VcEmbed";
-import { DiscordLinkagePage } from "./views/DiscordLinkage/DiscordLinkage";
+import { DiscordLinkagePage } from "./views/Register/DiscordLinkagePage";
 
 const GlobalStyle = createGlobalStyle`
   html {
