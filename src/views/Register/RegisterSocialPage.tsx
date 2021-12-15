@@ -31,7 +31,7 @@ import { SocialMediaPlatform } from "../../constants";
 import styled from "styled-components";
 import { domainRegex } from "../../utils/helpers";
 import { saveAs } from "file-saver";
-import { constructDomainLinkage, constructSocialMediaProfileLinkage, domainLinkageTypes, socialMediaProfileLinkageTypes } from "./constructCredentials";
+import { constructDomainLinkage, constructSocialMediaProfileLinkage, domainLinkageTypes } from "./constructCredentials";
 import { getEthTypesFromInputDoc } from "eip-712-types-generation";
 
 const StepText = styled(Text)`
