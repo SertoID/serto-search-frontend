@@ -31,7 +31,8 @@ import { SocialMediaPlatform } from "../../constants";
 import styled from "styled-components";
 import { domainRegex } from "../../utils/helpers";
 import { saveAs } from "file-saver";
-import { constructDomainLinkage, constructSocialMediaProfileLinkage, domainLinkageTypes, socialMediaProfileLinkageTypes } from "./constructCredentials";
+import { constructDomainLinkage, constructSocialMediaProfileLinkage, domainLinkageTypes } from "./constructCredentials";
+import { getEthTypesFromInputDoc } from "eip-712-types-generation";
 
 const StepText = styled(Text)`
   font-family: ${fonts.sansSerif};
@@ -77,7 +78,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
   /* @ts-ignore: Something */
   window.ethereum?.on("accountsChanged", function (accounts) {
     setEthAddress(accounts[0]);
-    setStep(accounts[0] ? 1 : 0);
+    setStep(0);
   });
 
   const [step, setStep] = useState<number>(ethAddress ? 1 : 0);
@@ -107,8 +108,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       version: "1",
     };
 
-    const types = socialMediaProfileLinkageTypes;
-
+    const types = getEthTypesFromInputDoc(message, "VerifiableCredential");
     const from = ethAddress;
     const obj = { types, domain, primaryType: "VerifiableCredential", message };
     const canonicalizedObj = canonicalize(obj);
@@ -256,8 +256,9 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
     colors.lightSilver,
     colors.lightSilver,
     colors.lightSilver,
+    colors.lightSilver,
   ];
-  for (var i = 0; i < 5; i++) {
+  for (var i = 0; i < 6; i++) {
     if (step > i) {
       stepColors[i] = "#1F9665";
     } else if (step === i) {
@@ -270,7 +271,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
       <Text mb={5}>
         Use verifiable credentials to link your Ethereum address to your public accounts and domains
       </Text>
-      {step < 5 && (
+      {step < 6 && (
         <>
           <Flex
             flexDirection="row"
@@ -285,22 +286,27 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
             <Flex alignItems="center">
               {(step > 0) && (<GreenCircleCheck size={"15px"}/>)}
               {(step === 0) && (<ReverseOutlineOne color={stepColors[0]}/>)}
-              <StepText color={stepColors[0]} ml={2}>Connect Wallet</StepText>
+              <StepText color={stepColors[0]} ml={2}>Choose Identifier Type</StepText>
             </Flex>
             <Flex alignItems="center">
               {(step > 1) && (<GreenCircleCheck size={"15px"}/>)}
               {(step <= 1) && (<ReverseOutlineTwo color={stepColors[1]} />)}
-              <StepText color={stepColors[1]} ml={2}>Choose Identifier</StepText>
+              <StepText color={stepColors[1]} ml={2}>Connect Wallet</StepText>
             </Flex>
             <Flex alignItems="center">
               {(step > 2) && (<GreenCircleCheck size={"15px"}/>)}
               {(step <= 2) && (<ReverseOutlineThree color={stepColors[2]} />)}
-              <StepText color={stepColors[2]} ml={2}>Sign Linkage Credential</StepText>
+              <StepText color={stepColors[2]} ml={2}>Choose Identifier</StepText>
             </Flex>
             <Flex alignItems="center">
               {(step > 3) && (<GreenCircleCheck size={"15px"}/>)}
               {(step <= 3) && (<ReverseOutlineFour color={stepColors[3]} />)}
-              <StepText color={stepColors[3]} ml={2}>Publish or Host Proof</StepText>
+              <StepText color={stepColors[3]} ml={2}>Sign Linkage Credential</StepText>
+            </Flex>
+            <Flex alignItems="center">
+              {(step > 4) && (<GreenCircleCheck size={"15px"}/>)}
+              {(step <= 4) && (<ReverseOutlineFive color={stepColors[4]} />)}
+              <StepText color={stepColors[4]} ml={2}>Publish or Host Proof</StepText>
             </Flex>
             <Flex alignItems="center">
               {(step > 4) && (<GreenCircleCheck size={"15px"}/>)}
@@ -604,7 +610,7 @@ export const RegisterSocialPage: React.FunctionComponent = () => {
         <Flex flexDirection="column" alignItems="center" p={2}>
           <Button onClick={() => {
             if (platform === SocialMediaPlatform.DOMAIN) {
-              history.push(`/listing/${postUrl}`)  
+              history.push(`/domain/${postUrl}`)  
             } else {
               history.push(`/social/${platform}/${linkedId}`)
             }
