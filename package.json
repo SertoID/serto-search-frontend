@@ -21,6 +21,7 @@
     "@veramo/message-handler": "3.0.0",
     "did-eth-typed-data": "^1.0.6",
     "did-resolver": "^3.1.0",
+    "eip-712-types-generation": "^0.1.2",
     "eth-sig-util": "@2.5.4",
     "ethr-did-resolver": "@3.0.3",
     "file-saver": "^2.0.5",

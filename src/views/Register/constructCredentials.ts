@@ -20,7 +20,7 @@ export function constructSocialMediaProfileLinkage(did: string, date: string, pr
         created: date,
         proofPurpose: "assertionMethod",
         type: "EthereumEip712Signature2021",
-      },
+      }
     };
   }
 
